@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { DashboardCard } from "@/components/DashboardCard";
 import { InteractiveDemo } from "@/components/InteractiveDemo";
 import { getDashboardStats } from "@/lib/api";
-import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Clock, Badge } from "lucide-react";
+import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Clock, Badge, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge as BadgeUI } from "@/components/ui/badge";
 
@@ -15,6 +17,7 @@ export default function Dashboard() {
   const [recentScans, setRecentScans] = useState<any[]>([]);
   const [showDemo, setShowDemo] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadStats();
@@ -159,21 +162,53 @@ export default function Dashboard() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           <div className="bg-card border border-border rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <Clock className="h-5 w-5" />
-              Recent Activity
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold flex items-center gap-2">
+                <Clock className="h-5 w-5" aria-hidden="true" />
+                Recent Activity
+              </h2>
+              {recentScans.length > 0 && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('/verify')}
+                  aria-label="View all scans"
+                >
+                  View All
+                </Button>
+              )}
+            </div>
             {recentScans.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No recent scans yet</p>
+              <div className="text-center py-12 px-4 space-y-4">
+                <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                  <ScanLine className="h-8 w-8 text-primary" aria-hidden="true" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-lg">No recent scans yet</h3>
+                  <p className="text-sm text-muted-foreground max-w-sm mx-auto">
+                    Start verifying drug authenticity in seconds. Scan a QR code or enter a batch number to begin.
+                  </p>
+                </div>
+                <Button 
+                  onClick={() => navigate('/verify')}
+                  size="lg"
+                  className="mt-4"
+                >
+                  Start Verification
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </Button>
+              </div>
             ) : (
               <div className="space-y-3">
                 {recentScans.map((scan) => (
                   <div
                     key={scan.id}
                     className="flex items-center justify-between p-3 rounded-md bg-muted/50 hover:bg-muted transition-colors"
+                    role="article"
+                    aria-label={`Scan for ${scan.drugs?.name || 'Unknown Drug'}, status: ${scan.status}`}
                   >
                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <div className="flex-shrink-0">
+                      <div className="flex-shrink-0" aria-hidden="true">
                         {getStatusIcon(scan.status)}
                       </div>
                       <div className="flex-1 min-w-0">
