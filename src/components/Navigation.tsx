@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Home, Shield, FileText, Activity, LogOut, User, Bell } from "lucide-react";
+import { Home, Shield, FileText, Activity, LogOut, User, ClipboardCheck } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import {
@@ -13,17 +13,23 @@ import {
 import { Badge } from "./ui/badge";
 import { NotificationBell } from "./NotificationBell";
 
-const navItems = [
-  { path: "/", label: "Dashboard", icon: Home },
-  { path: "/verify", label: "Drug Verification", icon: Shield },
-  { path: "/history", label: "Medical History", icon: FileText },
-  { path: "/safety", label: "Safety Score", icon: Activity },
-];
-
 export function Navigation() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, userRole, signOut } = useAuth();
+
+  const baseNavItems = [
+    { path: "/", label: "Dashboard", icon: Home },
+    { path: "/verify", label: "Drug Verification", icon: Shield },
+    { path: "/history", label: "Medical History", icon: FileText },
+    { path: "/safety", label: "Safety Score", icon: Activity },
+  ];
+
+  const pharmacistNavItems = (userRole === 'pharmacist' || userRole === 'admin') ? [
+    { path: "/pharmacist", label: "Verifications", icon: ClipboardCheck }
+  ] : [];
+
+  const navItems = [...baseNavItems, ...pharmacistNavItems];
 
   const handleSignOut = async () => {
     await signOut();
