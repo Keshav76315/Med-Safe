@@ -3,11 +3,19 @@ import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { verifyDrug, Drug } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 import { Shield, AlertTriangle, CheckCircle, XCircle, ScanLine, Loader2, Camera, Info, Pill, Upload, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { QRScanner } from "@/components/QRScanner";
+import { MedicineScanner } from "@/components/MedicineScanner";
 import { z } from 'zod';
 import { supabase } from "@/integrations/supabase/client";
 
@@ -37,6 +45,8 @@ export default function DrugVerification() {
   const [medicineLoading, setMedicineLoading] = useState(false);
   const [imageScanning, setImageScanning] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
+  const [showMedicineScanner, setShowMedicineScanner] = useState(false);
+  const [showScanOptions, setShowScanOptions] = useState(false);
   const [result, setResult] = useState<{
     status: "verified" | "counterfeit" | "expired" | "not_found";
     drug: Drug | null;
@@ -190,7 +200,46 @@ export default function DrugVerification() {
       });
 
       const imageBase64 = reader.result as string;
+      await processMedicineImage(imageBase64);
 
+    } catch (error) {
+      console.error("Image upload error:", error);
+      toast({
+        title: "Upload Failed",
+        description: "Could not process the image",
+        variant: "destructive",
+      });
+    } finally {
+      setImageScanning(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const handleCameraCapture = async (imageBase64: string) => {
+    setShowMedicineScanner(false);
+    setResult(null);
+    setMedicineInfo(null);
+    setImageScanning(true);
+
+    try {
+      await processMedicineImage(imageBase64);
+    } catch (error) {
+      console.error("Camera capture error:", error);
+      toast({
+        title: "Scan Failed",
+        description: "Could not analyze the image",
+        variant: "destructive",
+      });
+    } finally {
+      setImageScanning(false);
+    }
+  };
+
+  const processMedicineImage = async (imageBase64: string) => {
+    try {
       // Scan the image for medicine name
       const { data: scanData, error: scanError } = await supabase.functions.invoke('scan-medicine-image', {
         body: { imageBase64 }
@@ -233,20 +282,8 @@ export default function DrugVerification() {
       } else {
         setMedicineInfo(infoData.medicineInfo);
       }
-
     } catch (error) {
-      console.error("Image scan error:", error);
-      toast({
-        title: "Scan Failed",
-        description: "Could not analyze the image",
-        variant: "destructive",
-      });
-    } finally {
-      setImageScanning(false);
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
+      throw error;
     }
   };
 
@@ -354,7 +391,7 @@ export default function DrugVerification() {
                     className="hidden"
                   />
                   <Button 
-                    onClick={() => fileInputRef.current?.click()}
+                    onClick={() => setShowScanOptions(true)}
                     disabled={medicineLoading || imageScanning}
                     variant="outline"
                   >
@@ -366,12 +403,55 @@ export default function DrugVerification() {
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground text-center">
-                  Take a photo of medicine packaging to scan
+                  Scan or upload medicine packaging photo
                 </p>
               </div>
             </CardContent>
           </Card>
         </div>
+
+        {/* Medicine Scan Options Sheet */}
+        <Sheet open={showScanOptions} onOpenChange={setShowScanOptions}>
+          <SheetContent side="bottom" className="h-auto">
+            <SheetHeader>
+              <SheetTitle>Scan Medicine</SheetTitle>
+              <SheetDescription>
+                Choose how you want to scan the medicine
+              </SheetDescription>
+            </SheetHeader>
+            <div className="grid gap-3 mt-6 mb-4">
+              <Button
+                onClick={() => {
+                  setShowScanOptions(false);
+                  setShowMedicineScanner(true);
+                }}
+                size="lg"
+                className="w-full h-16"
+              >
+                <Camera className="mr-2 h-5 w-5" />
+                <div className="text-left">
+                  <div className="font-semibold">Take Photo</div>
+                  <div className="text-xs opacity-80">Use camera to scan in real-time</div>
+                </div>
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowScanOptions(false);
+                  fileInputRef.current?.click();
+                }}
+                variant="outline"
+                size="lg"
+                className="w-full h-16"
+              >
+                <Upload className="mr-2 h-5 w-5" />
+                <div className="text-left">
+                  <div className="font-semibold">Upload Image</div>
+                  <div className="text-xs opacity-80">Choose from gallery or files</div>
+                </div>
+              </Button>
+            </div>
+          </SheetContent>
+        </Sheet>
 
         {result && (
           <Card
@@ -634,6 +714,13 @@ export default function DrugVerification() {
         <QRScanner 
           onScan={handleQRScan} 
           onClose={() => setShowScanner(false)} 
+        />
+      )}
+
+      {showMedicineScanner && (
+        <MedicineScanner
+          onCapture={handleCameraCapture}
+          onClose={() => setShowMedicineScanner(false)}
         />
       )}
     </div>
