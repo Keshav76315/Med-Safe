@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ChatBot } from "./components/ChatBot";
 import Dashboard from "./pages/Dashboard";
 import DrugVerification from "./pages/DrugVerification";
 import MedicalHistory from "./pages/MedicalHistory";
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <ChatBot />
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
