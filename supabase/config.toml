@@ -1,5 +1,16 @@
 project_id = "bhjkkyxyfqrtcnbkyilr"
 
+[auth]
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false
+
+[auth.hook.send_email]
+enabled = true
+uri = "functions/v1/send-auth-email"
+
 [functions.mistral-ai]
 verify_jwt = false
 
