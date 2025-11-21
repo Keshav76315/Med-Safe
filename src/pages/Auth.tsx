@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Shield } from 'lucide-react';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const signInSchema = z.object({
   email: z.string().trim().email({ message: "Invalid email address" }).max(255, { message: "Email too long" }),
@@ -78,6 +79,46 @@ const Auth = () => {
     }
   };
 
+  const handleForgotPassword = async () => {
+    if (!signInData.email) {
+      toast({
+        title: "Email Required",
+        description: "Please enter your email address first",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const emailValidation = signInSchema.pick({ email: true }).safeParse({ email: signInData.email });
+    if (!emailValidation.success) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(signInData.email, {
+      redirectTo: `${window.location.origin}/auth`,
+    });
+    setLoading(false);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Password Reset Email Sent",
+        description: "Check your email for a password reset link",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-medical-blue/5 via-background to-medical-green/5 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -113,7 +154,18 @@ const Auth = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signin-password">Password</Label>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="signin-password">Password</Label>
+                      <Button
+                        type="button"
+                        variant="link"
+                        className="px-0 text-sm text-primary hover:underline"
+                        onClick={handleForgotPassword}
+                        disabled={loading}
+                      >
+                        Forgot password?
+                      </Button>
+                    </div>
                     <Input
                       id="signin-password"
                       type="password"
