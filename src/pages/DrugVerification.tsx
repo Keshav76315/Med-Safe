@@ -32,7 +32,9 @@ interface MedicineInfo {
 
 export default function DrugVerification() {
   const [batchNo, setBatchNo] = useState("");
+  const [medicineName, setMedicineName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [medicineLoading, setMedicineLoading] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
   const [result, setResult] = useState<{
     status: "verified" | "counterfeit" | "expired" | "not_found";
@@ -97,51 +99,53 @@ export default function DrugVerification() {
 
   const handleQRScan = async (scannedText: string) => {
     setShowScanner(false);
-    
-    // Check if it's a batch number format
-    const isBatchNumber = /^[A-Z0-9-]+$/.test(scannedText.trim());
-    
-    if (isBatchNumber) {
-      // It's a batch number - verify it
-      setBatchNo(scannedText);
-      handleVerify(scannedText);
-    } else {
-      // It's a medicine name - get AI info
-      setBatchNo("");
-      setResult(null);
-      setLoading(true);
-      
-      try {
-        const { data, error } = await supabase.functions.invoke('medicine-info', {
-          body: { medicineName: scannedText }
-        });
+    setBatchNo(scannedText);
+    handleVerify(scannedText);
+  };
 
-        if (error) throw error;
+  const handleMedicineSearch = async () => {
+    if (!medicineName.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Please enter a medicine name",
+        variant: "destructive",
+      });
+      return;
+    }
 
-        if (data.medicineInfo.error) {
-          toast({
-            title: "Medicine Not Found",
-            description: data.medicineInfo.error,
-            variant: "destructive",
-          });
-          setMedicineInfo(null);
-        } else {
-          setMedicineInfo(data.medicineInfo);
-          toast({
-            title: "Medicine Information Retrieved",
-            description: `Details about ${data.medicineInfo.name}`,
-          });
-        }
-      } catch (error) {
-        console.error("Medicine info error:", error);
+    setResult(null);
+    setMedicineLoading(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('medicine-info', {
+        body: { medicineName: medicineName.trim() }
+      });
+
+      if (error) throw error;
+
+      if (data.medicineInfo.error) {
         toast({
-          title: "Failed to Retrieve Information",
-          description: "Could not get medicine details",
+          title: "Medicine Not Found",
+          description: data.medicineInfo.error,
           variant: "destructive",
         });
-      } finally {
-        setLoading(false);
+        setMedicineInfo(null);
+      } else {
+        setMedicineInfo(data.medicineInfo);
+        toast({
+          title: "Medicine Information Retrieved",
+          description: `Details about ${data.medicineInfo.name}`,
+        });
       }
+    } catch (error) {
+      console.error("Medicine info error:", error);
+      toast({
+        title: "Failed to Retrieve Information",
+        description: "Could not get medicine details",
+        variant: "destructive",
+      });
+    } finally {
+      setMedicineLoading(false);
     }
   };
 
@@ -151,56 +155,99 @@ export default function DrugVerification() {
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">Drug Verification</h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-2">Drug Verification & Information</h1>
           <p className="text-muted-foreground text-lg">
-            Scan or enter batch number to verify authenticity
+            Verify batch authenticity or search for medicine information
           </p>
         </div>
 
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <ScanLine className="h-5 w-5 text-primary" />
-              <span>Enter Batch Number</span>
-            </CardTitle>
-            <CardDescription>Type or scan the medication batch number</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Input
-                placeholder="e.g., BATCH001"
-                value={batchNo}
-                onChange={(e) => setBatchNo(e.target.value.toUpperCase())}
-                onKeyDown={(e) => e.key === "Enter" && handleVerify()}
-                className="text-lg flex-1"
-              />
-              <div className="flex gap-2">
-                <Button onClick={() => handleVerify()} disabled={loading} size="lg" className="flex-1 sm:flex-initial">
-                  {loading ? (
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          {/* Batch Verification Section */}
+          <Card className="border-accent/50">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Shield className="h-5 w-5 text-accent" />
+                <span>Batch Verification</span>
+              </CardTitle>
+              <CardDescription>Verify medication authenticity by batch number</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <Input
+                  placeholder="e.g., BATCH001"
+                  value={batchNo}
+                  onChange={(e) => setBatchNo(e.target.value.toUpperCase())}
+                  onKeyDown={(e) => e.key === "Enter" && handleVerify()}
+                  className="text-lg"
+                />
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={() => handleVerify()} 
+                    disabled={loading} 
+                    className="flex-1"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Verifying
+                      </>
+                    ) : (
+                      <>
+                        <Shield className="mr-2 h-4 w-4" />
+                        Verify
+                      </>
+                    )}
+                  </Button>
+                  <Button 
+                    onClick={() => setShowScanner(true)} 
+                    variant="outline"
+                  >
+                    <Camera className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Medicine Information Section */}
+          <Card className="border-primary/50">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Pill className="h-5 w-5 text-primary" />
+                <span>Medicine Information</span>
+              </CardTitle>
+              <CardDescription>Search for detailed medicine information</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <Input
+                  placeholder="e.g., Aspirin, Paracetamol"
+                  value={medicineName}
+                  onChange={(e) => setMedicineName(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleMedicineSearch()}
+                  className="text-lg"
+                />
+                <Button 
+                  onClick={() => handleMedicineSearch()} 
+                  disabled={medicineLoading}
+                  className="w-full"
+                >
+                  {medicineLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Verifying
+                      Searching
                     </>
                   ) : (
                     <>
-                      <Shield className="mr-2 h-4 w-4" />
-                      Verify
+                      <Info className="mr-2 h-4 w-4" />
+                      Search Medicine
                     </>
                   )}
                 </Button>
-                <Button 
-                  onClick={() => setShowScanner(true)} 
-                  variant="outline" 
-                  size="lg"
-                  className="flex-1 sm:flex-initial"
-                >
-                  <Camera className="mr-2 h-4 w-4" />
-                  Scan QR
-                </Button>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
         {result && (
           <Card
@@ -407,29 +454,54 @@ export default function DrugVerification() {
         )}
 
         <div className="mt-8 bg-muted/50 rounded-lg p-6">
-          <h3 className="font-semibold mb-3">Testing Examples</h3>
-          <p className="text-sm text-muted-foreground mb-3">
-            Test batch verification with these codes, or scan a medicine name (like "Aspirin") for AI-powered information
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
-            <button
-              onClick={() => setBatchNo("BATCH001")}
-              className="text-left p-2 rounded bg-background hover:bg-accent/10 transition-colors"
-            >
-              BATCH001 - Authentic
-            </button>
-            <button
-              onClick={() => setBatchNo("BATCH010")}
-              className="text-left p-2 rounded bg-background hover:bg-destructive/10 transition-colors"
-            >
-              BATCH010 - Counterfeit
-            </button>
-            <button
-              onClick={() => setBatchNo("BATCH012")}
-              className="text-left p-2 rounded bg-background hover:bg-warning/10 transition-colors"
-            >
-              BATCH012 - Expired
-            </button>
+          <h3 className="font-semibold mb-3">Quick Test Examples</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground mb-2">Batch Verification:</p>
+              <div className="space-y-2">
+                <button
+                  onClick={() => { setBatchNo("BATCH001"); setMedicineInfo(null); }}
+                  className="w-full text-left p-2 rounded bg-background hover:bg-accent/10 transition-colors text-sm"
+                >
+                  BATCH001 - Authentic
+                </button>
+                <button
+                  onClick={() => { setBatchNo("BATCH010"); setMedicineInfo(null); }}
+                  className="w-full text-left p-2 rounded bg-background hover:bg-destructive/10 transition-colors text-sm"
+                >
+                  BATCH010 - Counterfeit
+                </button>
+                <button
+                  onClick={() => { setBatchNo("BATCH012"); setMedicineInfo(null); }}
+                  className="w-full text-left p-2 rounded bg-background hover:bg-warning/10 transition-colors text-sm"
+                >
+                  BATCH012 - Expired
+                </button>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground mb-2">Medicine Search:</p>
+              <div className="space-y-2">
+                <button
+                  onClick={() => { setMedicineName("Aspirin"); setResult(null); }}
+                  className="w-full text-left p-2 rounded bg-background hover:bg-primary/10 transition-colors text-sm"
+                >
+                  Aspirin - Pain reliever
+                </button>
+                <button
+                  onClick={() => { setMedicineName("Ibuprofen"); setResult(null); }}
+                  className="w-full text-left p-2 rounded bg-background hover:bg-primary/10 transition-colors text-sm"
+                >
+                  Ibuprofen - Anti-inflammatory
+                </button>
+                <button
+                  onClick={() => { setMedicineName("Paracetamol"); setResult(null); }}
+                  className="w-full text-left p-2 rounded bg-background hover:bg-primary/10 transition-colors text-sm"
+                >
+                  Paracetamol - Fever reducer
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </main>
