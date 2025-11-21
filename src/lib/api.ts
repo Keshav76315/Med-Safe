@@ -249,6 +249,61 @@ export function calculateSafetyScore(request: SafetyScoreRequest): SafetyScoreRe
   return { score, level, risks, recommendations };
 }
 
+// Pharmacist verification functions
+export async function getPendingVerifications() {
+  const { data, error } = await supabase
+    .from('scan_logs')
+    .select(`
+      *,
+      drugs (*)
+    `)
+    .is('pharmacist_verified', null)
+    .order('timestamp', { ascending: false });
+
+  if (error) throw error;
+  return data;
+}
+
+export async function approveVerification(scanId: string, notes?: string) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const { data, error } = await supabase
+    .from('scan_logs')
+    .update({
+      pharmacist_verified: true,
+      pharmacist_verified_by: user.id,
+      pharmacist_verified_at: new Date().toISOString(),
+      pharmacist_notes: notes || null
+    } as any)
+    .eq('id', scanId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function rejectVerification(scanId: string, notes: string) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const { data, error } = await supabase
+    .from('scan_logs')
+    .update({
+      pharmacist_verified: false,
+      pharmacist_verified_by: user.id,
+      pharmacist_verified_at: new Date().toISOString(),
+      pharmacist_notes: notes
+    } as any)
+    .eq('id', scanId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
 // Statistics
 export async function getDashboardStats() {
   try {

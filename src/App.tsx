@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import DrugVerification from "./pages/DrugVerification";
 import MedicalHistory from "./pages/MedicalHistory";
 import SafetyScore from "./pages/SafetyScore";
+import PharmacistVerification from "./pages/PharmacistVerification";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
             <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
             <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
+            <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
