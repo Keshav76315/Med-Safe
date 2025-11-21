@@ -2,17 +2,21 @@ import { useEffect, useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { DashboardCard } from "@/components/DashboardCard";
 import { getDashboardStats } from "@/lib/api";
-import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Shield, Activity } from "lucide-react";
+import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Clock, Badge } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { supabase } from "@/integrations/supabase/client";
+import { Badge as BadgeUI } from "@/components/ui/badge";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [recentScans, setRecentScans] = useState<any[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
     loadStats();
+    loadRecentScans();
   }, []);
 
   async function loadStats() {
@@ -29,6 +33,49 @@ export default function Dashboard() {
       setLoading(false);
     }
   }
+
+  async function loadRecentScans() {
+    try {
+      const { data, error } = await supabase
+        .from('scan_logs')
+        .select('id, scan_id, batch_no, status, timestamp, drugs(name)')
+        .order('timestamp', { ascending: false })
+        .limit(5);
+
+      if (error) throw error;
+      setRecentScans(data || []);
+    } catch (error) {
+      console.error('Failed to load recent scans:', error);
+    }
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'verified':
+        return 'default';
+      case 'counterfeit':
+        return 'destructive';
+      case 'expired':
+        return 'secondary';
+      case 'not_found':
+        return 'outline';
+      default:
+        return 'outline';
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'verified':
+        return <CheckCircle className="h-4 w-4" />;
+      case 'counterfeit':
+        return <XCircle className="h-4 w-4" />;
+      case 'expired':
+        return <AlertTriangle className="h-4 w-4" />;
+      default:
+        return <ScanLine className="h-4 w-4" />;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -102,47 +149,41 @@ export default function Dashboard() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           <div className="bg-card border border-border rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-            <div className="space-y-3">
-              <a
-                href="/verify"
-                className="block p-4 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover transition-colors"
-              >
-                <div className="flex items-center space-x-3">
-                  <Shield className="h-5 w-5" />
-                  <div>
-                    <p className="font-medium">Verify Drug</p>
-                    <p className="text-sm opacity-90">Scan or enter batch number</p>
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <Clock className="h-5 w-5" />
+              Recent Activity
+            </h2>
+            {recentScans.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No recent scans yet</p>
+            ) : (
+              <div className="space-y-3">
+                {recentScans.map((scan) => (
+                  <div
+                    key={scan.id}
+                    className="flex items-center justify-between p-3 rounded-md bg-muted/50 hover:bg-muted transition-colors"
+                  >
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="flex-shrink-0">
+                        {getStatusIcon(scan.status)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">
+                          {scan.drugs?.name || 'Unknown Drug'}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Batch: {scan.batch_no}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <BadgeUI variant={getStatusColor(scan.status) as any} className="text-xs">
+                        {scan.status}
+                      </BadgeUI>
+                    </div>
                   </div>
-                </div>
-              </a>
-
-              <a
-                href="/history"
-                className="block p-4 rounded-md bg-secondary text-secondary-foreground hover:bg-muted transition-colors"
-              >
-                <div className="flex items-center space-x-3">
-                  <Users className="h-5 w-5" />
-                  <div>
-                    <p className="font-medium">Manage Patient History</p>
-                    <p className="text-sm text-muted-foreground">Add or update records</p>
-                  </div>
-                </div>
-              </a>
-
-              <a
-                href="/safety"
-                className="block p-4 rounded-md bg-secondary text-secondary-foreground hover:bg-muted transition-colors"
-              >
-                <div className="flex items-center space-x-3">
-                  <Activity className="h-5 w-5" />
-                  <div>
-                    <p className="font-medium">Calculate Safety Score</p>
-                    <p className="text-sm text-muted-foreground">Assess medication risks</p>
-                  </div>
-                </div>
-              </a>
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="bg-card border border-border rounded-lg p-6">
