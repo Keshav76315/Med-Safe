@@ -7,27 +7,19 @@ import { supabase } from "@/integrations/supabase/client";
 
 const FDAImport = () => {
   const [isImporting, setIsImporting] = useState(false);
-  const [urls, setUrls] = useState({
-    applicationsUrl: '',
-    productsUrl: '',
-    marketingStatusUrl: ''
-  });
+  const [jsonUrl, setJsonUrl] = useState('');
 
   const handleImport = async () => {
-    if (!urls.applicationsUrl || !urls.productsUrl || !urls.marketingStatusUrl) {
-      toast.error("Please provide all three file URLs");
+    if (!jsonUrl) {
+      toast.error("Please provide a JSON file URL");
       return;
     }
 
     setIsImporting(true);
     try {
-      toast.info("Fetching FDA dataset files from URLs...");
+      toast.info("Fetching JSON file from URL...");
 
-      const body = {
-        applicationsUrl: urls.applicationsUrl,
-        productsUrl: urls.productsUrl,
-        marketingStatusUrl: urls.marketingStatusUrl
-      };
+      const body = { jsonUrl };
 
       toast.info("Processing and importing drugs... This may take 5-10 minutes.");
 
@@ -41,12 +33,8 @@ const FDAImport = () => {
         description: `Imported ${data.imported} FDA-approved drugs`
       });
 
-      // Clear URLs after successful import
-      setUrls({
-        applicationsUrl: '',
-        productsUrl: '',
-        marketingStatusUrl: ''
-      });
+      // Clear URL after successful import
+      setJsonUrl('');
     } catch (error: any) {
       console.error('Import error:', error);
       toast.error("Import failed", {
@@ -71,62 +59,41 @@ const FDAImport = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Database className="h-5 w-5" />
-              Import FDA Dataset from URLs
+              Import Drug Data from JSON
             </CardTitle>
             <CardDescription>
-              Provide direct download URLs to the three FDA dataset text files
+              Provide a Google Drive or direct URL to your JSON file containing drug data
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Applications.txt URL</label>
-                <input
-                  type="url"
-                  value={urls.applicationsUrl}
-                  onChange={(e) => setUrls(prev => ({ ...prev, applicationsUrl: e.target.value }))}
-                  placeholder="https://drive.google.com/file/d/..."
-                  className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Products.txt URL</label>
-                <input
-                  type="url"
-                  value={urls.productsUrl}
-                  onChange={(e) => setUrls(prev => ({ ...prev, productsUrl: e.target.value }))}
-                  placeholder="https://drive.google.com/file/d/..."
-                  className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium">MarketingStatus.txt URL</label>
-                <input
-                  type="url"
-                  value={urls.marketingStatusUrl}
-                  onChange={(e) => setUrls(prev => ({ ...prev, marketingStatusUrl: e.target.value }))}
-                  placeholder="https://drive.google.com/file/d/..."
-                  className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
-                />
-              </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">JSON File URL</label>
+              <input
+                type="url"
+                value={jsonUrl}
+                onChange={(e) => setJsonUrl(e.target.value)}
+                placeholder="https://drive.google.com/file/d/..."
+                className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
+              />
+              <p className="text-xs text-muted-foreground">
+                JSON must be an array of drug objects with fields: name, manufacturer, active_ingredient, dosage_form
+              </p>
             </div>
 
             <div className="bg-muted p-4 rounded-lg space-y-2">
               <h4 className="font-semibold text-sm">Import Details:</h4>
               <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                <li>Imports up to 10,000 FDA-approved drugs</li>
-                <li>Only includes Prescription and OTC drugs (excludes discontinued)</li>
-                <li>Automatically generates unique batch numbers</li>
-                <li>Classifies risk levels based on drug form and strength</li>
-                <li>Sets manufacturing date to 1 year ago, expiry to 2 years from now</li>
+                <li>Imports up to 10,000 drug entries from JSON</li>
+                <li>Automatically generates batch numbers if not provided</li>
+                <li>Sets default dates (mfg: 1 year ago, exp: 2 years ahead) if missing</li>
+                <li>Classifies risk levels based on dosage form</li>
+                <li>All drugs marked as 'authentic' by default</li>
               </ul>
             </div>
 
             <Button 
               onClick={handleImport} 
-              disabled={isImporting || !urls.applicationsUrl || !urls.productsUrl || !urls.marketingStatusUrl}
+              disabled={isImporting || !jsonUrl}
               className="w-full"
               size="lg"
             >
@@ -135,7 +102,7 @@ const FDAImport = () => {
               ) : (
                 <>
                   <Upload className="mr-2 h-5 w-5" />
-                  Import FDA Data from URLs
+                  Import Drug Data from JSON
                 </>
               )}
             </Button>
@@ -147,22 +114,35 @@ const FDAImport = () => {
             <CardTitle>Instructions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p><strong>Step 1: Extract the FDA Dataset ZIP</strong></p>
-            <p>Extract your downloaded ZIP file to get the three text files</p>
+            <p><strong>Step 1: Prepare Your JSON File</strong></p>
+            <p>Your JSON should be an array of drug objects. Example format:</p>
+            <pre className="bg-muted p-2 rounded text-xs overflow-x-auto">
+{`[
+  {
+    "name": "Aspirin",
+    "manufacturer": "Bayer",
+    "active_ingredient": "Acetylsalicylic Acid",
+    "dosage_form": "Tablet",
+    "drug_id": "FDA-001",
+    "batch_no": "BATCH-001",
+    "risk_level": "low"
+  }
+]`}
+            </pre>
             
-            <p className="pt-3"><strong>Step 2: Upload to Cloud Storage</strong></p>
-            <p>1. Upload Applications.txt, Products.txt, and MarketingStatus.txt to Google Drive or Dropbox</p>
-            <p>2. For Google Drive: Right-click → Share → Change to "Anyone with the link"</p>
-            <p>3. Copy the shareable link for each file</p>
+            <p className="pt-3"><strong>Step 2: Upload to Google Drive</strong></p>
+            <p>1. Upload your JSON file to Google Drive</p>
+            <p>2. Right-click → Share → Change to "Anyone with the link"</p>
+            <p>3. Copy the shareable link</p>
             
-            <p className="pt-3"><strong>Step 3: Paste URLs & Import</strong></p>
-            <p>Paste each file's URL above and click "Import FDA Data from URLs"</p>
+            <p className="pt-3"><strong>Step 3: Paste URL & Import</strong></p>
+            <p>Paste the URL above and click "Import Drug Data from JSON"</p>
             
             <p className="text-amber-600 dark:text-amber-500 pt-3">
-              ⚠️ Important: Files must be publicly accessible (sharing enabled)
+              ⚠️ File must be publicly accessible
             </p>
             <p className="text-amber-600 dark:text-amber-500">
-              ⚠️ Import takes 5-10 minutes. Don't close this page during import.
+              ⚠️ Import may take 5-10 minutes. Don't close this page.
             </p>
           </CardContent>
         </Card>
