@@ -1,6 +1,17 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Home, Shield, FileText, Activity } from "lucide-react";
+import { Home, Shield, FileText, Activity, LogOut, User, Bell } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "./ui/dropdown-menu";
+import { Badge } from "./ui/badge";
+import { NotificationBell } from "./NotificationBell";
 
 const navItems = [
   { path: "/", label: "Dashboard", icon: Home },
@@ -11,6 +22,13 @@ const navItems = [
 
 export function Navigation() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, userRole, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/auth');
+  };
 
   return (
     <nav className="border-b border-border bg-card">
@@ -46,8 +64,33 @@ export function Navigation() {
             </div>
           </div>
 
-          <div className="text-xs text-muted-foreground">
-            AI-Enabled Drug Verification System
+          <div className="flex items-center gap-2">
+            {user && <NotificationBell />}
+            
+            {user && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <div className="px-2 py-2">
+                    <p className="text-sm font-medium">{user.email}</p>
+                    {userRole && (
+                      <Badge variant="secondary" className="mt-1 capitalize">
+                        {userRole}
+                      </Badge>
+                    )}
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
       </div>
