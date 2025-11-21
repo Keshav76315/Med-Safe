@@ -1,9 +1,65 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, Scan, Users, Brain, Heart, Bell, Database, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/medsafe-logo.jpg";
 import heroBackground from "@/assets/hero-background.jpg";
+
+// Animated Counter Component
+const AnimatedCounter = ({ end, duration = 2000, suffix = "", decimals = 0 }: { 
+  end: number; 
+  duration?: number; 
+  suffix?: string; 
+  decimals?: number;
+}) => {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const counterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let startTime: number | null = null;
+    const animate = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      setCount(end * easeOutQuart);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isVisible, end, duration]);
+
+  return (
+    <div ref={counterRef}>
+      <p className="text-5xl md:text-6xl font-semibold mb-2">
+        {count.toFixed(decimals)}{suffix}
+      </p>
+    </div>
+  );
+};
 
 const Index = () => {
   const navigate = useNavigate();
@@ -383,20 +439,20 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Technical Excellence */}
+            {/* Animated Statistics Counter */}
             <div className="text-center max-w-5xl mx-auto space-y-8 pt-16">
               <h3 className="text-4xl font-semibold">Built with excellence.</h3>
               <div className="grid md:grid-cols-3 gap-6">
-                <div className="p-8 rounded-2xl bg-muted/50">
-                  <p className="text-5xl font-semibold mb-2">99.2%</p>
+                <div className="p-8 rounded-2xl bg-muted/50 hover:bg-muted/70 transition-all duration-300">
+                  <AnimatedCounter end={99.2} decimals={1} suffix="%" />
                   <p className="text-muted-foreground font-light">AI accuracy rate</p>
                 </div>
-                <div className="p-8 rounded-2xl bg-muted/50">
-                  <p className="text-5xl font-semibold mb-2">&lt;2s</p>
-                  <p className="text-muted-foreground font-light">Processing time</p>
+                <div className="p-8 rounded-2xl bg-muted/50 hover:bg-muted/70 transition-all duration-300">
+                  <AnimatedCounter end={2} decimals={0} suffix="s" />
+                  <p className="text-muted-foreground font-light">Average processing time</p>
                 </div>
-                <div className="p-8 rounded-2xl bg-muted/50">
-                  <p className="text-5xl font-semibold mb-2">200K+</p>
+                <div className="p-8 rounded-2xl bg-muted/50 hover:bg-muted/70 transition-all duration-300">
+                  <AnimatedCounter end={200} decimals={0} suffix="K+" />
                   <p className="text-muted-foreground font-light">FDA medications</p>
                 </div>
               </div>
