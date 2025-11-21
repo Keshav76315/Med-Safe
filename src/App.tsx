@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ChatBot } from "./components/ChatBot";
+import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import DrugVerification from "./pages/DrugVerification";
 import MedicalHistory from "./pages/MedicalHistory";
@@ -25,8 +26,9 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
             <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
             <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />

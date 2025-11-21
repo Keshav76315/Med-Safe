@@ -16,7 +16,7 @@ export function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hello! I'm your MediSafe assistant. How can I help you today?",
+      content: "Hello! I'm your MedSafe assistant. How can I help you today?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -147,7 +147,7 @@ export function ChatBot() {
           <div className="flex items-center justify-between p-4 border-b bg-primary text-primary-foreground">
             <div className="flex items-center gap-2">
               <MessageCircle className="h-5 w-5" />
-              <h3 className="font-semibold">MediSafe Assistant</h3>
+              <h3 className="font-semibold">MedSafe Assistant</h3>
             </div>
             <Button
               variant="ghost"

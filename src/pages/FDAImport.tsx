@@ -82,7 +82,7 @@ const FDAImport = () => {
         <div>
           <h1 className="text-3xl font-bold text-foreground mb-2">FDA Drug Data Import</h1>
           <p className="text-muted-foreground">
-            Import FDA-approved drug data into MediSafe database
+            Import FDA-approved drug data into MedSafe database
           </p>
         </div>
 
