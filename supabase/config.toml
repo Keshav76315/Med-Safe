@@ -16,3 +16,6 @@ verify_jwt = false
 
 [functions.send-auth-email]
 verify_jwt = false
+
+[functions.medicine-info]
+verify_jwt = false
