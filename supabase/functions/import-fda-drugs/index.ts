@@ -15,9 +15,9 @@ function convertGoogleDriveUrl(url: string): string {
   return url;
 }
 
-// Fetch file from URL with retry logic
-async function fetchFile(url: string, retries = 3): Promise<string> {
-  console.log('Fetching file from:', url);
+// Fetch JSON file from URL with retry logic
+async function fetchJsonFile(url: string, retries = 3): Promise<any> {
+  console.log('Fetching JSON file from:', url);
   const directUrl = convertGoogleDriveUrl(url);
   
   for (let i = 0; i < retries; i++) {
@@ -32,9 +32,9 @@ async function fetchFile(url: string, retries = 3): Promise<string> {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       
-      const text = await response.text();
-      console.log(`Successfully fetched file (${text.length} bytes)`);
-      return text;
+      const jsonData = await response.json();
+      console.log(`Successfully fetched and parsed JSON file`);
+      return jsonData;
     } catch (error) {
       console.error(`Attempt ${i + 1} failed:`, error);
       if (i === retries - 1) throw error;
@@ -42,36 +42,20 @@ async function fetchFile(url: string, retries = 3): Promise<string> {
     }
   }
   
-  throw new Error('Failed to fetch file after retries');
+  throw new Error('Failed to fetch JSON file after retries');
 }
 
-interface Product {
-  ApplNo: string;
-  ProductNo: string;
-  Form: string;
-  Strength: string;
-  DrugName: string;
-  ActiveIngredient: string;
-  MarketingStatusID?: string;
-}
-
-interface Application {
-  ApplNo: string;
-  SponsorName: string;
-}
-
-function parseTSV(content: string): any[] {
-  const lines = content.trim().split('\n');
-  const headers = lines[0].split('\t');
-  
-  return lines.slice(1).map(line => {
-    const values = line.split('\t');
-    const obj: any = {};
-    headers.forEach((header, index) => {
-      obj[header] = values[index]?.trim() || '';
-    });
-    return obj;
-  });
+interface DrugData {
+  drug_id?: string;
+  name: string;
+  batch_no?: string;
+  manufacturer: string;
+  active_ingredient: string;
+  dosage_form: string;
+  mfg_date?: string;
+  exp_date?: string;
+  type?: string;
+  risk_level?: string;
 }
 
 function generateBatchNumber(): string {
@@ -123,70 +107,41 @@ serve(async (req) => {
     )
 
     const requestData = await req.json();
-    console.log('Received import request:', Object.keys(requestData));
+    console.log('Received import request');
     
-    let applicationsData: string;
-    let productsData: string;
-    let marketingStatusData: string;
-    
-    // Fetch individual files from URLs
-    if (!requestData.applicationsUrl || !requestData.productsUrl || !requestData.marketingStatusUrl) {
-      throw new Error('Please provide all three file URLs: applicationsUrl, productsUrl, marketingStatusUrl');
+    if (!requestData.jsonUrl) {
+      throw new Error('Please provide a JSON file URL: jsonUrl');
     }
     
-    console.log('Fetching individual files from URLs...');
-    [applicationsData, productsData, marketingStatusData] = await Promise.all([
-      fetchFile(requestData.applicationsUrl),
-      fetchFile(requestData.productsUrl),
-      fetchFile(requestData.marketingStatusUrl)
-    ]);
-
-    console.log('Parsing FDA data files...');
-    const applications: Application[] = parseTSV(applicationsData);
-    const products: Product[] = parseTSV(productsData);
-    const marketingStatuses = parseTSV(marketingStatusData);
-
-    // Create a map for quick lookups
-    const applicationMap = new Map(
-      applications.map(app => [app.ApplNo, app])
-    );
-
-    const marketingStatusMap = new Map(
-      marketingStatuses.map(ms => [`${ms.ApplNo}-${ms.ProductNo}`, ms.MarketingStatusID])
-    );
-
-    console.log(`Processing ${products.length} products...`);
-
-    // Transform products to drugs format
-    const drugs = products
-      .filter(product => {
-        const key = `${product.ApplNo}-${product.ProductNo}`;
-        const statusId = marketingStatusMap.get(key);
-        // Only include Prescription (1) and OTC (2) drugs, exclude Discontinued (3)
-        return statusId === '1' || statusId === '2';
-      })
-      .slice(0, 10000) // Limit to first 10,000 for initial import
-      .map(product => {
-        const application = applicationMap.get(product.ApplNo);
-        const mfgDate = new Date();
-        mfgDate.setFullYear(mfgDate.getFullYear() - 1);
+    console.log('Fetching JSON file from URL...');
+    const jsonData = await fetchJsonFile(requestData.jsonUrl);
+    
+    // Check if it's an array of drugs or needs transformation
+    let drugs: DrugData[] = [];
+    
+    if (Array.isArray(jsonData)) {
+      console.log(`Processing ${jsonData.length} drug entries from JSON...`);
+      drugs = jsonData.slice(0, 10000).map((item, index) => {
+        // Generate default dates if not provided
+        const mfgDate = item.mfg_date || new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+        const expDate = item.exp_date || new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
         
-        const expDate = new Date();
-        expDate.setFullYear(expDate.getFullYear() + 2);
-
         return {
-          drug_id: `FDA-${product.ApplNo}-${product.ProductNo}`,
-          name: product.DrugName || 'Unknown Drug',
-          batch_no: generateBatchNumber(),
-          manufacturer: application?.SponsorName || 'Unknown Manufacturer',
-          active_ingredient: product.ActiveIngredient || 'Unknown',
-          dosage_form: product.Form || 'Unknown',
-          mfg_date: mfgDate.toISOString().split('T')[0],
-          exp_date: expDate.toISOString().split('T')[0],
-          type: 'authentic',
-          risk_level: classifyRiskLevel(product.Form || '', product.Strength || '')
+          drug_id: item.drug_id || `IMPORT-${Date.now()}-${index}`,
+          name: item.name || 'Unknown Drug',
+          batch_no: item.batch_no || generateBatchNumber(),
+          manufacturer: item.manufacturer || 'Unknown Manufacturer',
+          active_ingredient: item.active_ingredient || 'Unknown',
+          dosage_form: item.dosage_form || 'Unknown',
+          mfg_date: mfgDate,
+          exp_date: expDate,
+          type: item.type || 'authentic',
+          risk_level: item.risk_level || classifyRiskLevel(item.dosage_form || '', '')
         };
       });
+    } else {
+      throw new Error('JSON file must contain an array of drug objects');
+    }
 
     console.log(`Importing ${drugs.length} drugs into database...`);
 
