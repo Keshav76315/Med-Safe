@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Home, Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
+import { OptimizedImage } from "./OptimizedImage";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,7 +48,12 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
             <Link to="/dashboard" className="flex items-center space-x-2">
-              <img src={medSafeLogo} alt="MedSafe Logo" className="h-8 w-8 object-contain" />
+              <OptimizedImage 
+                src={medSafeLogo} 
+                alt="MedSafe Logo" 
+                className="h-8 w-8 object-contain" 
+                priority 
+              />
               <span className="text-xl font-bold tracking-tight text-foreground">MedSafe</span>
             </Link>
 
