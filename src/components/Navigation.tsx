@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Home, Shield, FileText, Activity, LogOut, User, ClipboardCheck } from "lucide-react";
+import { Home, Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import {
@@ -29,7 +29,11 @@ export function Navigation() {
     { path: "/pharmacist", label: "Verifications", icon: ClipboardCheck }
   ] : [];
 
-  const navItems = [...baseNavItems, ...pharmacistNavItems];
+  const adminNavItems = userRole === 'admin' ? [
+    { path: "/fda-import", label: "FDA Import", icon: Database }
+  ] : [];
+
+  const navItems = [...baseNavItems, ...pharmacistNavItems, ...adminNavItems];
 
   const handleSignOut = async () => {
     await signOut();
