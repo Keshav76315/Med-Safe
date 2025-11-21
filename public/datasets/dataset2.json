@@ -1,0 +1,528 @@
+{
+  "meta": {
+    "view": {
+      "id": "x4tk-8y6v",
+      "name": "Drug Labeling",
+      "type": "table",
+      "description": "This dataset includes drug labeling information submitted to the FDA.",
+      "column_names": [
+        "product_ndc",
+        "generic_name",
+        "labeler_name",
+        "brand_name",
+        "active_ingredients",
+        "finished",
+        "packaging",
+        "listing_expiration_date",
+        "openfda",
+        "marketing_category",
+        "dosage_form",
+        "spl_id",
+        "product_type",
+        "route",
+        "marketing_start_date",
+        "product_id",
+        "application_number",
+        "brand_name_base",
+        "pharm_class"
+      ],
+      "row_count": 8,
+      "rows": [
+        {
+          "product_ndc": "72036-980",
+          "generic_name": "guaifenesin and dextromethorphan",
+          "labeler_name": "Harris Teeter",
+          "brand_name": "Mucus Relief DM",
+          "active_ingredients": [
+            {
+              "name": "GUAIFENESIN",
+              "strength": "600 mg"
+            },
+            {
+              "name": "DEXTROMETHORPHAN HBR",
+              "strength": "30 mg"
+            }
+          ],
+          "finished": true,
+          "packaging": [
+            {
+              "package_ndc": "72036-980-01",
+              "description": "120 TABLET, EXTENDED RELEASE in 1 BOTTLE (72036-980-01)",
+              "marketing_start_date": "20170317",
+              "sample": false
+            }
+          ],
+          "listing_expiration_date": "20261231",
+          "openfda": {
+            "manufacturer_name": [
+              "Harris Teeter"
+            ],
+            "rxcui": [
+              "1099074"
+            ],
+            "spl_set_id": [
+              "826d9c3c-7535-48bb-906e-d75e2ec670db"
+            ],
+            "is_original_packager": [
+              true
+            ],
+            "nui": [
+              "N0000193956",
+              "N0000008867",
+              "N0000009560"
+            ],
+            "pharm_class_epc": [
+              "Expectorant [EPC]"
+            ],
+            "pharm_class_pe": [
+              "Decreased Respiratory Secretion Viscosity [PE]",
+              "Increased Respiratory Secretions [PE]"
+            ],
+            "unii": [
+              "9D2RTI9KYH",
+              "495W7451VQ"
+            ]
+          },
+          "marketing_category": "ANDA",
+          "dosage_form": "TABLET, EXTENDED RELEASE",
+          "spl_id": "fff3d673-b241-4f6d-9717-acddf8668a6c",
+          "product_type": "HUMAN OTC DRUG",
+          "route": [
+            "ORAL"
+          ],
+          "marketing_start_date": "20170317",
+          "product_id": "72036-980_fff3d673-b241-4f6d-9717-acddf8668a6c",
+          "application_number": "ANDA206941",
+          "brand_name_base": "Mucus Relief DM",
+          "pharm_class": [
+            "Decreased Respiratory Secretion Viscosity [PE]",
+            "Expectorant [EPC]",
+            "Increased Respiratory Secretions [PE]",
+            "Sigma-1 Agonist [EPC]",
+            "Sigma-1 Receptor Agonists [MoA]",
+            "Uncompetitive N-methyl-D-aspartate Receptor Antagonist [EPC]",
+            "Uncompetitive NMDA Receptor Antagonists [MoA]"
+          ]
+        },
+        {
+          "product_ndc": "72037-135",
+          "generic_name": "MENTHOL",
+          "labeler_name": "Innovations for Wellness, LLC",
+          "brand_name": "AcuPlus Pain Relief",
+          "active_ingredients": [
+            {
+              "name": "MENTHOL",
+              "strength": "35 mg/mL"
+            }
+          ],
+          "finished": true,
+          "packaging": [
+            {
+              "package_ndc": "72037-135-01",
+              "description": "3785 mL in 1 JUG (72037-135-01)",
+              "marketing_start_date": "20180301",
+              "sample": false
+            },
+            {
+              "package_ndc": "72037-135-02",
+              "description": "59.14 mL in 1 JAR (72037-135-02)",
+              "marketing_start_date": "20180301",
+              "sample": false
+            },
+            {
+              "package_ndc": "72037-135-04",
+              "description": "236.56 mL in 1 JAR (72037-135-04)",
+              "marketing_start_date": "20180301",
+              "sample": false
+            }
+          ],
+          "listing_expiration_date": "20251231",
+          "openfda": {
+            "manufacturer_name": [
+              "Innovations for Wellness, LLC"
+            ],
+            "rxcui": [
+              "2000534"
+            ],
+            "spl_set_id": [
+              "7f222a4f-85a8-4f3d-aa97-5c695d4da37f"
+            ],
+            "is_original_packager": [
+              true
+            ],
+            "unii": [
+              "L7T10EIP3A"
+            ]
+          },
+          "marketing_category": "OTC MONOGRAPH DRUG",
+          "dosage_form": "CREAM",
+          "spl_id": "097485a4-b5ac-a87a-e063-6394a90a8e52",
+          "product_type": "HUMAN OTC DRUG",
+          "route": [
+            "TOPICAL"
+          ],
+          "marketing_start_date": "20180301",
+          "product_id": "72037-135_097485a4-b5ac-a87a-e063-6394a90a8e52",
+          "application_number": "M017",
+          "brand_name_base": "AcuPlus Pain Relief"
+        },
+        {
+          "product_ndc": "72043-0333",
+          "generic_name": "Zinc Oxide",
+          "labeler_name": "CP Skin Health Group, Inc.",
+          "brand_name": "UV Skin Recovery SPF 50",
+          "active_ingredients": [
+            {
+              "name": "ZINC OXIDE",
+              "strength": "12.9 g/100g"
+            }
+          ],
+          "finished": true,
+          "packaging": [
+            {
+              "package_ndc": "72043-0333-1",
+              "description": "1 BOTTLE, PUMP in 1 CARTON (72043-0333-1)  / 50.5 g in 1 BOTTLE, PUMP (72043-0333-2)",
+              "marketing_start_date": "20241113",
+              "sample": false
+            }
+          ],
+          "listing_expiration_date": "20251231",
+          "openfda": {
+            "manufacturer_name": [
+              "CP Skin Health Group, Inc."
+            ],
+            "spl_set_id": [
+              "26d2683f-cfd5-50fd-e063-6394a90a7576"
+            ],
+            "is_original_packager": [
+              true
+            ],
+            "unii": [
+              "SOI2LOH54Z"
+            ]
+          },
+          "marketing_category": "OTC MONOGRAPH DRUG",
+          "dosage_form": "LOTION",
+          "spl_id": "2874e1b3-83e7-91a6-e063-6294a90a9bb7",
+          "product_type": "HUMAN OTC DRUG",
+          "route": [
+            "TOPICAL"
+          ],
+          "marketing_start_date": "20241113",
+          "product_id": "72043-0333_2874e1b3-83e7-91a6-e063-6294a90a9bb7",
+          "application_number": "M020",
+          "brand_name_base": "UV Skin Recovery SPF 50"
+        },
+        {
+          "product_ndc": "72043-2277",
+          "generic_name": "petrolatum skin protectant",
+          "labeler_name": "CP Skin Health Group, Inc",
+          "brand_name": "EltaMD Laser Balm",
+          "active_ingredients": [
+            {
+              "name": "PETROLATUM",
+              "strength": "600 g/1000g"
+            }
+          ],
+          "finished": true,
+          "packaging": [
+            {
+              "package_ndc": "72043-2277-4",
+              "description": "108 g in 1 JAR (72043-2277-4)",
+              "marketing_start_date": "20180110",
+              "sample": false
+            },
+            {
+              "package_ndc": "72043-2277-5",
+              "description": "5 g in 1 PACKET (72043-2277-5)",
+              "marketing_start_date": "20180110",
+              "sample": false
+            }
+          ],
+          "listing_expiration_date": "20251231",
+          "openfda": {
+            "manufacturer_name": [
+              "CP Skin Health Group, Inc"
+            ],
+            "spl_set_id": [
+              "1c67ce72-89d9-4c4f-a9b0-28b7e67d30eb"
+            ],
+            "is_original_packager": [
+              true
+            ],
+            "unii": [
+              "4T6H12BN9U"
+            ]
+          },
+          "marketing_category": "OTC MONOGRAPH DRUG",
+          "dosage_form": "OINTMENT",
+          "spl_id": "2ca96e6f-3b91-405f-995f-469ef825be85",
+          "product_type": "HUMAN OTC DRUG",
+          "route": [
+            "TOPICAL"
+          ],
+          "marketing_start_date": "20180110",
+          "product_id": "72043-2277_2ca96e6f-3b91-405f-995f-469ef825be85",
+          "application_number": "M016",
+          "brand_name_base": "EltaMD Laser Balm"
+        },
+        {
+          "product_ndc": "72043-2520",
+          "generic_name": "zinc oxide and octinoxate sunscreen",
+          "labeler_name": "CP Skin Health Group, Inc.",
+          "brand_name": "EltaMD UV Clear Tinted SPF46",
+          "active_ingredients": [
+            {
+              "name": "OCTINOXATE",
+              "strength": "75 g/1000g"
+            },
+            {
+              "name": "ZINC OXIDE",
+              "strength": "90 g/1000g"
+            }
+          ],
+          "finished": true,
+          "packaging": [
+            {
+              "package_ndc": "72043-2520-1",
+              "description": "48 g in 1 BOTTLE (72043-2520-1)",
+              "marketing_start_date": "20180110",
+              "sample": false
+            },
+            {
+              "package_ndc": "72043-2520-2",
+              "description": "2 g in 1 PACKET (72043-2520-2)",
+              "marketing_start_date": "20220706",
+              "sample": false
+            },
+            {
+              "package_ndc": "72043-2520-5",
+              "description": "14 g in 1 BOTTLE (72043-2520-5)",
+              "marketing_start_date": "20250604",
+              "sample": false
+            }
+          ],
+          "listing_expiration_date": "20261231",
+          "openfda": {
+            "manufacturer_name": [
+              "CP Skin Health Group, Inc."
+            ],
+            "spl_set_id": [
+              "1ac59ef1-113e-4ad1-90c3-38353bc7e1ec"
+            ],
+            "is_original_packager": [
+              true
+            ],
+            "upc": [
+              "0390205025206"
+            ],
+            "unii": [
+              "4Y5P7MUD51",
+              "SOI2LOH54Z"
+            ]
+          },
+          "marketing_category": "OTC MONOGRAPH DRUG",
+          "dosage_form": "LOTION",
+          "spl_id": "dabdbfb9-0ffa-49df-bfc4-928b187fe337",
+          "product_type": "HUMAN OTC DRUG",
+          "route": [
+            "TOPICAL"
+          ],
+          "marketing_start_date": "20180110",
+          "product_id": "72043-2520_dabdbfb9-0ffa-49df-bfc4-928b187fe337",
+          "application_number": "M020",
+          "brand_name_base": "EltaMD UV Clear Tinted SPF46",
+          "pharm_class": [
+            "Copper Absorption Inhibitor [EPC]",
+            "Decreased Copper Ion Absorption [PE]"
+          ]
+        },
+        {
+          "product_ndc": "72043-2640",
+          "generic_name": "titanium dioxide and zinc oxide sunscreen",
+          "labeler_name": "CP Skin Health Group, Inc.",
+          "brand_name": "EltaMD UV Restore Tinted",
+          "active_ingredients": [
+            {
+              "name": "TITANIUM DIOXIDE",
+              "strength": "20 g/1000g"
+            },
+            {
+              "name": "ZINC OXIDE",
+              "strength": "150 g/1000g"
+            }
+          ],
+          "finished": true,
+          "packaging": [
+            {
+              "package_ndc": "72043-2640-1",
+              "description": "14 g in 1 BOTTLE (72043-2640-1)",
+              "marketing_start_date": "20220707",
+              "sample": false
+            },
+            {
+              "package_ndc": "72043-2640-2",
+              "description": "57 g in 1 TUBE (72043-2640-2)",
+              "marketing_start_date": "20200915",
+              "sample": false
+            },
+            {
+              "package_ndc": "72043-2640-3",
+              "description": "48 g in 1 BOTTLE (72043-2640-3)",
+              "marketing_start_date": "20240610",
+              "sample": false
+            },
+            {
+              "package_ndc": "72043-2640-4",
+              "description": "2 g in 1 PACKET (72043-2640-4)",
+              "marketing_start_date": "20200915",
+              "sample": false
+            }
+          ],
+          "listing_expiration_date": "20251231",
+          "openfda": {
+            "manufacturer_name": [
+              "CP Skin Health Group, Inc."
+            ],
+            "spl_set_id": [
+              "6a48ad0d-20e4-44b1-90d6-30bfbc68a152"
+            ],
+            "is_original_packager": [
+              true
+            ],
+            "upc": [
+              "0827854009924"
+            ],
+            "unii": [
+              "15FIX9V2JP",
+              "SOI2LOH54Z"
+            ]
+          },
+          "marketing_category": "OTC MONOGRAPH DRUG",
+          "dosage_form": "LOTION",
+          "spl_id": "2bc1d6c0-6ee3-48ed-b49f-4f4b17fb3ac4",
+          "product_type": "HUMAN OTC DRUG",
+          "route": [
+            "TOPICAL"
+          ],
+          "marketing_start_date": "20200915",
+          "product_id": "72043-2640_2bc1d6c0-6ee3-48ed-b49f-4f4b17fb3ac4",
+          "application_number": "M020",
+          "brand_name_base": "EltaMD UV Restore Tinted",
+          "pharm_class": [
+            "Copper Absorption Inhibitor [EPC]",
+            "Decreased Copper Ion Absorption [PE]"
+          ]
+        },
+        {
+          "product_ndc": "0469-2660",
+          "generic_name": "fezolinetant",
+          "labeler_name": "Astellas Pharma US, Inc.",
+          "brand_name": "VEOZAH",
+          "active_ingredients": [
+            {
+              "name": "FEZOLINETANT",
+              "strength": "45 mg/1"
+            }
+          ],
+          "finished": true,
+          "packaging": [
+            {
+              "package_ndc": "0469-2660-30",
+              "description": "1 BOTTLE in 1 CARTON (0469-2660-30)  / 30 TABLET, FILM COATED in 1 BOTTLE",
+              "marketing_start_date": "20230512",
+              "sample": false
+            },
+            {
+              "package_ndc": "0469-2660-90",
+              "description": "1 BOTTLE in 1 CARTON (0469-2660-90)  / 90 TABLET, FILM COATED in 1 BOTTLE",
+              "marketing_start_date": "20230512",
+              "sample": false
+            }
+          ],
+          "listing_expiration_date": "20251231",
+          "openfda": {
+            "manufacturer_name": [
+              "Astellas Pharma US, Inc."
+            ],
+            "rxcui": [
+              "2637141",
+              "2637147"
+            ],
+            "spl_set_id": [
+              "cae9f798-24f9-4580-a4fc-e6c710cbda3c"
+            ],
+            "is_original_packager": [
+              true
+            ],
+            "nui": [
+              "N0000194090",
+              "N0000194091"
+            ],
+            "pharm_class_epc": [
+              "Neurokinin 3 Receptor Antagonist [EPC]"
+            ],
+            "pharm_class_moa": [
+              "Neurokinin 3 Receptor Antagonists [MoA]"
+            ],
+            "unii": [
+              "83VNE45KXX"
+            ]
+          },
+          "marketing_category": "NDA",
+          "dosage_form": "TABLET, FILM COATED",
+          "spl_id": "794637d8-62d5-49d4-90e8-bb01c073514a",
+          "product_type": "HUMAN PRESCRIPTION DRUG",
+          "route": [
+            "ORAL"
+          ],
+          "marketing_start_date": "20230512",
+          "product_id": "0469-2660_794637d8-62d5-49d4-90e8-bb01c073514a",
+          "application_number": "NDA216578",
+          "brand_name_base": "VEOZAH",
+          "pharm_class": [
+            "Neurokinin 3 Receptor Antagonist [EPC]",
+            "Neurokinin 3 Receptor Antagonists [MoA]"
+          ]
+        },
+        {
+          "product_ndc": "0054-9628",
+          "generic_name": "sodium oxybate",
+          "labeler_name": "Hikma Pharmaceuticals USA Inc.",
+          "dea_schedule": "CIII",
+          "brand_name": "sodium oxybate",
+          "active_ingredients": [
+            {
+              "name": "SODIUM OXYBATE",
+              "strength": ".5 g/mL"
+            }
+          ],
+          "finished": true,
+          "packaging": [
+            {
+              "package_ndc": "0054-9628-57",
+              "description": "180 mL in 1 BOTTLE, PLASTIC (0054-9628-57)",
+              "marketing_start_date": "20230103",
+              "sample": false
+            }
+          ],
+          "listing_expiration_date": "20251231",
+          "openfda": {
+            "manufacturer_name": [
+              "Hikma Pharmaceuticals USA Inc."
+            ],
+            "rxcui": [
+              "349482"
+            ],
+            "spl_set_id": [
+              "bcef2c95-35e9-464d-9025-652acff769e7"
+            ],
+            "is_original_packager": [
+              true
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

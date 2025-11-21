@@ -8,18 +8,48 @@ import { supabase } from "@/integrations/supabase/client";
 const FDAImport = () => {
   const [isImporting, setIsImporting] = useState(false);
   const [jsonUrl, setJsonUrl] = useState('');
+  const [importMode, setImportMode] = useState<'url' | 'file' | 'builtin'>('builtin');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.type !== 'application/json') {
+        toast.error("Please select a JSON file");
+        return;
+      }
+      setSelectedFile(file);
+    }
+  };
 
   const handleImport = async () => {
-    if (!jsonUrl) {
+    if (importMode === 'url' && !jsonUrl) {
       toast.error("Please provide a JSON file URL");
+      return;
+    }
+    if (importMode === 'file' && !selectedFile) {
+      toast.error("Please select a JSON file");
       return;
     }
 
     setIsImporting(true);
     try {
-      toast.info("Fetching JSON file from URL...");
+      let body: any = {};
 
-      const body = { jsonUrl };
+      if (importMode === 'builtin') {
+        toast.info("Loading built-in dataset...");
+        const response = await fetch('/datasets/dataset1.json');
+        const jsonData = await response.json();
+        body = { jsonData };
+      } else if (importMode === 'file' && selectedFile) {
+        toast.info("Reading file...");
+        const text = await selectedFile.text();
+        const jsonData = JSON.parse(text);
+        body = { jsonData };
+      } else if (importMode === 'url') {
+        toast.info("Fetching JSON file from URL...");
+        body = { jsonUrl };
+      }
 
       toast.info("Processing and importing drugs... This may take 5-10 minutes.");
 
@@ -33,8 +63,9 @@ const FDAImport = () => {
         description: `Imported ${data.imported} FDA-approved drugs`
       });
 
-      // Clear URL after successful import
+      // Clear inputs after successful import
       setJsonUrl('');
+      setSelectedFile(null);
     } catch (error: any) {
       console.error('Import error:', error);
       toast.error("Import failed", {
@@ -59,26 +90,83 @@ const FDAImport = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Database className="h-5 w-5" />
-              Import Drug Data from JSON
+              Import Drug Data
             </CardTitle>
             <CardDescription>
-              Provide a Google Drive or direct URL to your JSON file containing drug data
+              Import FDA-approved drug data from multiple sources
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">JSON File URL</label>
-              <input
-                type="url"
-                value={jsonUrl}
-                onChange={(e) => setJsonUrl(e.target.value)}
-                placeholder="https://drive.google.com/file/d/..."
-                className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
-              />
-              <p className="text-xs text-muted-foreground">
-                JSON must be an array of drug objects with fields: name, manufacturer, active_ingredient, dosage_form
-              </p>
+            <div className="space-y-3">
+              <label className="text-sm font-medium">Import Source</label>
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant={importMode === 'builtin' ? 'default' : 'outline'}
+                  onClick={() => setImportMode('builtin')}
+                  className="flex-1"
+                >
+                  Built-in Dataset
+                </Button>
+                <Button
+                  type="button"
+                  variant={importMode === 'file' ? 'default' : 'outline'}
+                  onClick={() => setImportMode('file')}
+                  className="flex-1"
+                >
+                  Upload File
+                </Button>
+                <Button
+                  type="button"
+                  variant={importMode === 'url' ? 'default' : 'outline'}
+                  onClick={() => setImportMode('url')}
+                  className="flex-1"
+                >
+                  From URL
+                </Button>
+              </div>
             </div>
+
+            {importMode === 'builtin' && (
+              <div className="bg-muted p-4 rounded-lg">
+                <p className="text-sm text-muted-foreground">
+                  Using pre-loaded FDA dataset with {'>'}135,000 drug entries
+                </p>
+              </div>
+            )}
+
+            {importMode === 'file' && (
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Select JSON File</label>
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={handleFileChange}
+                  className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
+                />
+                {selectedFile && (
+                  <p className="text-xs text-muted-foreground">
+                    Selected: {selectedFile.name}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {importMode === 'url' && (
+              <div className="space-y-2">
+                <label className="text-sm font-medium">JSON File URL</label>
+                <input
+                  type="url"
+                  value={jsonUrl}
+                  onChange={(e) => setJsonUrl(e.target.value)}
+                  placeholder="https://drive.google.com/file/d/..."
+                  className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Provide a Google Drive or direct URL to your JSON file
+                </p>
+              </div>
+            )}
 
             <div className="bg-muted p-4 rounded-lg space-y-2">
               <h4 className="font-semibold text-sm">Import Details:</h4>
@@ -93,7 +181,7 @@ const FDAImport = () => {
 
             <Button 
               onClick={handleImport} 
-              disabled={isImporting || !jsonUrl}
+              disabled={isImporting || (importMode === 'url' && !jsonUrl) || (importMode === 'file' && !selectedFile)}
               className="w-full"
               size="lg"
             >
@@ -102,7 +190,7 @@ const FDAImport = () => {
               ) : (
                 <>
                   <Upload className="mr-2 h-5 w-5" />
-                  Import Drug Data from JSON
+                  Import Drug Data
                 </>
               )}
             </Button>
