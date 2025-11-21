@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2025-11-21",
+    "results": {
+      "skip": 0,
+      "limit": 135375,
+      "total": 135375
+    }
+  },
+  "results": [
+    {
+      "name": "Sinus Severe",
+      "manufacturer": "Harris Teeter",
+      "active_ingredient": "ACETAMINOPHEN 325 mg; GUAIFENESIN 200 mg; PHENYLEPHRINE HYDROCHLORIDE 5 mg",
+      "dosage_form": "TABLET, COATED",
+      "drug_id": "FDA-72036-119",
+      "batch_no": "BATCH-72036-119-001",
+      "risk_level": "medium"
+    },
+    {
+      "name": "Everyday Clean Dandruff",
+      "manufacturer": "Harris Teeter",
+      "active_ingredient": "PYRITHIONE ZINC 10 mg/mL",
+      "dosage_form": "SHAMPOO",
+      "drug_id": "FDA-72036-153",
+      "batch_no": "BATCH-72036-153-001",
+      "risk_level": "low"
+    },
+    {
+      "name": "Antiseptic Mouth Rinse",
+      "manufacturer": "Harris Teeter",
+      "active_ingredient": "EUCALYPTOL 0.92 mg/mL; MENTHOL 0.42 mg/mL; METHYL SALICYLATE 0.6 mg/mL; THYMOL 0.64 mg/mL",
+      "dosage_form": "MOUTHWASH",
+      "drug_id": "FDA-72036-318",
+      "batch_no": "BATCH-72036-318-001",
+      "risk_level": "low"
+    },
+    {
+      "name": "Sunscreen",
+      "manufacturer": "HARRIS TEETER, LLC",
+      "active_ingredient": "AVOBENZONE 30.3 mg/mL; HOMOSALATE 101 mg/mL; OCTISALATE 50.5 mg/mL; OCTOCRYLENE 101 mg/mL",
+      "dosage_form": "LOTION",
+      "drug_id": "FDA-72036-714",
+      "batch_no": "BATCH-72036-714-001",
+      "risk_level": "low"
+    },
+    {
+      "name": "Harris Teeter Spring Fresh Body Wash",
+      "manufacturer": "Harris Teeter",
+      "active_ingredient": "BENZALKONIUM CHLORIDE 1.3 mg/mL",
+      "dosage_form": "LIQUID",
+      "drug_id": "FDA-72036-801",
+      "batch_no": "BATCH-72036-801-001",
+      "risk_level": "low"
+    },
+    {
+      "name": "Xospata",
+      "manufacturer": "Astellas Pharma US, Inc.",
+      "active_ingredient": "GILTERITINIB FUMARATE 40 mg",
+      "dosage_form": "TABLET",
+      "drug_id": "FDA-0469-1425",
+      "batch_no": "BATCH-0469-1425-001",
+      "risk_level": "high"
+    },
+    {
+      "name": "Pain Relief Patches",
+      "manufacturer": "Harris Teeter",
+      "active_ingredient": "CAMPHOR (SYNTHETIC) 3.1 g/100g; MENTHOL 6 g/100g; METHYL SALICYLATE 10 g/100g",
+      "dosage_form": "PATCH",
+      "drug_id": "FDA-72036-907",
+      "batch_no": "BATCH-72036-907-001",
+      "risk_level": "medium"
+    },
+    {
+      "name": "Hot and Cold Medicated Patch",
+      "manufacturer": "Harris Teeter",
+      "active_ingredient": "MENTHOL 5 g/100g",
+      "dosage_form": "PATCH",
+      "drug_id": "FDA-72036-952",
+      "batch_no": "BATCH-72036-952-001",
+      "risk_level": "medium"
+    },
+    {
+      "name": "Mucus Relief DM",
+      "manufacturer": "Harris Teeter",
+      "active_ingredient": "DEXTROMETHORPHAN HYDROBROMIDE 60 mg; GUAIFENESIN 1200 mg",
+      "dosage_form": "TABLET, EXTENDED RELEASE",
+      "drug_id": "FDA-72036-980",
+      "batch_no": "BATCH-72036-980-001",
+      "risk_level": "medium"
+    }
+  ]
+}

@@ -109,12 +109,23 @@ serve(async (req) => {
     const requestData = await req.json();
     console.log('Received import request');
     
-    if (!requestData.jsonUrl) {
-      throw new Error('Please provide a JSON file URL: jsonUrl');
+    let jsonData: any;
+    
+    // Accept either jsonUrl (fetch from URL) or jsonData (raw data)
+    if (requestData.jsonData) {
+      console.log('Using provided JSON data');
+      jsonData = requestData.jsonData;
+    } else if (requestData.jsonUrl) {
+      console.log('Fetching JSON file from URL...');
+      jsonData = await fetchJsonFile(requestData.jsonUrl);
+    } else {
+      throw new Error('Please provide either jsonUrl or jsonData');
     }
     
-    console.log('Fetching JSON file from URL...');
-    const jsonData = await fetchJsonFile(requestData.jsonUrl);
+    // Handle nested results structure (OpenFDA format)
+    if (jsonData.results && Array.isArray(jsonData.results)) {
+      jsonData = jsonData.results;
+    }
     
     // Check if it's an array of drugs or needs transformation
     let drugs: DrugData[] = [];
