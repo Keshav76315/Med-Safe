@@ -130,7 +130,7 @@ const FDAImport = () => {
             {importMode === 'builtin' && (
               <div className="bg-muted p-4 rounded-lg">
                 <p className="text-sm text-muted-foreground">
-                  Using pre-loaded FDA dataset with {'>'}135,000 drug entries
+                  Using FDA OpenFDA dataset with 135,375 drug entries from February 2024
                 </p>
               </div>
             )}

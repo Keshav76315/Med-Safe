@@ -133,21 +133,52 @@ serve(async (req) => {
     if (Array.isArray(jsonData)) {
       console.log(`Processing ${jsonData.length} drug entries from JSON...`);
       drugs = jsonData.slice(0, 10000).map((item, index) => {
+        // Handle active ingredients - can be array or string
+        let activeIngredient = 'Unknown';
+        if (item.active_ingredients && Array.isArray(item.active_ingredients)) {
+          activeIngredient = item.active_ingredients
+            .map((ing: any) => `${ing.name} ${ing.strength}`)
+            .join('; ');
+        } else if (item.active_ingredient) {
+          activeIngredient = item.active_ingredient;
+        } else if (item.generic_name) {
+          activeIngredient = item.generic_name;
+        }
+        
+        // Get manufacturer name from various possible fields
+        const manufacturer = item.labeler_name || 
+                           item.manufacturer || 
+                           item.openfda?.manufacturer_name?.[0] || 
+                           'Unknown Manufacturer';
+        
+        // Get drug name from various possible fields
+        const name = item.brand_name || 
+                    item.name || 
+                    item.generic_name || 
+                    'Unknown Drug';
+        
+        // Get drug ID from various possible fields
+        const drugId = item.product_ndc || 
+                      item.drug_id || 
+                      `FDA-${Math.random().toString(36).substr(2, 9)}`;
+        
+        const dosageForm = item.dosage_form || 'Unknown';
+        
         // Generate default dates if not provided
         const mfgDate = item.mfg_date || new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
         const expDate = item.exp_date || new Date(Date.now() + 730 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
         
         return {
-          drug_id: item.drug_id || `IMPORT-${Date.now()}-${index}`,
-          name: item.name || 'Unknown Drug',
+          drug_id: drugId,
+          name: name,
           batch_no: item.batch_no || generateBatchNumber(),
-          manufacturer: item.manufacturer || 'Unknown Manufacturer',
-          active_ingredient: item.active_ingredient || 'Unknown',
-          dosage_form: item.dosage_form || 'Unknown',
+          manufacturer: manufacturer,
+          active_ingredient: activeIngredient,
+          dosage_form: dosageForm,
           mfg_date: mfgDate,
           exp_date: expDate,
           type: item.type || 'authentic',
-          risk_level: item.risk_level || classifyRiskLevel(item.dosage_form || '', '')
+          risk_level: item.risk_level || classifyRiskLevel(dosageForm, activeIngredient)
         };
       });
     } else {
