@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,15 +8,18 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ChatBot } from "./components/ChatBot";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import Index from "./pages/Index";
-import Dashboard from "./pages/Dashboard";
-import DrugVerification from "./pages/DrugVerification";
-import MedicalHistory from "./pages/MedicalHistory";
-import SafetyScore from "./pages/SafetyScore";
-import PharmacistVerification from "./pages/PharmacistVerification";
-import FDAImport from "./pages/FDAImport";
-import Auth from "./pages/Auth";
-import NotFound from "./pages/NotFound";
+import { LoadingFallback } from "./components/LoadingFallback";
+
+// Lazy load all route components for code splitting
+const Index = lazy(() => import("./pages/Index"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const DrugVerification = lazy(() => import("./pages/DrugVerification"));
+const MedicalHistory = lazy(() => import("./pages/MedicalHistory"));
+const SafetyScore = lazy(() => import("./pages/SafetyScore"));
+const PharmacistVerification = lazy(() => import("./pages/PharmacistVerification"));
+const FDAImport = lazy(() => import("./pages/FDAImport"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const ChatBotWrapper = () => {
   const location = useLocation();
@@ -38,17 +42,19 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-              <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
-              <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
-              <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
-              <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
-              <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
+                <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
+                <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
+                <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
+                <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
             <ChatBotWrapper />
           </BrowserRouter>
         </TooltipProvider>

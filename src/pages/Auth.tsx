@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Separator } from '@/components/ui/separator';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import medSafeLogo from "@/assets/medsafe-logo.jpg";
 
 const signInSchema = z.object({
@@ -263,10 +264,11 @@ const Auth = () => {
     <div className="min-h-screen bg-gradient-to-br from-medical-blue/5 via-background to-medical-green/5 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <img 
+          <OptimizedImage 
             src={medSafeLogo} 
             alt="MedSafe Logo" 
             className="w-24 h-24 mx-auto mb-4 object-contain"
+            priority
           />
           <h1 className="text-3xl font-bold text-foreground">MedSafe</h1>
           <p className="text-muted-foreground mt-2">Drug Verification & Patient Safety System</p>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, Scan, Users, Brain, Heart, Bell, Database, ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import {
   Accordion,
   AccordionContent,
@@ -97,7 +98,12 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="MedSafe" className="h-8 w-8 rounded-lg" />
+              <OptimizedImage 
+                src={logo} 
+                alt="MedSafe Logo" 
+                className="h-8 w-8 rounded-lg" 
+                priority 
+              />
               <span className="text-xl font-semibold">MedSafe</span>
             </div>
             
@@ -198,9 +204,9 @@ const Index = () => {
           }}
         >
           <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border border-border">
-            <img 
+            <OptimizedImage 
               src={heroBackground} 
-              alt="MedSafe Platform" 
+              alt="MedSafe Platform Preview" 
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
