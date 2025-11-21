@@ -1,1 +1,4 @@
 project_id = "bhjkkyxyfqrtcnbkyilr"
+
+[functions.mistral-ai]
+verify_jwt = false
