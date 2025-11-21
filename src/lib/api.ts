@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 export interface Drug {
   id: string;
@@ -52,6 +53,25 @@ export interface SafetyScoreResponse {
   recommendations: string[];
 }
 
+// Create notification helper
+async function createNotification(
+  type: string,
+  title: string,
+  message: string,
+  metadata?: any
+) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
+
+  await supabase.from('notifications').insert({
+    user_id: user.id,
+    type,
+    title,
+    message,
+    metadata
+  });
+}
+
 // Drug Verification
 export async function verifyDrug(batchNo: string) {
   try {
@@ -83,8 +103,25 @@ export async function verifyDrug(batchNo: string) {
     let status: "verified" | "counterfeit" | "expired" = "verified";
     if (drug.type === "counterfeit") {
       status = "counterfeit";
+      // Create notification for counterfeit detection
+      await createNotification(
+        "alert",
+        "⚠️ Counterfeit Drug Detected",
+        `Counterfeit drug detected: ${drug.name} (Batch: ${batchNo})`,
+        { batch_no: batchNo, drug_id: drug.id }
+      );
     } else if (drug.type === "expired" || new Date(drug.exp_date) < new Date()) {
       status = "expired";
+    }
+
+    // Create notification for duplicate scan
+    if (isDuplicate) {
+      await createNotification(
+        "warning",
+        "Duplicate Scan Alert",
+        `Duplicate scan detected for batch: ${batchNo}`,
+        { batch_no: batchNo }
+      );
     }
 
     // Log the scan

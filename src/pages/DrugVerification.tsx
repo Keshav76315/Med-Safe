@@ -5,12 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { verifyDrug, Drug } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
-import { Shield, AlertTriangle, CheckCircle, XCircle, ScanLine, Loader2 } from "lucide-react";
+import { Shield, AlertTriangle, CheckCircle, XCircle, ScanLine, Loader2, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { QRScanner } from "@/components/QRScanner";
 
 export default function DrugVerification() {
   const [batchNo, setBatchNo] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
   const [result, setResult] = useState<{
     status: "verified" | "counterfeit" | "expired" | "not_found";
     drug: Drug | null;
@@ -18,8 +20,10 @@ export default function DrugVerification() {
   } | null>(null);
   const { toast } = useToast();
 
-  async function handleVerify() {
-    if (!batchNo.trim()) {
+  async function handleVerify(batch?: string) {
+    const batchToVerify = batch || batchNo;
+    
+    if (!batchToVerify.trim()) {
       toast({
         title: "Input Required",
         description: "Please enter a batch number",
@@ -30,7 +34,7 @@ export default function DrugVerification() {
 
     setLoading(true);
     try {
-      const data = await verifyDrug(batchNo.trim());
+      const data = await verifyDrug(batchToVerify.trim());
       setResult(data);
 
       if (data.status === "verified") {
@@ -68,6 +72,12 @@ export default function DrugVerification() {
     }
   }
 
+  const handleQRScan = (result: string) => {
+    setBatchNo(result);
+    setShowScanner(false);
+    handleVerify(result);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -89,27 +99,38 @@ export default function DrugVerification() {
             <CardDescription>Type or scan the medication batch number</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex space-x-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Input
                 placeholder="e.g., BATCH001"
                 value={batchNo}
                 onChange={(e) => setBatchNo(e.target.value.toUpperCase())}
                 onKeyDown={(e) => e.key === "Enter" && handleVerify()}
-                className="text-lg"
+                className="text-lg flex-1"
               />
-              <Button onClick={handleVerify} disabled={loading} size="lg">
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Verifying
-                  </>
-                ) : (
-                  <>
-                    <Shield className="mr-2 h-4 w-4" />
-                    Verify
-                  </>
-                )}
-              </Button>
+              <div className="flex gap-2">
+                <Button onClick={() => handleVerify()} disabled={loading} size="lg" className="flex-1 sm:flex-initial">
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Verifying
+                    </>
+                  ) : (
+                    <>
+                      <Shield className="mr-2 h-4 w-4" />
+                      Verify
+                    </>
+                  )}
+                </Button>
+                <Button 
+                  onClick={() => setShowScanner(true)} 
+                  variant="outline" 
+                  size="lg"
+                  className="flex-1 sm:flex-initial"
+                >
+                  <Camera className="mr-2 h-4 w-4" />
+                  Scan QR
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -244,6 +265,13 @@ export default function DrugVerification() {
           </div>
         </div>
       </main>
+
+      {showScanner && (
+        <QRScanner 
+          onScan={handleQRScan} 
+          onClose={() => setShowScanner(false)} 
+        />
+      )}
     </div>
   );
 }
