@@ -403,7 +403,7 @@ const Index = () => {
               </div>
             </div>
             <div className="pt-8 border-t border-border text-center">
-              <p className="text-sm text-muted-foreground">© 2024 MedSafe. All rights reserved.</p>
+              <p className="text-sm text-muted-foreground">© 2025 MedSafe. All rights reserved.</p>
             </div>
           </div>
         </div>
