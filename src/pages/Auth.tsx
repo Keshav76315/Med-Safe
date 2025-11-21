@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Phone, Mail } from 'lucide-react';
+
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -33,9 +33,6 @@ const signUpSchema = z.object({
     .regex(/^[a-zA-Z\s'-]+$/, { message: "Name can only contain letters, spaces, hyphens, and apostrophes" })
 });
 
-const phoneSchema = z.object({
-  phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, { message: "Invalid phone number format" })
-});
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -44,10 +41,6 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [newPassword, setNewPassword] = useState('');
-  const [authMethod, setAuthMethod] = useState<'email' | 'phone' | 'google'>('email');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [otp, setOtp] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
   
   const [signInData, setSignInData] = useState({ email: '', password: '' });
   const [signUpData, setSignUpData] = useState({ email: '', password: '', fullName: '' });
@@ -104,68 +97,6 @@ const Auth = () => {
     }
   };
 
-  const handlePhoneAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!otpSent) {
-      const validation = phoneSchema.safeParse({ phone: phoneNumber });
-      if (!validation.success) {
-        toast({
-          title: "Invalid Phone Number",
-          description: validation.error.errors[0].message,
-          variant: "destructive",
-        });
-        return;
-      }
-
-      setLoading(true);
-      const { error } = await supabase.auth.signInWithOtp({
-        phone: phoneNumber,
-      });
-      setLoading(false);
-
-      if (error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else {
-        setOtpSent(true);
-        toast({
-          title: "OTP Sent",
-          description: "Check your phone for the verification code",
-        });
-      }
-    } else {
-      if (!otp || otp.length !== 6) {
-        toast({
-          title: "Invalid OTP",
-          description: "Please enter the 6-digit code",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      setLoading(true);
-      const { error } = await supabase.auth.verifyOtp({
-        phone: phoneNumber,
-        token: otp,
-        type: 'sms',
-      });
-      setLoading(false);
-
-      if (error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else {
-        navigate('/dashboard');
-      }
-    }
-  };
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -339,125 +270,47 @@ const Auth = () => {
                     <Separator />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">Or</span>
+                    <span className="bg-background px-2 text-muted-foreground">Or continue with email</span>
                   </div>
                 </div>
 
-                {/* Auth Method Selector */}
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    variant={authMethod === 'email' ? 'default' : 'outline'}
-                    className="flex-1"
-                    onClick={() => {
-                      setAuthMethod('email');
-                      setOtpSent(false);
-                    }}
-                  >
-                    <Mail className="w-4 h-4 mr-2" />
-                    Email
-                  </Button>
-                  <Button
-                    type="button"
-                    variant={authMethod === 'phone' ? 'default' : 'outline'}
-                    className="flex-1"
-                    onClick={() => {
-                      setAuthMethod('phone');
-                      setOtpSent(false);
-                    }}
-                  >
-                    <Phone className="w-4 h-4 mr-2" />
-                    Phone
-                  </Button>
-                </div>
-
-                {authMethod === 'email' ? (
-                  <form onSubmit={handleSignIn} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signin-email">Email</Label>
-                      <Input
-                        id="signin-email"
-                        type="email"
-                        placeholder="you@example.com"
-                        value={signInData.email}
-                        onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="signin-password">Password</Label>
-                        <Button
-                          type="button"
-                          variant="link"
-                          className="px-0 text-sm text-primary hover:underline"
-                          onClick={handleForgotPassword}
-                          disabled={loading}
-                        >
-                          Forgot password?
-                        </Button>
-                      </div>
-                      <Input
-                        id="signin-password"
-                        type="password"
-                        value={signInData.password}
-                        onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? 'Signing in...' : 'Sign In'}
-                    </Button>
-                  </form>
-                ) : (
-                  <form onSubmit={handlePhoneAuth} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+1234567890"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        required
-                        disabled={otpSent}
-                      />
-                      <p className="text-xs text-muted-foreground">
-                        Include country code (e.g., +1 for US)
-                      </p>
-                    </div>
-                    {otpSent && (
-                      <div className="space-y-2">
-                        <Label htmlFor="otp">Verification Code</Label>
-                        <Input
-                          id="otp"
-                          type="text"
-                          placeholder="Enter 6-digit code"
-                          value={otp}
-                          onChange={(e) => setOtp(e.target.value)}
-                          maxLength={6}
-                          required
-                        />
-                      </div>
-                    )}
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? 'Processing...' : otpSent ? 'Verify Code' : 'Send Code'}
-                    </Button>
-                    {otpSent && (
+                <form onSubmit={handleSignIn} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="signin-email">Email</Label>
+                    <Input
+                      id="signin-email"
+                      type="email"
+                      placeholder="you@example.com"
+                      value={signInData.email}
+                      onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="signin-password">Password</Label>
                       <Button
                         type="button"
                         variant="link"
-                        className="w-full"
-                        onClick={() => {
-                          setOtpSent(false);
-                          setOtp('');
-                        }}
+                        className="px-0 text-sm text-primary hover:underline"
+                        onClick={handleForgotPassword}
+                        disabled={loading}
                       >
-                        Change phone number
+                        Forgot password?
                       </Button>
-                    )}
-                  </form>
-                )}
+                    </div>
+                    <Input
+                      id="signin-password"
+                      type="password"
+                      value={signInData.password}
+                      onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? 'Signing in...' : 'Sign In'}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
           </TabsContent>
@@ -491,126 +344,50 @@ const Auth = () => {
                     <Separator />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">Or</span>
+                    <span className="bg-background px-2 text-muted-foreground">Or sign up with email</span>
                   </div>
                 </div>
 
-                {/* Auth Method Selector */}
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    variant={authMethod === 'email' ? 'default' : 'outline'}
-                    className="flex-1"
-                    onClick={() => {
-                      setAuthMethod('email');
-                      setOtpSent(false);
-                    }}
-                  >
-                    <Mail className="w-4 h-4 mr-2" />
-                    Email
+                <form onSubmit={handleSignUp} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-name">Full Name</Label>
+                    <Input
+                      id="signup-name"
+                      type="text"
+                      placeholder="John Doe"
+                      value={signUpData.fullName}
+                      onChange={(e) => setSignUpData({ ...signUpData, fullName: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-email">Email</Label>
+                    <Input
+                      id="signup-email"
+                      type="email"
+                      placeholder="you@example.com"
+                      value={signUpData.email}
+                      onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-password">Password</Label>
+                    <Input
+                      id="signup-password"
+                      type="password"
+                      value={signUpData.password}
+                      onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
+                      required
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Must be 8+ characters with uppercase, lowercase, and numbers
+                    </p>
+                  </div>
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? 'Creating account...' : 'Sign Up'}
                   </Button>
-                  <Button
-                    type="button"
-                    variant={authMethod === 'phone' ? 'default' : 'outline'}
-                    className="flex-1"
-                    onClick={() => {
-                      setAuthMethod('phone');
-                      setOtpSent(false);
-                    }}
-                  >
-                    <Phone className="w-4 h-4 mr-2" />
-                    Phone
-                  </Button>
-                </div>
-
-                {authMethod === 'email' ? (
-                  <form onSubmit={handleSignUp} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-name">Full Name</Label>
-                      <Input
-                        id="signup-name"
-                        type="text"
-                        placeholder="John Doe"
-                        value={signUpData.fullName}
-                        onChange={(e) => setSignUpData({ ...signUpData, fullName: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-email">Email</Label>
-                      <Input
-                        id="signup-email"
-                        type="email"
-                        placeholder="you@example.com"
-                        value={signUpData.email}
-                        onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-password">Password</Label>
-                      <Input
-                        id="signup-password"
-                        type="password"
-                        value={signUpData.password}
-                        onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
-                        required
-                        minLength={6}
-                      />
-                    </div>
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? 'Creating account...' : 'Sign Up'}
-                    </Button>
-                  </form>
-                ) : (
-                  <form onSubmit={handlePhoneAuth} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-phone">Phone Number</Label>
-                      <Input
-                        id="signup-phone"
-                        type="tel"
-                        placeholder="+1234567890"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        required
-                        disabled={otpSent}
-                      />
-                      <p className="text-xs text-muted-foreground">
-                        Include country code (e.g., +1 for US)
-                      </p>
-                    </div>
-                    {otpSent && (
-                      <div className="space-y-2">
-                        <Label htmlFor="signup-otp">Verification Code</Label>
-                        <Input
-                          id="signup-otp"
-                          type="text"
-                          placeholder="Enter 6-digit code"
-                          value={otp}
-                          onChange={(e) => setOtp(e.target.value)}
-                          maxLength={6}
-                          required
-                        />
-                      </div>
-                    )}
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? 'Processing...' : otpSent ? 'Verify & Create Account' : 'Send Code'}
-                    </Button>
-                    {otpSent && (
-                      <Button
-                        type="button"
-                        variant="link"
-                        className="w-full"
-                        onClick={() => {
-                          setOtpSent(false);
-                          setOtp('');
-                        }}
-                      >
-                        Change phone number
-                      </Button>
-                    )}
-                  </form>
-                )}
+                </form>
               </CardContent>
             </Card>
           </TabsContent>
