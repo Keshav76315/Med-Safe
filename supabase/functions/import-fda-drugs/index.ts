@@ -6,6 +6,45 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Convert Google Drive view URL to direct download URL
+function convertGoogleDriveUrl(url: string): string {
+  const fileIdMatch = url.match(/\/d\/([^\/]+)/);
+  if (fileIdMatch) {
+    return `https://drive.google.com/uc?export=download&id=${fileIdMatch[1]}&confirm=t`;
+  }
+  return url;
+}
+
+// Fetch file from URL with retry logic
+async function fetchFile(url: string, retries = 3): Promise<string> {
+  console.log('Fetching file from:', url);
+  const directUrl = convertGoogleDriveUrl(url);
+  
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(directUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; Deno)'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const text = await response.text();
+      console.log(`Successfully fetched file (${text.length} bytes)`);
+      return text;
+    } catch (error) {
+      console.error(`Attempt ${i + 1} failed:`, error);
+      if (i === retries - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+    }
+  }
+  
+  throw new Error('Failed to fetch file after retries');
+}
+
 interface Product {
   ApplNo: string;
   ProductNo: string;
@@ -83,7 +122,24 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
-    const { applicationsData, productsData, marketingStatusData } = await req.json();
+    const requestData = await req.json();
+    console.log('Received import request:', Object.keys(requestData));
+    
+    let applicationsData: string;
+    let productsData: string;
+    let marketingStatusData: string;
+    
+    // Fetch individual files from URLs
+    if (!requestData.applicationsUrl || !requestData.productsUrl || !requestData.marketingStatusUrl) {
+      throw new Error('Please provide all three file URLs: applicationsUrl, productsUrl, marketingStatusUrl');
+    }
+    
+    console.log('Fetching individual files from URLs...');
+    [applicationsData, productsData, marketingStatusData] = await Promise.all([
+      fetchFile(requestData.applicationsUrl),
+      fetchFile(requestData.productsUrl),
+      fetchFile(requestData.marketingStatusUrl)
+    ]);
 
     console.log('Parsing FDA data files...');
     const applications: Application[] = parseTSV(applicationsData);

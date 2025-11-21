@@ -2,52 +2,37 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Upload, Database, CheckCircle2 } from "lucide-react";
+import { Upload, Database } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const FDAImport = () => {
   const [isImporting, setIsImporting] = useState(false);
-  const [files, setFiles] = useState<{
-    applications?: File;
-    products?: File;
-    marketingStatus?: File;
-  }>({});
-
-  const readFileAsText = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target?.result as string);
-      reader.onerror = reject;
-      reader.readAsText(file);
-    });
-  };
-
-  const handleFileChange = (type: 'applications' | 'products' | 'marketingStatus', file: File | null) => {
-    if (file) {
-      setFiles(prev => ({ ...prev, [type]: file }));
-    }
-  };
+  const [urls, setUrls] = useState({
+    applicationsUrl: '',
+    productsUrl: '',
+    marketingStatusUrl: ''
+  });
 
   const handleImport = async () => {
-    if (!files.applications || !files.products || !files.marketingStatus) {
-      toast.error("Please upload all three required files");
+    if (!urls.applicationsUrl || !urls.productsUrl || !urls.marketingStatusUrl) {
+      toast.error("Please provide all three file URLs");
       return;
     }
 
     setIsImporting(true);
     try {
-      toast.info("Reading FDA dataset files...");
-      
-      const [applicationsData, productsData, marketingStatusData] = await Promise.all([
-        readFileAsText(files.applications),
-        readFileAsText(files.products),
-        readFileAsText(files.marketingStatus)
-      ]);
+      toast.info("Fetching FDA dataset files from URLs...");
 
-      toast.info("Processing and importing drugs... This may take a few minutes.");
+      const body = {
+        applicationsUrl: urls.applicationsUrl,
+        productsUrl: urls.productsUrl,
+        marketingStatusUrl: urls.marketingStatusUrl
+      };
+
+      toast.info("Processing and importing drugs... This may take 5-10 minutes.");
 
       const { data, error } = await supabase.functions.invoke('import-fda-drugs', {
-        body: { applicationsData, productsData, marketingStatusData }
+        body
       });
 
       if (error) throw error;
@@ -56,8 +41,12 @@ const FDAImport = () => {
         description: `Imported ${data.imported} FDA-approved drugs`
       });
 
-      // Clear files after successful import
-      setFiles({});
+      // Clear URLs after successful import
+      setUrls({
+        applicationsUrl: '',
+        productsUrl: '',
+        marketingStatusUrl: ''
+      });
     } catch (error: any) {
       console.error('Import error:', error);
       toast.error("Import failed", {
@@ -82,50 +71,44 @@ const FDAImport = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Database className="h-5 w-5" />
-              Upload FDA Dataset Files
+              Import FDA Dataset from URLs
             </CardTitle>
             <CardDescription>
-              Upload the three required FDA dataset files (Applications.txt, Products.txt, MarketingStatus.txt)
+              Provide direct download URLs to the three FDA dataset text files
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-4">
-              <div className="grid gap-2">
-                <label className="text-sm font-medium">
-                  Applications.txt
-                  {files.applications && <CheckCircle2 className="inline ml-2 h-4 w-4 text-green-500" />}
-                </label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Applications.txt URL</label>
                 <input
-                  type="file"
-                  accept=".txt"
-                  onChange={(e) => handleFileChange('applications', e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                  type="url"
+                  value={urls.applicationsUrl}
+                  onChange={(e) => setUrls(prev => ({ ...prev, applicationsUrl: e.target.value }))}
+                  placeholder="https://drive.google.com/file/d/..."
+                  className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
                 />
               </div>
 
-              <div className="grid gap-2">
-                <label className="text-sm font-medium">
-                  Products.txt
-                  {files.products && <CheckCircle2 className="inline ml-2 h-4 w-4 text-green-500" />}
-                </label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Products.txt URL</label>
                 <input
-                  type="file"
-                  accept=".txt"
-                  onChange={(e) => handleFileChange('products', e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                  type="url"
+                  value={urls.productsUrl}
+                  onChange={(e) => setUrls(prev => ({ ...prev, productsUrl: e.target.value }))}
+                  placeholder="https://drive.google.com/file/d/..."
+                  className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
                 />
               </div>
 
-              <div className="grid gap-2">
-                <label className="text-sm font-medium">
-                  MarketingStatus.txt
-                  {files.marketingStatus && <CheckCircle2 className="inline ml-2 h-4 w-4 text-green-500" />}
-                </label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">MarketingStatus.txt URL</label>
                 <input
-                  type="file"
-                  accept=".txt"
-                  onChange={(e) => handleFileChange('marketingStatus', e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                  type="url"
+                  value={urls.marketingStatusUrl}
+                  onChange={(e) => setUrls(prev => ({ ...prev, marketingStatusUrl: e.target.value }))}
+                  placeholder="https://drive.google.com/file/d/..."
+                  className="w-full px-3 py-2 border rounded-md bg-background text-foreground"
                 />
               </div>
             </div>
@@ -143,7 +126,7 @@ const FDAImport = () => {
 
             <Button 
               onClick={handleImport} 
-              disabled={isImporting || !files.applications || !files.products || !files.marketingStatus}
+              disabled={isImporting || !urls.applicationsUrl || !urls.productsUrl || !urls.marketingStatusUrl}
               className="w-full"
               size="lg"
             >
@@ -152,7 +135,7 @@ const FDAImport = () => {
               ) : (
                 <>
                   <Upload className="mr-2 h-5 w-5" />
-                  Import FDA Data
+                  Import FDA Data from URLs
                 </>
               )}
             </Button>
@@ -164,12 +147,22 @@ const FDAImport = () => {
             <CardTitle>Instructions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>1. Extract the uploaded ZIP file on your computer</p>
-            <p>2. Locate the three files: Applications.txt, Products.txt, and MarketingStatus.txt</p>
-            <p>3. Upload each file using the file inputs above</p>
-            <p>4. Click "Import FDA Data" to start the import process</p>
+            <p><strong>Step 1: Extract the FDA Dataset ZIP</strong></p>
+            <p>Extract your downloaded ZIP file to get the three text files</p>
+            
+            <p className="pt-3"><strong>Step 2: Upload to Cloud Storage</strong></p>
+            <p>1. Upload Applications.txt, Products.txt, and MarketingStatus.txt to Google Drive or Dropbox</p>
+            <p>2. For Google Drive: Right-click → Share → Change to "Anyone with the link"</p>
+            <p>3. Copy the shareable link for each file</p>
+            
+            <p className="pt-3"><strong>Step 3: Paste URLs & Import</strong></p>
+            <p>Paste each file's URL above and click "Import FDA Data from URLs"</p>
+            
+            <p className="text-amber-600 dark:text-amber-500 pt-3">
+              ⚠️ Important: Files must be publicly accessible (sharing enabled)
+            </p>
             <p className="text-amber-600 dark:text-amber-500">
-              ⚠️ Note: The import process may take several minutes. Do not close this page until complete.
+              ⚠️ Import takes 5-10 minutes. Don't close this page during import.
             </p>
           </CardContent>
         </Card>
