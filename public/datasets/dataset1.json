@@ -12,85 +12,5023 @@
   },
   "results": [
     {
-      "name": "Sinus Severe",
-      "manufacturer": "Harris Teeter",
-      "active_ingredient": "ACETAMINOPHEN 325 mg; GUAIFENESIN 200 mg; PHENYLEPHRINE HYDROCHLORIDE 5 mg",
+      "product_ndc": "72036-119",
+      "generic_name": "ACETAMINOPHEN, GUAIFENESIN, and PHENYLEPHRINE HYDROCHLORIDE",
+      "labeler_name": "Harris Teeter",
+      "brand_name": "Sinus Severe",
+      "active_ingredients": [
+        {
+          "name": "ACETAMINOPHEN",
+          "strength": "325 mg/1"
+        },
+        {
+          "name": "GUAIFENESIN",
+          "strength": "200 mg/1"
+        },
+        {
+          "name": "PHENYLEPHRINE HYDROCHLORIDE",
+          "strength": "5 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72036-119-05",
+          "description": "2 BLISTER PACK in 1 CARTON (72036-119-05)  / 12 TABLET, COATED in 1 BLISTER PACK",
+          "marketing_start_date": "20160816",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Harris Teeter"
+        ],
+        "rxcui": [
+          "1243679"
+        ],
+        "spl_set_id": [
+          "ba59657e-a16e-46b2-998d-45dd71095d7a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0072036723758"
+        ],
+        "nui": [
+          "N0000193956",
+          "N0000008867",
+          "N0000009560"
+        ],
+        "pharm_class_epc": [
+          "Expectorant [EPC]"
+        ],
+        "pharm_class_pe": [
+          "Decreased Respiratory Secretion Viscosity [PE]",
+          "Increased Respiratory Secretions [PE]"
+        ],
+        "unii": [
+          "362O9ITL9D",
+          "495W7451VQ",
+          "04JA59TNSJ"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
       "dosage_form": "TABLET, COATED",
-      "drug_id": "FDA-72036-119",
-      "batch_no": "BATCH-72036-119-001",
-      "risk_level": "medium"
+      "spl_id": "25134d8b-27d4-bdc0-e063-6394a90a31f6",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20160816",
+      "product_id": "72036-119_25134d8b-27d4-bdc0-e063-6394a90a31f6",
+      "application_number": "M012",
+      "brand_name_base": "Sinus Severe",
+      "pharm_class": [
+        "Adrenergic alpha1-Agonists [MoA]",
+        "Decreased Respiratory Secretion Viscosity [PE]",
+        "Expectorant [EPC]",
+        "Increased Respiratory Secretions [PE]",
+        "alpha-1 Adrenergic Agonist [EPC]"
+      ]
     },
     {
-      "name": "Everyday Clean Dandruff",
-      "manufacturer": "Harris Teeter",
-      "active_ingredient": "PYRITHIONE ZINC 10 mg/mL",
+      "product_ndc": "72036-153",
+      "generic_name": "Pyrithione Zinc",
+      "labeler_name": "Harris Teeter",
+      "brand_name": "Everyday Clean Dandruff",
+      "active_ingredients": [
+        {
+          "name": "PYRITHIONE ZINC",
+          "strength": "10 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72036-153-15",
+          "description": "420 mL in 1 BOTTLE, PLASTIC (72036-153-15)",
+          "marketing_start_date": "19950215",
+          "sample": false
+        },
+        {
+          "package_ndc": "72036-153-32",
+          "description": "370 mL in 1 BOTTLE, PLASTIC (72036-153-32)",
+          "marketing_start_date": "19950215",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Harris Teeter"
+        ],
+        "rxcui": [
+          "209884"
+        ],
+        "spl_set_id": [
+          "8594a944-a67e-4dbe-8d31-7099410ff484"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "R953O2RHZ5"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
       "dosage_form": "SHAMPOO",
-      "drug_id": "FDA-72036-153",
-      "batch_no": "BATCH-72036-153-001",
-      "risk_level": "low"
+      "spl_id": "3415ad70-f165-110e-e063-6294a90a9f80",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "19950215",
+      "product_id": "72036-153_3415ad70-f165-110e-e063-6294a90a9f80",
+      "application_number": "M032",
+      "brand_name_base": "Everyday Clean Dandruff"
     },
     {
-      "name": "Antiseptic Mouth Rinse",
-      "manufacturer": "Harris Teeter",
-      "active_ingredient": "EUCALYPTOL 0.92 mg/mL; MENTHOL 0.42 mg/mL; METHYL SALICYLATE 0.6 mg/mL; THYMOL 0.64 mg/mL",
+      "product_ndc": "72036-318",
+      "generic_name": "Eucalyptol, Menthol, Methyl Salicylate, Thymol",
+      "labeler_name": "Harris Teeter",
+      "brand_name": "Antiseptic Mouth Rinse",
+      "active_ingredients": [
+        {
+          "name": "EUCALYPTOL",
+          "strength": ".92 mg/mL"
+        },
+        {
+          "name": "MENTHOL",
+          "strength": ".42 mg/mL"
+        },
+        {
+          "name": "METHYL SALICYLATE",
+          "strength": ".6 mg/mL"
+        },
+        {
+          "name": "THYMOL",
+          "strength": ".64 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72036-318-86",
+          "description": "1000 mL in 1 BOTTLE, PLASTIC (72036-318-86)",
+          "marketing_start_date": "20110311",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Harris Teeter"
+        ],
+        "rxcui": [
+          "1043619"
+        ],
+        "spl_set_id": [
+          "9fb0fa91-282a-440d-9d1d-c868a5978ee3"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "RV6J6604TK",
+          "L7T10EIP3A",
+          "LAV5U5022Y",
+          "3J50XA376E"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
       "dosage_form": "MOUTHWASH",
-      "drug_id": "FDA-72036-318",
-      "batch_no": "BATCH-72036-318-001",
-      "risk_level": "low"
+      "spl_id": "3fa052ed-7021-47ec-e063-6394a90a0533",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20110311",
+      "product_id": "72036-318_3fa052ed-7021-47ec-e063-6394a90a0533",
+      "application_number": "505G(a)(3)",
+      "brand_name_base": "Antiseptic Mouth Rinse"
     },
     {
-      "name": "Sunscreen",
-      "manufacturer": "HARRIS TEETER, LLC",
-      "active_ingredient": "AVOBENZONE 30.3 mg/mL; HOMOSALATE 101 mg/mL; OCTISALATE 50.5 mg/mL; OCTOCRYLENE 101 mg/mL",
+      "product_ndc": "72036-714",
+      "generic_name": "Avobenzone, Homosalate, Octisalate, Octocrylene",
+      "labeler_name": "HARRIS TEETER, LLC",
+      "brand_name": "Sunscreen",
+      "active_ingredients": [
+        {
+          "name": "AVOBENZONE",
+          "strength": "30.3 mg/mL"
+        },
+        {
+          "name": "HOMOSALATE",
+          "strength": "101 mg/mL"
+        },
+        {
+          "name": "OCTISALATE",
+          "strength": "50.5 mg/mL"
+        },
+        {
+          "name": "OCTOCRYLENE",
+          "strength": "101 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72036-714-34",
+          "description": "236 mL in 1 BOTTLE, PLASTIC (72036-714-34)",
+          "marketing_start_date": "20211202",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "HARRIS TEETER, LLC"
+        ],
+        "spl_set_id": [
+          "1022961f-ec54-4e40-a5c4-c3b3921a2e04"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0072036728838"
+        ],
+        "unii": [
+          "G63QQF2NOX",
+          "V06SV4M95S",
+          "4X49Y0596W",
+          "5A68WGF6WM"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
       "dosage_form": "LOTION",
-      "drug_id": "FDA-72036-714",
-      "batch_no": "BATCH-72036-714-001",
-      "risk_level": "low"
+      "spl_id": "43f459cc-926b-0435-e063-6294a90aef72",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20211202",
+      "product_id": "72036-714_43f459cc-926b-0435-e063-6294a90aef72",
+      "application_number": "M020",
+      "brand_name_base": "Sunscreen"
     },
     {
-      "name": "Harris Teeter Spring Fresh Body Wash",
-      "manufacturer": "Harris Teeter",
-      "active_ingredient": "BENZALKONIUM CHLORIDE 1.3 mg/mL",
+      "product_ndc": "72036-801",
+      "generic_name": "Benzalkonium Chloride",
+      "labeler_name": "Harris Teeter",
+      "brand_name": "Harris Teeter Spring Fresh Body Wash",
+      "active_ingredients": [
+        {
+          "name": "BENZALKONIUM CHLORIDE",
+          "strength": "1.3 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72036-801-18",
+          "description": "532 mL in 1 BOTTLE, PLASTIC (72036-801-18)",
+          "marketing_start_date": "20180725",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Harris Teeter"
+        ],
+        "rxcui": [
+          "1046593"
+        ],
+        "spl_set_id": [
+          "401106d1-a701-48bf-b8fc-1bc0454c4139"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0072036710710"
+        ],
+        "unii": [
+          "F5UM2KM3W7"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH NOT FINAL",
       "dosage_form": "LIQUID",
-      "drug_id": "FDA-72036-801",
-      "batch_no": "BATCH-72036-801-001",
-      "risk_level": "low"
+      "spl_id": "89774566-baf6-4de4-8197-bf5a661fdccd",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20180725",
+      "product_id": "72036-801_89774566-baf6-4de4-8197-bf5a661fdccd",
+      "application_number": "part333E",
+      "brand_name_base": "Harris Teeter Spring Fresh Body Wash"
     },
     {
-      "name": "Xospata",
-      "manufacturer": "Astellas Pharma US, Inc.",
-      "active_ingredient": "GILTERITINIB FUMARATE 40 mg",
+      "product_ndc": "0469-1425",
+      "generic_name": "gilteritinib",
+      "labeler_name": "Astellas Pharma US, Inc.",
+      "brand_name": "Xospata",
+      "active_ingredients": [
+        {
+          "name": "GILTERITINIB FUMARATE",
+          "strength": "40 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0469-1425-21",
+          "description": "1 BOTTLE in 1 CARTON (0469-1425-21)  / 21 TABLET in 1 BOTTLE",
+          "marketing_start_date": "20220430",
+          "sample": true
+        },
+        {
+          "package_ndc": "0469-1425-90",
+          "description": "1 BOTTLE in 1 CARTON (0469-1425-90)  / 90 TABLET in 1 BOTTLE",
+          "marketing_start_date": "20181129",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Astellas Pharma US, Inc."
+        ],
+        "rxcui": [
+          "2105811",
+          "2105817"
+        ],
+        "spl_set_id": [
+          "b5ff59aa-9c0d-49a8-9053-1f179b482383"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "5RZZ0Z1GJT"
+        ]
+      },
+      "marketing_category": "NDA",
       "dosage_form": "TABLET",
-      "drug_id": "FDA-0469-1425",
-      "batch_no": "BATCH-0469-1425-001",
-      "risk_level": "high"
+      "spl_id": "b1aef238-5cd9-47cb-a83f-1f5eac49f013",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20181129",
+      "product_id": "0469-1425_b1aef238-5cd9-47cb-a83f-1f5eac49f013",
+      "application_number": "NDA211349",
+      "brand_name_base": "Xospata"
     },
     {
-      "name": "Pain Relief Patches",
-      "manufacturer": "Harris Teeter",
-      "active_ingredient": "CAMPHOR (SYNTHETIC) 3.1 g/100g; MENTHOL 6 g/100g; METHYL SALICYLATE 10 g/100g",
+      "product_ndc": "72036-907",
+      "generic_name": "CAMPHOR, MENTHOL, METHYL SALICYLATE",
+      "labeler_name": "Harris Teeter",
+      "brand_name": "Pain Relief Patches",
+      "active_ingredients": [
+        {
+          "name": "CAMPHOR (SYNTHETIC)",
+          "strength": "3.1 g/100g"
+        },
+        {
+          "name": "MENTHOL",
+          "strength": "6 g/100g"
+        },
+        {
+          "name": "METHYL SALICYLATE",
+          "strength": "10 g/100g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72036-907-60",
+          "description": "60 PATCH in 1 BOX (72036-907-60)  / 9 g in 1 PATCH",
+          "marketing_start_date": "20180501",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Harris Teeter"
+        ],
+        "rxcui": [
+          "1793147"
+        ],
+        "spl_set_id": [
+          "3f5b4eee-49c4-408c-9af2-e7924c26ac63"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "5TJD82A1ET",
+          "L7T10EIP3A",
+          "LAV5U5022Y"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
       "dosage_form": "PATCH",
-      "drug_id": "FDA-72036-907",
-      "batch_no": "BATCH-72036-907-001",
-      "risk_level": "medium"
+      "spl_id": "29959d8f-41f5-1040-e063-6294a90a1688",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20180501",
+      "product_id": "72036-907_29959d8f-41f5-1040-e063-6294a90a1688",
+      "application_number": "M017",
+      "brand_name_base": "Pain Relief Patches"
     },
     {
-      "name": "Hot and Cold Medicated Patch",
-      "manufacturer": "Harris Teeter",
-      "active_ingredient": "MENTHOL 5 g/100g",
+      "product_ndc": "72036-952",
+      "generic_name": "MENTHOL",
+      "labeler_name": "Harris Teeter",
+      "brand_name": "Hot and Cold Medicated Patch",
+      "active_ingredients": [
+        {
+          "name": "MENTHOL",
+          "strength": "5 g/100g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72036-952-05",
+          "description": "5 POUCH in 1 BOX (72036-952-05)  / 9 g in 1 POUCH",
+          "marketing_start_date": "20180501",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Harris Teeter"
+        ],
+        "rxcui": [
+          "420222"
+        ],
+        "spl_set_id": [
+          "9debd4ef-c21b-41ae-afd1-58f47c51c99c"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "L7T10EIP3A"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
       "dosage_form": "PATCH",
-      "drug_id": "FDA-72036-952",
-      "batch_no": "BATCH-72036-952-001",
-      "risk_level": "medium"
+      "spl_id": "29955f8a-47b8-d25f-e063-6394a90af7e7",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20180501",
+      "product_id": "72036-952_29955f8a-47b8-d25f-e063-6394a90af7e7",
+      "application_number": "M017",
+      "brand_name_base": "Hot and Cold Medicated Patch"
     },
     {
-      "name": "Mucus Relief DM",
-      "manufacturer": "Harris Teeter",
-      "active_ingredient": "DEXTROMETHORPHAN HYDROBROMIDE 60 mg; GUAIFENESIN 1200 mg",
+      "product_ndc": "72036-980",
+      "generic_name": "Guaifenesin and Dextromethorphan HBr",
+      "labeler_name": "Harris Teeter",
+      "brand_name": "Mucus Relief DM",
+      "active_ingredients": [
+        {
+          "name": "DEXTROMETHORPHAN HYDROBROMIDE",
+          "strength": "60 mg/1"
+        },
+        {
+          "name": "GUAIFENESIN",
+          "strength": "1200 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72036-980-65",
+          "description": "2 BLISTER PACK in 1 CARTON (72036-980-65)  / 7 TABLET, EXTENDED RELEASE in 1 BLISTER PACK",
+          "marketing_start_date": "20170317",
+          "sample": false
+        },
+        {
+          "package_ndc": "72036-980-70",
+          "description": "4 BLISTER PACK in 1 CARTON (72036-980-70)  / 7 TABLET, EXTENDED RELEASE in 1 BLISTER PACK",
+          "marketing_start_date": "20170317",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Harris Teeter"
+        ],
+        "rxcui": [
+          "1099074"
+        ],
+        "spl_set_id": [
+          "826d9c3c-7535-48bb-906e-d75e2ec670db"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000193956",
+          "N0000008867",
+          "N0000009560"
+        ],
+        "pharm_class_epc": [
+          "Expectorant [EPC]"
+        ],
+        "pharm_class_pe": [
+          "Decreased Respiratory Secretion Viscosity [PE]",
+          "Increased Respiratory Secretions [PE]"
+        ],
+        "unii": [
+          "9D2RTI9KYH",
+          "495W7451VQ"
+        ]
+      },
+      "marketing_category": "ANDA",
       "dosage_form": "TABLET, EXTENDED RELEASE",
-      "drug_id": "FDA-72036-980",
-      "batch_no": "BATCH-72036-980-001",
-      "risk_level": "medium"
-    }
-  ]
-}
+      "spl_id": "fff3d673-b241-4f6d-9717-acddf8668a6c",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20170317",
+      "product_id": "72036-980_fff3d673-b241-4f6d-9717-acddf8668a6c",
+      "application_number": "ANDA206941",
+      "brand_name_base": "Mucus Relief DM",
+      "pharm_class": [
+        "Decreased Respiratory Secretion Viscosity [PE]",
+        "Expectorant [EPC]",
+        "Increased Respiratory Secretions [PE]",
+        "Sigma-1 Agonist [EPC]",
+        "Sigma-1 Receptor Agonists [MoA]",
+        "Uncompetitive N-methyl-D-aspartate Receptor Antagonist [EPC]",
+        "Uncompetitive NMDA Receptor Antagonists [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72037-135",
+      "generic_name": "MENTHOL",
+      "labeler_name": "Innovations for Wellness, LLC",
+      "brand_name": "AcuPlus Pain Relief",
+      "active_ingredients": [
+        {
+          "name": "MENTHOL",
+          "strength": "35 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72037-135-01",
+          "description": "3785 mL in 1 JUG (72037-135-01)",
+          "marketing_start_date": "20180301",
+          "sample": false
+        },
+        {
+          "package_ndc": "72037-135-02",
+          "description": "59.14 mL in 1 JAR (72037-135-02)",
+          "marketing_start_date": "20180301",
+          "sample": false
+        },
+        {
+          "package_ndc": "72037-135-04",
+          "description": "236.56 mL in 1 JAR (72037-135-04)",
+          "marketing_start_date": "20180301",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Innovations for Wellness, LLC"
+        ],
+        "rxcui": [
+          "2000534"
+        ],
+        "spl_set_id": [
+          "7f222a4f-85a8-4f3d-aa97-5c695d4da37f"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "L7T10EIP3A"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "CREAM",
+      "spl_id": "097485a4-b5ac-a87a-e063-6394a90a8e52",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20180301",
+      "product_id": "72037-135_097485a4-b5ac-a87a-e063-6394a90a8e52",
+      "application_number": "M017",
+      "brand_name_base": "AcuPlus Pain Relief"
+    },
+    {
+      "product_ndc": "72043-0333",
+      "generic_name": "Zinc Oxide",
+      "labeler_name": "CP Skin Health Group, Inc.",
+      "brand_name": "UV Skin Recovery SPF 50",
+      "active_ingredients": [
+        {
+          "name": "ZINC OXIDE",
+          "strength": "12.9 g/100g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72043-0333-1",
+          "description": "1 BOTTLE, PUMP in 1 CARTON (72043-0333-1)  / 50.5 g in 1 BOTTLE, PUMP (72043-0333-2)",
+          "marketing_start_date": "20241113",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "CP Skin Health Group, Inc."
+        ],
+        "spl_set_id": [
+          "26d2683f-cfd5-50fd-e063-6394a90a7576"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "LOTION",
+      "spl_id": "2874e1b3-83e7-91a6-e063-6294a90a9bb7",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20241113",
+      "product_id": "72043-0333_2874e1b3-83e7-91a6-e063-6294a90a9bb7",
+      "application_number": "M020",
+      "brand_name_base": "UV Skin Recovery SPF 50"
+    },
+    {
+      "product_ndc": "72043-2277",
+      "generic_name": "petrolatum skin protectant",
+      "labeler_name": "CP Skin Health Group, Inc",
+      "brand_name": "EltaMD Laser Balm",
+      "active_ingredients": [
+        {
+          "name": "PETROLATUM",
+          "strength": "600 g/1000g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72043-2277-4",
+          "description": "108 g in 1 JAR (72043-2277-4)",
+          "marketing_start_date": "20180110",
+          "sample": false
+        },
+        {
+          "package_ndc": "72043-2277-5",
+          "description": "5 g in 1 PACKET (72043-2277-5)",
+          "marketing_start_date": "20180110",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "CP Skin Health Group, Inc"
+        ],
+        "spl_set_id": [
+          "1c67ce72-89d9-4c4f-a9b0-28b7e67d30eb"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "4T6H12BN9U"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "OINTMENT",
+      "spl_id": "2ca96e6f-3b91-405f-995f-469ef825be85",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20180110",
+      "product_id": "72043-2277_2ca96e6f-3b91-405f-995f-469ef825be85",
+      "application_number": "M016",
+      "brand_name_base": "EltaMD Laser Balm"
+    },
+    {
+      "product_ndc": "72043-2520",
+      "generic_name": "zinc oxide and octinoxate sunscreen",
+      "labeler_name": "CP Skin Health Group, Inc.",
+      "brand_name": "EltaMD UV Clear Tinted SPF46",
+      "active_ingredients": [
+        {
+          "name": "OCTINOXATE",
+          "strength": "75 g/1000g"
+        },
+        {
+          "name": "ZINC OXIDE",
+          "strength": "90 g/1000g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72043-2520-1",
+          "description": "48 g in 1 BOTTLE (72043-2520-1)",
+          "marketing_start_date": "20180110",
+          "sample": false
+        },
+        {
+          "package_ndc": "72043-2520-2",
+          "description": "2 g in 1 PACKET (72043-2520-2)",
+          "marketing_start_date": "20220706",
+          "sample": false
+        },
+        {
+          "package_ndc": "72043-2520-5",
+          "description": "14 g in 1 BOTTLE (72043-2520-5)",
+          "marketing_start_date": "20250604",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "CP Skin Health Group, Inc."
+        ],
+        "spl_set_id": [
+          "1ac59ef1-113e-4ad1-90c3-38353bc7e1ec"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0390205025206"
+        ],
+        "unii": [
+          "4Y5P7MUD51",
+          "SOI2LOH54Z"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "LOTION",
+      "spl_id": "dabdbfb9-0ffa-49df-bfc4-928b187fe337",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20180110",
+      "product_id": "72043-2520_dabdbfb9-0ffa-49df-bfc4-928b187fe337",
+      "application_number": "M020",
+      "brand_name_base": "EltaMD UV Clear Tinted SPF46",
+      "pharm_class": [
+        "Copper Absorption Inhibitor [EPC]",
+        "Decreased Copper Ion Absorption [PE]"
+      ]
+    },
+    {
+      "product_ndc": "72043-2640",
+      "generic_name": "titanium dioxide and zinc oxide sunscreen",
+      "labeler_name": "CP Skin Health Group, Inc.",
+      "brand_name": "EltaMD UV Restore Tinted",
+      "active_ingredients": [
+        {
+          "name": "TITANIUM DIOXIDE",
+          "strength": "20 g/1000g"
+        },
+        {
+          "name": "ZINC OXIDE",
+          "strength": "150 g/1000g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72043-2640-1",
+          "description": "14 g in 1 BOTTLE (72043-2640-1)",
+          "marketing_start_date": "20220707",
+          "sample": false
+        },
+        {
+          "package_ndc": "72043-2640-2",
+          "description": "57 g in 1 TUBE (72043-2640-2)",
+          "marketing_start_date": "20200915",
+          "sample": false
+        },
+        {
+          "package_ndc": "72043-2640-3",
+          "description": "48 g in 1 BOTTLE (72043-2640-3)",
+          "marketing_start_date": "20240610",
+          "sample": false
+        },
+        {
+          "package_ndc": "72043-2640-4",
+          "description": "2 g in 1 PACKET (72043-2640-4)",
+          "marketing_start_date": "20200915",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "CP Skin Health Group, Inc."
+        ],
+        "spl_set_id": [
+          "6a48ad0d-20e4-44b1-90d6-30bfbc68a152"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0827854009924"
+        ],
+        "unii": [
+          "15FIX9V2JP",
+          "SOI2LOH54Z"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "LOTION",
+      "spl_id": "2bc1d6c0-6ee3-48ed-b49f-4f4b17fb3ac4",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20200915",
+      "product_id": "72043-2640_2bc1d6c0-6ee3-48ed-b49f-4f4b17fb3ac4",
+      "application_number": "M020",
+      "brand_name_base": "EltaMD UV Restore Tinted",
+      "pharm_class": [
+        "Copper Absorption Inhibitor [EPC]",
+        "Decreased Copper Ion Absorption [PE]"
+      ]
+    },
+    {
+      "product_ndc": "0469-2660",
+      "generic_name": "fezolinetant",
+      "labeler_name": "Astellas Pharma US, Inc.",
+      "brand_name": "VEOZAH",
+      "active_ingredients": [
+        {
+          "name": "FEZOLINETANT",
+          "strength": "45 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0469-2660-30",
+          "description": "1 BOTTLE in 1 CARTON (0469-2660-30)  / 30 TABLET, FILM COATED in 1 BOTTLE",
+          "marketing_start_date": "20230512",
+          "sample": false
+        },
+        {
+          "package_ndc": "0469-2660-90",
+          "description": "1 BOTTLE in 1 CARTON (0469-2660-90)  / 90 TABLET, FILM COATED in 1 BOTTLE",
+          "marketing_start_date": "20230512",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Astellas Pharma US, Inc."
+        ],
+        "rxcui": [
+          "2637141",
+          "2637147"
+        ],
+        "spl_set_id": [
+          "cae9f798-24f9-4580-a4fc-e6c710cbda3c"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000194090",
+          "N0000194091"
+        ],
+        "pharm_class_epc": [
+          "Neurokinin 3 Receptor Antagonist [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Neurokinin 3 Receptor Antagonists [MoA]"
+        ],
+        "unii": [
+          "83VNE45KXX"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "794637d8-62d5-49d4-90e8-bb01c073514a",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20230512",
+      "product_id": "0469-2660_794637d8-62d5-49d4-90e8-bb01c073514a",
+      "application_number": "NDA216578",
+      "brand_name_base": "VEOZAH",
+      "pharm_class": [
+        "Neurokinin 3 Receptor Antagonist [EPC]",
+        "Neurokinin 3 Receptor Antagonists [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0054-9628",
+      "generic_name": "sodium oxybate",
+      "labeler_name": "Hikma Pharmaceuticals USA Inc.",
+      "dea_schedule": "CIII",
+      "brand_name": "sodium oxybate",
+      "active_ingredients": [
+        {
+          "name": "SODIUM OXYBATE",
+          "strength": ".5 g/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0054-9628-57",
+          "description": "180 mL in 1 BOTTLE, PLASTIC (0054-9628-57)",
+          "marketing_start_date": "20230103",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Hikma Pharmaceuticals USA Inc."
+        ],
+        "rxcui": [
+          "349482"
+        ],
+        "spl_set_id": [
+          "bcef2c95-35e9-464d-9025-652acff769e7"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "7G33012534"
+        ]
+      },
+      "marketing_category": "NDA AUTHORIZED GENERIC",
+      "dosage_form": "SOLUTION",
+      "spl_id": "599719a1-b644-4ece-b0c0-ce8d85378e01",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20230103",
+      "product_id": "0054-9628_599719a1-b644-4ece-b0c0-ce8d85378e01",
+      "application_number": "NDA021196",
+      "brand_name_base": "sodium oxybate",
+      "pharm_class": [
+        "Central Nervous System Depressant [EPC]",
+        "Central Nervous System Depression [PE]",
+        "Decreased Central Nervous System Organized Electrical Activity [PE]"
+      ]
+    },
+    {
+      "product_ndc": "0469-2860",
+      "generic_name": "isavuconazonium sulfate",
+      "labeler_name": "Astellas Pharma US, Inc.",
+      "brand_name": "CRESEMBA",
+      "active_ingredients": [
+        {
+          "name": "ISAVUCONAZONIUM SULFATE",
+          "strength": "40 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0469-2860-35",
+          "description": "7 BLISTER PACK in 1 CARTON (0469-2860-35)  / 5 CAPSULE in 1 BLISTER PACK",
+          "marketing_start_date": "20221122",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Astellas Pharma US, Inc."
+        ],
+        "rxcui": [
+          "1608327",
+          "1608333",
+          "1608811",
+          "1608815",
+          "2623470",
+          "2623472"
+        ],
+        "spl_set_id": [
+          "8f7f73b8-586a-4df0-935f-fecd4696c16c"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "31Q44514JV"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "7e6e45d4-9266-4451-b6b6-0d054bbcab63",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20221122",
+      "product_id": "0469-2860_7e6e45d4-9266-4451-b6b6-0d054bbcab63",
+      "application_number": "NDA207500",
+      "brand_name_base": "CRESEMBA",
+      "pharm_class": [
+        "Azole Antifungal [EPC]",
+        "Azoles [CS]",
+        "Cytochrome P450 3A4 Inhibitors [MoA]",
+        "Organic Cation Transporter 2 Inhibitors [MoA]",
+        "P-Glycoprotein Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72078-065",
+      "generic_name": "Vancomycin Hydrochloride",
+      "labeler_name": "Mylan Institutional LLC",
+      "brand_name": "Vancomycin Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "VANCOMYCIN HYDROCHLORIDE",
+          "strength": "1.75 g/35mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72078-065-99",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (72078-065-99)  / 50 mL in 1 VIAL, SINGLE-DOSE",
+          "marketing_start_date": "20240723",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Mylan Institutional LLC"
+        ],
+        "rxcui": [
+          "2688632",
+          "2688634"
+        ],
+        "spl_set_id": [
+          "40a88420-5fcb-4715-abc5-595a18fd08d0"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0372078065503",
+          "0372078066500"
+        ],
+        "unii": [
+          "71WO621TJD"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "40a88420-5fcb-4715-abc5-595a18fd08d0",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20240723",
+      "product_id": "72078-065_40a88420-5fcb-4715-abc5-595a18fd08d0",
+      "application_number": "NDA209481",
+      "brand_name_base": "Vancomycin Hydrochloride",
+      "pharm_class": [
+        "Glycopeptide Antibacterial [EPC]",
+        "Glycopeptides [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72078-081",
+      "generic_name": "Meropenem",
+      "labeler_name": "Mylan Institutional LLC",
+      "brand_name": "Meropenem",
+      "active_ingredients": [
+        {
+          "name": "MEROPENEM ANHYDROUS",
+          "strength": "2 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72078-081-06",
+          "description": "6 INJECTION in 1 CARTON (72078-081-06)",
+          "marketing_start_date": "20250701",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Mylan Institutional LLC"
+        ],
+        "rxcui": [
+          "2664894"
+        ],
+        "spl_set_id": [
+          "f5154b6f-bca8-4f1e-907b-48ea34caf483"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "M0024174",
+          "N0000175496"
+        ],
+        "pharm_class_cs": [
+          "Carbapenems [CS]"
+        ],
+        "pharm_class_epc": [
+          "Penem Antibacterial [EPC]"
+        ],
+        "unii": [
+          "YOP6PX0BAO"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION",
+      "spl_id": "3ac13eb5-b99e-87cf-e063-6394a90adb59",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250701",
+      "product_id": "72078-081_3ac13eb5-b99e-87cf-e063-6394a90adb59",
+      "application_number": "ANDA219084",
+      "brand_name_base": "Meropenem",
+      "pharm_class": [
+        "Carbapenems [CS]",
+        "Penem Antibacterial [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72085-309",
+      "generic_name": "HOMOSALATE, OCTOCRYLENE, OCTISALATE, ZINC OXIDE",
+      "labeler_name": "MJ Products Association, LLC",
+      "brand_name": "SEA STAR SPARKLE SPF 50 Glitter Sunscreen Coco Lime",
+      "active_ingredients": [
+        {
+          "name": "HOMOSALATE",
+          "strength": "100 mg/mL"
+        },
+        {
+          "name": "OCTISALATE",
+          "strength": "50 mg/mL"
+        },
+        {
+          "name": "OCTOCRYLENE",
+          "strength": "50 mg/mL"
+        },
+        {
+          "name": "ZINC OXIDE",
+          "strength": "40 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72085-309-05",
+          "description": "5 mL in 1 PACKET (72085-309-05)",
+          "marketing_start_date": "20200810",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "MJ Products Association, LLC"
+        ],
+        "spl_set_id": [
+          "533b6106-7f6f-49b9-9670-e2050bfcb932"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "V06SV4M95S",
+          "4X49Y0596W",
+          "5A68WGF6WM",
+          "SOI2LOH54Z"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "CREAM",
+      "spl_id": "09749db1-19bf-799e-e063-6294a90a47eb",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20200810",
+      "product_id": "72085-309_09749db1-19bf-799e-e063-6294a90a47eb",
+      "application_number": "M020",
+      "brand_name_base": "SEA STAR SPARKLE SPF 50 Glitter Sunscreen Coco Lime",
+      "pharm_class": [
+        "Copper Absorption Inhibitor [EPC]",
+        "Decreased Copper Ion Absorption [PE]"
+      ]
+    },
+    {
+      "product_ndc": "72090-020",
+      "generic_name": "Diphenhydramine HCl 25 mg",
+      "labeler_name": "Pioneer Life Sciences, LLC",
+      "brand_name": "Sleep Aid",
+      "active_ingredients": [
+        {
+          "name": "DIPHENHYDRAMINE HYDROCHLORIDE",
+          "strength": "25 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72090-020-10",
+          "description": "100 TABLET in 1 BOTTLE (72090-020-10)",
+          "marketing_start_date": "20200629",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Pioneer Life Sciences, LLC"
+        ],
+        "rxcui": [
+          "1049630"
+        ],
+        "spl_set_id": [
+          "a9678fed-bda5-9513-e053-2995a90a25a1"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "TC2D6JAD40"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "TABLET",
+      "spl_id": "595b779f-99b2-4007-8961-3cb90a9d4694",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20200629",
+      "product_id": "72090-020_595b779f-99b2-4007-8961-3cb90a9d4694",
+      "application_number": "M010",
+      "brand_name_base": "Sleep Aid",
+      "pharm_class": [
+        "Histamine H1 Receptor Antagonists [MoA]",
+        "Histamine-1 Receptor Antagonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72090-028",
+      "generic_name": "Cetirizine HCl",
+      "labeler_name": "Pioneer Life Sciences, LLC",
+      "brand_name": "Allergy Relief",
+      "active_ingredients": [
+        {
+          "name": "CETIRIZINE HYDROCHLORIDE",
+          "strength": "10 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72090-028-01",
+          "description": "300 TABLET in 1 BOTTLE (72090-028-01)",
+          "marketing_start_date": "20241003",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Pioneer Life Sciences, LLC"
+        ],
+        "rxcui": [
+          "1014678"
+        ],
+        "spl_set_id": [
+          "b275feae-56a1-4a60-a564-8d7b18c06aa2"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0372090002944"
+        ],
+        "unii": [
+          "64O047KTOA"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "9d812d98-89ce-4a51-8b01-e15384473bc8",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20241003",
+      "product_id": "72090-028_9d812d98-89ce-4a51-8b01-e15384473bc8",
+      "application_number": "ANDA077829",
+      "brand_name_base": "Allergy Relief",
+      "pharm_class": [
+        "Histamine H1 Receptor Antagonists [MoA]",
+        "Histamine-1 Receptor Antagonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72090-032",
+      "generic_name": "ACETAMINOPHEN, DIPHENHYDRAMINE",
+      "labeler_name": "Pioneer Life Sciences, LLC",
+      "brand_name": "Pain Relief PM",
+      "active_ingredients": [
+        {
+          "name": "ACETAMINOPHEN",
+          "strength": "500 mg/1"
+        },
+        {
+          "name": "DIPHENHYDRAMINE HYDROCHLORIDE",
+          "strength": "25 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72090-032-01",
+          "description": "375 TABLET in 1 BOTTLE (72090-032-01)",
+          "marketing_start_date": "20240829",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Pioneer Life Sciences, LLC"
+        ],
+        "rxcui": [
+          "1092189"
+        ],
+        "spl_set_id": [
+          "0181af13-da32-4431-be39-c31fdfac9202"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "362O9ITL9D",
+          "TC2D6JAD40"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "TABLET",
+      "spl_id": "dd52ebb6-24ca-446f-811d-8f682d3a8a72",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20240829",
+      "product_id": "72090-032_dd52ebb6-24ca-446f-811d-8f682d3a8a72",
+      "application_number": "M013",
+      "brand_name_base": "Pain Relief PM",
+      "pharm_class": [
+        "Histamine H1 Receptor Antagonists [MoA]",
+        "Histamine-1 Receptor Antagonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "0469-6501",
+      "generic_name": "regadenoson",
+      "labeler_name": "Astellas Pharma US, Inc.",
+      "brand_name": "LEXISCAN",
+      "active_ingredients": [
+        {
+          "name": "REGADENOSON",
+          "strength": ".08 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0469-6501-89",
+          "description": "5 mL in 1 SYRINGE, PLASTIC (0469-6501-89)",
+          "marketing_start_date": "20080410",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Astellas Pharma US, Inc."
+        ],
+        "spl_set_id": [
+          "057289f4-2e18-4c1e-bed4-6c1858e2ef16"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000178375",
+          "N0000175788"
+        ],
+        "pharm_class_epc": [
+          "Adenosine Receptor Agonist [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Adenosine Receptor Agonists [MoA]"
+        ],
+        "unii": [
+          "2XLN4Y044H"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "8fb5b92b-3654-43ff-98d3-3ac23c9a0b10",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20080410",
+      "product_id": "0469-6501_8fb5b92b-3654-43ff-98d3-3ac23c9a0b10",
+      "application_number": "NDA022161",
+      "brand_name_base": "LEXISCAN",
+      "pharm_class": [
+        "Adenosine Receptor Agonist [EPC]",
+        "Adenosine Receptor Agonists [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72101-419",
+      "generic_name": "ZINC OXIDE",
+      "labeler_name": "Blue Monarch, LLC",
+      "brand_name": "BLUE MONARCH Tinted SPF-50 (Rose Gold)",
+      "active_ingredients": [
+        {
+          "name": "ZINC OXIDE",
+          "strength": "180 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72101-419-00",
+          "description": "1 BOTTLE in 1 BOX (72101-419-00)  / 35 mL in 1 BOTTLE",
+          "marketing_start_date": "20230807",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Blue Monarch, LLC"
+        ],
+        "spl_set_id": [
+          "9ba00a03-1015-4946-8c9b-5ef377a32e4b"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0860010584316"
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "CREAM",
+      "spl_id": "09dc64a4-8580-ddca-e063-6294a90ab8f1",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20230807",
+      "product_id": "72101-419_09dc64a4-8580-ddca-e063-6294a90ab8f1",
+      "application_number": "M020",
+      "brand_name_base": "BLUE MONARCH Tinted SPF-50 (Rose Gold)",
+      "pharm_class": [
+        "Copper Absorption Inhibitor [EPC]",
+        "Decreased Copper Ion Absorption [PE]"
+      ]
+    },
+    {
+      "product_ndc": "0472-0082",
+      "generic_name": "Acyclovir",
+      "labeler_name": "Actavis Pharma, Inc.",
+      "brand_name": "Acyclovir",
+      "active_ingredients": [
+        {
+          "name": "ACYCLOVIR",
+          "strength": "200 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0472-0082-16",
+          "description": "473 mL in 1 BOTTLE (0472-0082-16)",
+          "marketing_start_date": "20020903",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Actavis Pharma, Inc."
+        ],
+        "rxcui": [
+          "307730"
+        ],
+        "spl_set_id": [
+          "a4c1305c-f18c-4fb0-83d8-2822341f2dfa"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0304720082163"
+        ],
+        "nui": [
+          "N0000020060",
+          "N0000180187",
+          "N0000180188",
+          "N0000175468",
+          "N0000175459"
+        ],
+        "pharm_class_moa": [
+          "DNA Polymerase Inhibitors [MoA]"
+        ],
+        "pharm_class_epc": [
+          "Herpes Simplex Virus Nucleoside Analog DNA Polymerase Inhibitor [EPC]",
+          "Herpes Zoster Virus Nucleoside Analog DNA Polymerase Inhibitor [EPC]",
+          "Herpesvirus Nucleoside Analog DNA Polymerase Inhibitor [EPC]"
+        ],
+        "unii": [
+          "X4HES1O11F"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "SUSPENSION",
+      "spl_id": "8d1fee72-315b-45b6-a543-b09df3dc2403",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20020903",
+      "product_id": "0472-0082_8d1fee72-315b-45b6-a543-b09df3dc2403",
+      "application_number": "ANDA074738",
+      "brand_name_base": "Acyclovir",
+      "pharm_class": [
+        "DNA Polymerase Inhibitors [MoA]",
+        "Herpes Simplex Virus Nucleoside Analog DNA Polymerase Inhibitor [EPC]",
+        "Herpes Zoster Virus Nucleoside Analog DNA Polymerase Inhibitor [EPC]",
+        "Herpesvirus Nucleoside Analog DNA Polymerase Inhibitor [EPC]",
+        "Nucleoside Analog [EXT]"
+      ]
+    },
+    {
+      "product_ndc": "72113-112",
+      "generic_name": "Zinc Oxide",
+      "labeler_name": "Eden Brands Inc.",
+      "brand_name": "Ultra sheer mineral sunscreen PRO SPF30",
+      "active_ingredients": [
+        {
+          "name": "ZINC OXIDE",
+          "strength": "188 mg/g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72113-112-14",
+          "description": "1 BOTTLE in 1 CARTON (72113-112-14)  / 60 g in 1 BOTTLE",
+          "marketing_start_date": "20241218",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eden Brands Inc."
+        ],
+        "spl_set_id": [
+          "2ce06566-2eb0-9a00-e063-6394a90a9ba9"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0850068719075"
+        ],
+        "unii": [
+          "SOI2LOH54Z"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "LOTION",
+      "spl_id": "2ce06566-2eb1-9a00-e063-6394a90a9ba9",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20241218",
+      "product_id": "72113-112_2ce06566-2eb1-9a00-e063-6394a90a9ba9",
+      "application_number": "M020",
+      "brand_name_base": "Ultra sheer mineral sunscreen PRO SPF30"
+    },
+    {
+      "product_ndc": "72127-0807",
+      "generic_name": "Benzalkonium Chloride, Allantoin",
+      "labeler_name": "Lidan, inc.",
+      "brand_name": "Forticept HP Antiseptic Wound Cleanser",
+      "active_ingredients": [
+        {
+          "name": "ALLANTOIN",
+          "strength": ".003 kg/kg"
+        },
+        {
+          "name": "BENZALKONIUM CHLORIDE",
+          "strength": ".002 kg/kg"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72127-0807-0",
+          "description": ".114 kg in 1 BOTTLE, SPRAY (72127-0807-0)",
+          "marketing_start_date": "20200412",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Lidan, inc."
+        ],
+        "rxcui": [
+          "2625140"
+        ],
+        "spl_set_id": [
+          "41bb46ee-edce-4e1b-bcfd-5c5729e1eb15"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "344S277G0Z",
+          "F5UM2KM3W7"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "SPRAY",
+      "spl_id": "d7590bb3-354f-476e-a5d6-631e71b386cd",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20200412",
+      "product_id": "72127-0807_d7590bb3-354f-476e-a5d6-631e71b386cd",
+      "application_number": "M005",
+      "brand_name_base": "Forticept HP Antiseptic Wound Cleanser"
+    },
+    {
+      "product_ndc": "72143-251",
+      "generic_name": "ISOTRETINOIN",
+      "labeler_name": "JG Pharma Inc.",
+      "brand_name": "ACCUTANE",
+      "active_ingredients": [
+        {
+          "name": "ISOTRETINOIN",
+          "strength": "10 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72143-251-30",
+          "description": "3 BLISTER PACK in 1 CARTON (72143-251-30)  / 10 CAPSULE, GELATIN COATED in 1 BLISTER PACK",
+          "marketing_start_date": "20220801",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "JG Pharma Inc."
+        ],
+        "rxcui": [
+          "197843",
+          "197844",
+          "197845",
+          "206880",
+          "206883",
+          "206902",
+          "403930",
+          "2473107"
+        ],
+        "spl_set_id": [
+          "5b524a51-a16b-496e-b764-11c98c479c36"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000175607",
+          "M0018962"
+        ],
+        "pharm_class_epc": [
+          "Retinoid [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Retinoids [CS]"
+        ],
+        "unii": [
+          "EH28UP18IF"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE, GELATIN COATED",
+      "spl_id": "3ab8537d-7d59-4534-a51f-407a71d80d9c",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20220801",
+      "product_id": "72143-251_3ab8537d-7d59-4534-a51f-407a71d80d9c",
+      "application_number": "ANDA202099",
+      "brand_name_base": "ACCUTANE",
+      "pharm_class": [
+        "Retinoid [EPC]",
+        "Retinoids [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1056",
+      "generic_name": "Metolazone",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Metolazone",
+      "active_ingredients": [
+        {
+          "name": "METOLAZONE",
+          "strength": "2.5 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1056-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1056-1)",
+          "marketing_start_date": "20250512",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "197979"
+        ],
+        "spl_set_id": [
+          "34f91465-7a97-e543-e063-6294a90a1ac7"
+        ],
+        "nui": [
+          "N0000175359",
+          "N0000175420"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis [PE]"
+        ],
+        "pharm_class_epc": [
+          "Thiazide-like Diuretic [EPC]"
+        ],
+        "unii": [
+          "TZ7V40X7VX"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "34f8f933-0768-e636-e063-6294a90a6bee",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20250512",
+      "product_id": "72162-1056_34f8f933-0768-e636-e063-6294a90a6bee",
+      "application_number": "ANDA076732",
+      "brand_name_base": "Metolazone",
+      "pharm_class": [
+        "Increased Diuresis [PE]",
+        "Thiazide-like Diuretic [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1076",
+      "generic_name": "POTASSIUM CHLORIDE",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "POTASSIUM CHLORIDE",
+      "active_ingredients": [
+        {
+          "name": "POTASSIUM CHLORIDE",
+          "strength": "600 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1076-1",
+          "description": "100 CAPSULE, EXTENDED RELEASE in 1 BOTTLE (72162-1076-1)",
+          "marketing_start_date": "20240405",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1076-2",
+          "description": "90 CAPSULE, EXTENDED RELEASE in 1 BOTTLE (72162-1076-2)",
+          "marketing_start_date": "20240405",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1076-3",
+          "description": "360 CAPSULE, EXTENDED RELEASE in 1 BOTTLE (72162-1076-3)",
+          "marketing_start_date": "20240405",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "315183"
+        ],
+        "spl_set_id": [
+          "65e30d1a-50e9-4b84-ad4d-daaea91eab4b"
+        ],
+        "unii": [
+          "660YQ98I10"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE, EXTENDED RELEASE",
+      "spl_id": "ede9d98b-a627-4a32-80fe-11769d5f945a",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20200102",
+      "product_id": "72162-1076_ede9d98b-a627-4a32-80fe-11769d5f945a",
+      "application_number": "ANDA208864",
+      "brand_name_base": "POTASSIUM CHLORIDE",
+      "pharm_class": [
+        "Increased Large Intestinal Motility [PE]",
+        "Inhibition Large Intestine Fluid/Electrolyte Absorption [PE]",
+        "Osmotic Activity [MoA]",
+        "Osmotic Laxative [EPC]",
+        "Potassium Compounds [CS]",
+        "Potassium Salt [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1077",
+      "generic_name": "Dicyclomine Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Dicyclomine Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "DICYCLOMINE HYDROCHLORIDE",
+          "strength": "20 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1077-3",
+          "description": "30 TABLET in 1 BOTTLE (72162-1077-3)",
+          "marketing_start_date": "20230508",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1077-9",
+          "description": "90 TABLET in 1 BOTTLE (72162-1077-9)",
+          "marketing_start_date": "20230508",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "991086"
+        ],
+        "spl_set_id": [
+          "3dc0f4f0-ee38-4f9b-abb6-6395215fe524"
+        ],
+        "unii": [
+          "CQ903KQA31"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "5912cfd5-c3e7-41e0-93cd-f051f6446e3f",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19990226",
+      "product_id": "72162-1077_5912cfd5-c3e7-41e0-93cd-f051f6446e3f",
+      "application_number": "ANDA040230",
+      "brand_name_base": "Dicyclomine Hydrochloride",
+      "pharm_class": [
+        "Anticholinergic [EPC]",
+        "Cholinergic Antagonists [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1085",
+      "generic_name": "methadone hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CII",
+      "brand_name": "Methadone Hydrocloride dye-free, sugar-free, unflavored",
+      "brand_name_suffix": "dye-free, sugar-free, unflavored",
+      "active_ingredients": [
+        {
+          "name": "METHADONE HYDROCHLORIDE",
+          "strength": "10 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1085-2",
+          "description": "30 mL in 1 BOTTLE, PLASTIC (72162-1085-2)",
+          "marketing_start_date": "20231005",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "991147"
+        ],
+        "spl_set_id": [
+          "714e5adb-bdce-4dff-99aa-4ac3a2f3a0fe"
+        ],
+        "unii": [
+          "229809935B"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CONCENTRATE",
+      "spl_id": "a2c9d4f0-0a9e-4399-a7bb-6e606179743e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20201102",
+      "product_id": "72162-1085_a2c9d4f0-0a9e-4399-a7bb-6e606179743e",
+      "application_number": "ANDA212093",
+      "brand_name_base": "Methadone Hydrocloride",
+      "pharm_class": [
+        "Full Opioid Agonists [MoA]",
+        "Opioid Agonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1087",
+      "generic_name": "amphetamine sulfate",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CII",
+      "brand_name": "AMPHETAMINE SULFATE",
+      "active_ingredients": [
+        {
+          "name": "AMPHETAMINE SULFATE",
+          "strength": "5 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1087-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1087-1)",
+          "marketing_start_date": "20240405",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "884655"
+        ],
+        "spl_set_id": [
+          "698171ee-4328-476a-b71c-58aa6dc93b23"
+        ],
+        "unii": [
+          "6DPV8NK46S"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "698171ee-4328-476a-b71c-58aa6dc93b23",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20200525",
+      "product_id": "72162-1087_698171ee-4328-476a-b71c-58aa6dc93b23",
+      "application_number": "ANDA212901",
+      "brand_name_base": "AMPHETAMINE SULFATE",
+      "pharm_class": [
+        "Central Nervous System Stimulant [EPC]",
+        "Central Nervous System Stimulation [PE]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1095",
+      "generic_name": "Levothyroxine Sodium",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Levothyroxine Sodium",
+      "active_ingredients": [
+        {
+          "name": "LEVOTHYROXINE SODIUM",
+          "strength": "300 ug/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1095-0",
+          "description": "1000 TABLET in 1 BOTTLE (72162-1095-0)",
+          "marketing_start_date": "20240206",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "892255"
+        ],
+        "spl_set_id": [
+          "d0beda93-9454-4846-b5c6-2a9113fb1765"
+        ],
+        "unii": [
+          "9J765S329G"
+        ]
+      },
+      "marketing_category": "NDA AUTHORIZED GENERIC",
+      "dosage_form": "TABLET",
+      "spl_id": "4cada73c-662d-4acb-be73-f499275963e8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20200803",
+      "product_id": "72162-1095_4cada73c-662d-4acb-be73-f499275963e8",
+      "application_number": "NDA021342",
+      "brand_name_base": "Levothyroxine Sodium",
+      "pharm_class": [
+        "Thyroxine [CS]",
+        "l-Thyroxine [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1108",
+      "generic_name": "TROSPIUM CHLORIDE",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "TROSPIUM CHLORIDE",
+      "active_ingredients": [
+        {
+          "name": "TROSPIUM CHLORIDE",
+          "strength": "20 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1108-6",
+          "description": "60 TABLET, FILM COATED in 1 BOTTLE (72162-1108-6)",
+          "marketing_start_date": "20231009",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "857560"
+        ],
+        "spl_set_id": [
+          "095f54ba-4d43-4266-8942-eede6678ee3b"
+        ],
+        "unii": [
+          "1E6682427E"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "c907d917-3d31-4194-852a-5dec5aef80be",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20101117",
+      "product_id": "72162-1108_c907d917-3d31-4194-852a-5dec5aef80be",
+      "application_number": "ANDA091573",
+      "brand_name_base": "TROSPIUM CHLORIDE",
+      "pharm_class": [
+        "Cholinergic Muscarinic Antagonist [EPC]",
+        "Cholinergic Muscarinic Antagonists [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1128",
+      "generic_name": "tobramycin and dexamethasone",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "TOBRAMYCIN AND DEXAMETHASONE",
+      "active_ingredients": [
+        {
+          "name": "DEXAMETHASONE",
+          "strength": "1 mg/mL"
+        },
+        {
+          "name": "TOBRAMYCIN",
+          "strength": "3 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1128-2",
+          "description": "10 mL in 1 BOTTLE, PLASTIC (72162-1128-2)",
+          "marketing_start_date": "20241224",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1128-4",
+          "description": "5 mL in 1 BOTTLE, PLASTIC (72162-1128-4)",
+          "marketing_start_date": "20241224",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1128-7",
+          "description": "2.5 mL in 1 BOTTLE, PLASTIC (72162-1128-7)",
+          "marketing_start_date": "20241224",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "309683"
+        ],
+        "spl_set_id": [
+          "df4a7747-8dfa-4933-b4d2-a3d85c5f74f8"
+        ],
+        "nui": [
+          "N0000175576",
+          "N0000175450",
+          "N0000175477",
+          "M0000946"
+        ],
+        "pharm_class_epc": [
+          "Corticosteroid [EPC]",
+          "Aminoglycoside Antibacterial [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Corticosteroid Hormone Receptor Agonists [MoA]"
+        ],
+        "pharm_class_cs": [
+          "Aminoglycosides [CS]"
+        ],
+        "unii": [
+          "7S5I7G3JQL",
+          "VZ8RRZ51VK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "SUSPENSION/ DROPS",
+      "spl_id": "a45f51b0-e5dc-45ab-96fc-3ef37e2561d7",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "OPHTHALMIC"
+      ],
+      "marketing_start_date": "20220317",
+      "product_id": "72162-1128_a45f51b0-e5dc-45ab-96fc-3ef37e2561d7",
+      "application_number": "ANDA212715",
+      "brand_name_base": "TOBRAMYCIN AND DEXAMETHASONE",
+      "pharm_class": [
+        "Aminoglycoside Antibacterial [EPC]",
+        "Aminoglycosides [CS]",
+        "Corticosteroid Hormone Receptor Agonists [MoA]",
+        "Corticosteroid [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1160",
+      "generic_name": "Felodipine",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Felodipine",
+      "active_ingredients": [
+        {
+          "name": "FELODIPINE",
+          "strength": "10 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1160-1",
+          "description": "100 TABLET, FILM COATED, EXTENDED RELEASE in 1 BOTTLE (72162-1160-1)",
+          "marketing_start_date": "20230330",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1160-5",
+          "description": "500 TABLET, FILM COATED, EXTENDED RELEASE in 1 BOTTLE (72162-1160-5)",
+          "marketing_start_date": "20230330",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "402695"
+        ],
+        "spl_set_id": [
+          "196ef773-8a2a-4ef7-a403-2341f94f4d98"
+        ],
+        "nui": [
+          "N0000000069",
+          "N0000175421",
+          "M0006414"
+        ],
+        "pharm_class_moa": [
+          "Calcium Channel Antagonists [MoA]"
+        ],
+        "pharm_class_epc": [
+          "Dihydropyridine Calcium Channel Blocker [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Dihydropyridines [CS]"
+        ],
+        "unii": [
+          "OL961R6O2C"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED, EXTENDED RELEASE",
+      "spl_id": "ed9ee5b6-5cf9-45bb-b321-74c902baf333",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20111215",
+      "product_id": "72162-1160_ed9ee5b6-5cf9-45bb-b321-74c902baf333",
+      "application_number": "ANDA200815",
+      "brand_name_base": "Felodipine",
+      "pharm_class": [
+        "Calcium Channel Antagonists [MoA]",
+        "Dihydropyridine Calcium Channel Blocker [EPC]",
+        "Dihydropyridines [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1198",
+      "generic_name": "voriconazole",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "voriconazole",
+      "active_ingredients": [
+        {
+          "name": "VORICONAZOLE",
+          "strength": "200 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1198-3",
+          "description": "30 TABLET, FILM COATED in 1 BOTTLE (72162-1198-3)",
+          "marketing_start_date": "20250513",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "349434"
+        ],
+        "spl_set_id": [
+          "35098192-3bcb-9111-e063-6394a90ae8ea"
+        ],
+        "nui": [
+          "N0000175487",
+          "M0002083",
+          "N0000182141",
+          "N0000182140",
+          "N0000185504"
+        ],
+        "pharm_class_epc": [
+          "Azole Antifungal [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Azoles [CS]"
+        ],
+        "pharm_class_moa": [
+          "Cytochrome P450 3A4 Inhibitors [MoA]",
+          "Cytochrome P450 2C19 Inhibitors [MoA]",
+          "Cytochrome P450 2C9 Inhibitors [MoA]"
+        ],
+        "unii": [
+          "JFU09I87TR"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "350989fb-8ab1-94a3-e063-6394a90a1a9a",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20250513",
+      "product_id": "72162-1198_350989fb-8ab1-94a3-e063-6394a90a1a9a",
+      "application_number": "ANDA200265",
+      "brand_name_base": "voriconazole",
+      "pharm_class": [
+        "Azole Antifungal [EPC]",
+        "Azoles [CS]",
+        "Cytochrome P450 2C19 Inhibitors [MoA]",
+        "Cytochrome P450 2C9 Inhibitors [MoA]",
+        "Cytochrome P450 3A4 Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1235",
+      "generic_name": "dextroamphetamine saccharate, amphetamine aspartate, dextroamphetamine sulfate and amphetamine sulfate",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CII",
+      "brand_name": "DEXTROAMPHETAMINE SACCHARATE, AMPHETAMINE ASPARTATE, DEXTROAMPHETAMINE SULFATE AND AMPHETAMINE SULFATE",
+      "active_ingredients": [
+        {
+          "name": "AMPHETAMINE ASPARTATE MONOHYDRATE",
+          "strength": "1.875 mg/1"
+        },
+        {
+          "name": "AMPHETAMINE SULFATE",
+          "strength": "1.875 mg/1"
+        },
+        {
+          "name": "DEXTROAMPHETAMINE SACCHARATE",
+          "strength": "1.875 mg/1"
+        },
+        {
+          "name": "DEXTROAMPHETAMINE SULFATE",
+          "strength": "1.875 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1235-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1235-1)",
+          "marketing_start_date": "20240207",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "1009145"
+        ],
+        "spl_set_id": [
+          "4804f3e0-2663-44f0-a10e-0baa56df9d69"
+        ],
+        "unii": [
+          "O1ZPV620O4",
+          "6DPV8NK46S",
+          "G83415V073",
+          "JJ768O327N"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "cfa752bf-acc0-484a-9b51-9c16ee3eac91",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20180704",
+      "product_id": "72162-1235_cfa752bf-acc0-484a-9b51-9c16ee3eac91",
+      "application_number": "ANDA209799",
+      "brand_name_base": "DEXTROAMPHETAMINE SACCHARATE, AMPHETAMINE ASPARTATE, DEXTROAMPHETAMINE SULFATE AND AMPHETAMINE SULFATE",
+      "pharm_class": [
+        "Central Nervous System Stimulant [EPC]",
+        "Central Nervous System Stimulant [EPC]",
+        "Central Nervous System Stimulant [EPC]",
+        "Central Nervous System Stimulant [EPC]",
+        "Central Nervous System Stimulation [PE]",
+        "Central Nervous System Stimulation [PE]",
+        "Central Nervous System Stimulation [PE]",
+        "Central Nervous System Stimulation [PE]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1262",
+      "generic_name": "Nitrofurantoin",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Nitrofurantoin",
+      "active_ingredients": [
+        {
+          "name": "NITROFURANTOIN",
+          "strength": "25 mg/1"
+        },
+        {
+          "name": "NITROFURANTOIN MONOHYDRATE",
+          "strength": "75 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1262-0",
+          "description": "1000 CAPSULE in 1 BOTTLE (72162-1262-0)",
+          "marketing_start_date": "20230829",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1262-1",
+          "description": "100 CAPSULE in 1 BOTTLE (72162-1262-1)",
+          "marketing_start_date": "20230829",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "1648755"
+        ],
+        "spl_set_id": [
+          "56e07ad3-7224-4aaf-9a68-0d48d4abfec8"
+        ],
+        "nui": [
+          "N0000175494",
+          "M0014892"
+        ],
+        "pharm_class_epc": [
+          "Nitrofuran Antibacterial [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Nitrofurans [CS]"
+        ],
+        "unii": [
+          "927AH8112L",
+          "E1QI2CQQ1I"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "373aced9-859b-4b9c-b3bc-8257a9014ae4",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20180101",
+      "product_id": "72162-1262_373aced9-859b-4b9c-b3bc-8257a9014ae4",
+      "application_number": "ANDA208516",
+      "brand_name_base": "Nitrofurantoin",
+      "pharm_class": [
+        "Nitrofuran Antibacterial [EPC]",
+        "Nitrofuran Antibacterial [EPC]",
+        "Nitrofurans [CS]",
+        "Nitrofurans [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1286",
+      "generic_name": "dexmethylphenidate hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CII",
+      "brand_name": "Dexmethylphenidate Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "DEXMETHYLPHENIDATE HYDROCHLORIDE",
+          "strength": "10 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1286-1",
+          "description": "100 TABLET in 1 BOTTLE, PLASTIC (72162-1286-1)",
+          "marketing_start_date": "20240201",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "899548"
+        ],
+        "spl_set_id": [
+          "f65759db-5294-4e82-bb3c-3ea368edaca7"
+        ],
+        "unii": [
+          "1678OK0E08"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "5dea27aa-7140-44c3-a81f-8edce5854412",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20011130",
+      "product_id": "72162-1286_5dea27aa-7140-44c3-a81f-8edce5854412",
+      "application_number": "ANDA207901",
+      "brand_name_base": "Dexmethylphenidate Hydrochloride",
+      "pharm_class": [
+        "Central Nervous System Stimulant [EPC]",
+        "Central Nervous System Stimulation [PE]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1344",
+      "generic_name": "BUPRENORPHINE",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CIII",
+      "brand_name": "BUPRENORPHINE",
+      "active_ingredients": [
+        {
+          "name": "BUPRENORPHINE HYDROCHLORIDE",
+          "strength": "2 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1344-3",
+          "description": "30 TABLET in 1 BOTTLE (72162-1344-3)",
+          "marketing_start_date": "20240111",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "351264"
+        ],
+        "spl_set_id": [
+          "cd0a90c6-32cc-4114-8573-86ac85503bdf"
+        ],
+        "unii": [
+          "56W8MW3EN1"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "86e7bced-d51f-4e0b-9a33-4a1ea331f2c4",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "SUBLINGUAL"
+      ],
+      "marketing_start_date": "20171025",
+      "product_id": "72162-1344_86e7bced-d51f-4e0b-9a33-4a1ea331f2c4",
+      "application_number": "ANDA207276",
+      "brand_name_base": "BUPRENORPHINE",
+      "pharm_class": [
+        "Partial Opioid Agonist [EPC]",
+        "Partial Opioid Agonists [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1366",
+      "generic_name": "clonazepam",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CIV",
+      "brand_name": "Clonazepam",
+      "active_ingredients": [
+        {
+          "name": "CLONAZEPAM",
+          "strength": "2 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1366-1",
+          "description": "100 TABLET in 1 BOTTLE, PLASTIC (72162-1366-1)",
+          "marketing_start_date": "20240131",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1366-5",
+          "description": "500 TABLET in 1 BOTTLE, PLASTIC (72162-1366-5)",
+          "marketing_start_date": "20240131",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "197529"
+        ],
+        "spl_set_id": [
+          "baa86bf1-75f3-44da-b67f-b6e4b5303f1e"
+        ],
+        "nui": [
+          "N0000175694",
+          "M0002356"
+        ],
+        "pharm_class_epc": [
+          "Benzodiazepine [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Benzodiazepines [CS]"
+        ],
+        "unii": [
+          "5PE9FDE8GB"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "5413014a-5cd0-436b-a74d-0c5e2d77d041",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20180215",
+      "product_id": "72162-1366_5413014a-5cd0-436b-a74d-0c5e2d77d041",
+      "application_number": "ANDA077856",
+      "brand_name_base": "Clonazepam",
+      "pharm_class": [
+        "Benzodiazepine [EPC]",
+        "Benzodiazepines [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1369",
+      "generic_name": "amphetamine sulfate",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CII",
+      "brand_name": "AMPHETAMINE SULFATE",
+      "active_ingredients": [
+        {
+          "name": "AMPHETAMINE SULFATE",
+          "strength": "10 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1369-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1369-1)",
+          "marketing_start_date": "20240125",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "1600695"
+        ],
+        "spl_set_id": [
+          "7f16dd18-bf30-41ef-8981-932da5df0951"
+        ],
+        "unii": [
+          "6DPV8NK46S"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "b7799b14-8dd8-472b-8279-5f6ba27aa313",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20200402",
+      "product_id": "72162-1369_b7799b14-8dd8-472b-8279-5f6ba27aa313",
+      "application_number": "ANDA211861",
+      "brand_name_base": "AMPHETAMINE SULFATE",
+      "pharm_class": [
+        "Central Nervous System Stimulant [EPC]",
+        "Central Nervous System Stimulation [PE]"
+      ]
+    },
+    {
+      "product_ndc": "0472-1738",
+      "generic_name": "Miconazole Nitrate",
+      "labeler_name": "Actavis Pharma, Inc.",
+      "brand_name": "Miconazole Nitrate",
+      "active_ingredients": [
+        {
+          "name": "MICONAZOLE NITRATE",
+          "strength": "200 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0472-1738-03",
+          "description": "3 SUPPOSITORY in 1 CARTON (0472-1738-03)",
+          "marketing_start_date": "19950118",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20251231",
+      "openfda": {
+        "manufacturer_name": [
+          "Actavis Pharma, Inc."
+        ],
+        "rxcui": [
+          "992765"
+        ],
+        "spl_set_id": [
+          "aa9e250b-f317-42cb-b8d2-e85de56f4ef7"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "VW4H1CYW1K"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "SUPPOSITORY",
+      "spl_id": "bb1aad58-4ca7-4be9-8649-0f29e22b81f5",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "VAGINAL"
+      ],
+      "marketing_start_date": "19950118",
+      "product_id": "0472-1738_bb1aad58-4ca7-4be9-8649-0f29e22b81f5",
+      "application_number": "ANDA073508",
+      "brand_name_base": "Miconazole Nitrate",
+      "pharm_class": [
+        "Azole Antifungal [EPC]",
+        "Azoles [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1389",
+      "generic_name": "Estradiol",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Estradiol Vaginal",
+      "active_ingredients": [
+        {
+          "name": "ESTRADIOL",
+          "strength": ".1 mg/g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1389-2",
+          "description": "1 TUBE in 1 CARTON (72162-1389-2)  / 42.5 g in 1 TUBE",
+          "marketing_start_date": "20210106",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "310169"
+        ],
+        "spl_set_id": [
+          "67f581cb-6d77-49fc-b2f3-976e3b57dcbf"
+        ],
+        "nui": [
+          "M0447348",
+          "N0000175825",
+          "N0000000100"
+        ],
+        "pharm_class_cs": [
+          "Estradiol Congeners [CS]"
+        ],
+        "pharm_class_epc": [
+          "Estrogen [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Estrogen Receptor Agonists [MoA]"
+        ],
+        "unii": [
+          "4TI98Z838E"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CREAM",
+      "spl_id": "1a27b14d-2f13-4f05-baad-b47904f4965e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "VAGINAL"
+      ],
+      "marketing_start_date": "20210106",
+      "product_id": "72162-1389_1a27b14d-2f13-4f05-baad-b47904f4965e",
+      "application_number": "ANDA210194",
+      "brand_name_base": "Estradiol Vaginal",
+      "pharm_class": [
+        "Estradiol Congeners [CS]",
+        "Estrogen Receptor Agonists [MoA]",
+        "Estrogen [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "0472-1783",
+      "marketing_end_date": "20270228",
+      "generic_name": "Diclofenac Sodium",
+      "labeler_name": "Actavis Pharma, Inc.",
+      "brand_name": "Diclofenac Sodium",
+      "active_ingredients": [
+        {
+          "name": "DICLOFENAC SODIUM",
+          "strength": "30 mg/g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0472-1783-10",
+          "description": "1 TUBE in 1 CARTON (0472-1783-10)  / 100 g in 1 TUBE",
+          "marketing_start_date": "20160519",
+          "marketing_end_date": "20270228",
+          "sample": false
+        }
+      ],
+      "openfda": {
+        "manufacturer_name": [
+          "Actavis Pharma, Inc."
+        ],
+        "rxcui": [
+          "855642"
+        ],
+        "spl_set_id": [
+          "74169b2d-ac56-4757-86c4-cdcfcd5f4eb5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "QTG126297Q"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "GEL",
+      "spl_id": "6b4784a2-31ca-485a-9bff-6c322c0cb902",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20160519",
+      "product_id": "0472-1783_6b4784a2-31ca-485a-9bff-6c322c0cb902",
+      "application_number": "ANDA206493",
+      "brand_name_base": "Diclofenac Sodium",
+      "pharm_class": [
+        "Anti-Inflammatory Agents",
+        "Non-Steroidal [CS]",
+        "Cyclooxygenase Inhibitors [MoA]",
+        "Decreased Prostaglandin Production [PE]",
+        "Nonsteroidal Anti-inflammatory Drug [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1406",
+      "generic_name": "Ciclopirox Olamine",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Ciclopirox Olamine",
+      "active_ingredients": [
+        {
+          "name": "CICLOPIROX OLAMINE",
+          "strength": "7.7 mg/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1406-3",
+          "description": "1 BOTTLE in 1 CARTON (72162-1406-3)  / 30 mL in 1 BOTTLE",
+          "marketing_start_date": "20231002",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1406-6",
+          "description": "1 BOTTLE in 1 CARTON (72162-1406-6)  / 60 mL in 1 BOTTLE",
+          "marketing_start_date": "20231002",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "309290"
+        ],
+        "spl_set_id": [
+          "399fd2d5-f5a2-4bce-ad4e-ce70060a14b0"
+        ],
+        "unii": [
+          "50MD4SB4AP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "SUSPENSION",
+      "spl_id": "bd13e41b-98e8-41f4-af32-10df498f93cc",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "TOPICAL"
+      ],
+      "marketing_start_date": "20061229",
+      "product_id": "72162-1406_bd13e41b-98e8-41f4-af32-10df498f93cc",
+      "application_number": "ANDA077676",
+      "brand_name_base": "Ciclopirox Olamine",
+      "pharm_class": [
+        "Decreased DNA Replication [PE]",
+        "Decreased Protein Synthesis [PE]",
+        "Decreased RNA Replication [PE]",
+        "Protein Synthesis Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1424",
+      "generic_name": "Levocetirizine dihydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "levocetirizine dihydrochloride",
+      "active_ingredients": [
+        {
+          "name": "LEVOCETIRIZINE DIHYDROCHLORIDE",
+          "strength": ".5 mg/mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1424-2",
+          "description": "148 mL in 1 BOTTLE (72162-1424-2)",
+          "marketing_start_date": "20230926",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "855168"
+        ],
+        "spl_set_id": [
+          "a9e7152c-0aa3-4355-8805-307e510ac86b"
+        ],
+        "unii": [
+          "SOD6A38AGA"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "SOLUTION",
+      "spl_id": "38cb0ddb-5227-4066-9b07-a1feececf7a3",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20111107",
+      "product_id": "72162-1424_38cb0ddb-5227-4066-9b07-a1feececf7a3",
+      "application_number": "ANDA091263",
+      "brand_name_base": "levocetirizine dihydrochloride",
+      "pharm_class": [
+        "Histamine H1 Receptor Antagonists [MoA]",
+        "Histamine-1 Receptor Antagonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1449",
+      "generic_name": "Alfuzosin Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Alfuzosin Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "ALFUZOSIN HYDROCHLORIDE",
+          "strength": "10 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1449-9",
+          "description": "90 TABLET, EXTENDED RELEASE in 1 BOTTLE (72162-1449-9)",
+          "marketing_start_date": "20240716",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "861132"
+        ],
+        "spl_set_id": [
+          "3a541efa-9eed-4a27-b602-7999fc6f59aa"
+        ],
+        "unii": [
+          "75046A1XTN"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, EXTENDED RELEASE",
+      "spl_id": "6e17789e-5114-40cf-a925-4f40afd1dd42",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20111122",
+      "product_id": "72162-1449_6e17789e-5114-40cf-a925-4f40afd1dd42",
+      "application_number": "ANDA079057",
+      "brand_name_base": "Alfuzosin Hydrochloride",
+      "pharm_class": [
+        "Adrenergic alpha-Antagonists [MoA]",
+        "alpha-Adrenergic Blocker [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1477",
+      "generic_name": "glycopyrrolate",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Glycopyrrolate",
+      "active_ingredients": [
+        {
+          "name": "GLYCOPYRROLATE",
+          "strength": "1 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1477-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1477-1)",
+          "marketing_start_date": "20241004",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "197738"
+        ],
+        "spl_set_id": [
+          "d93a9b2b-708d-4db5-8aae-45fd3a7ca65c"
+        ],
+        "unii": [
+          "V92SO9WP2I"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "27a836cc-1fca-40e1-866d-e9052c524eb3",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20060926",
+      "product_id": "72162-1477_27a836cc-1fca-40e1-866d-e9052c524eb3",
+      "application_number": "ANDA040653",
+      "brand_name_base": "Glycopyrrolate",
+      "pharm_class": [
+        "Anticholinergic [EPC]",
+        "Cholinergic Antagonists [MoA]",
+        "Cholinergic Muscarinic Antagonist [EPC]",
+        "Cholinergic Muscarinic Antagonists [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1496",
+      "generic_name": "Dexmethylphenidate Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CII",
+      "brand_name": "Dexmethylphenidate Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "DEXMETHYLPHENIDATE HYDROCHLORIDE",
+          "strength": "35 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1496-1",
+          "description": "100 CAPSULE, EXTENDED RELEASE in 1 BOTTLE (72162-1496-1)",
+          "marketing_start_date": "20240812",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "1101932"
+        ],
+        "spl_set_id": [
+          "b7410d65-9c7f-4ffd-b957-969e2725f38f"
+        ],
+        "unii": [
+          "1678OK0E08"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE, EXTENDED RELEASE",
+      "spl_id": "9358f9d6-e069-48ff-b646-99f47d35464c",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20170105",
+      "product_id": "72162-1496_9358f9d6-e069-48ff-b646-99f47d35464c",
+      "application_number": "ANDA202842",
+      "brand_name_base": "Dexmethylphenidate Hydrochloride",
+      "pharm_class": [
+        "Central Nervous System Stimulant [EPC]",
+        "Central Nervous System Stimulation [PE]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1498",
+      "generic_name": "dantrolene sodium",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "dantrolene sodium",
+      "active_ingredients": [
+        {
+          "name": "DANTROLENE SODIUM",
+          "strength": "50 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1498-1",
+          "description": "100 CAPSULE in 1 BOTTLE (72162-1498-1)",
+          "marketing_start_date": "20231003",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "856660"
+        ],
+        "spl_set_id": [
+          "86b52b97-7e0f-4df4-9ee4-8753a9684f5e"
+        ],
+        "unii": [
+          "287M0347EV"
+        ]
+      },
+      "marketing_category": "NDA AUTHORIZED GENERIC",
+      "dosage_form": "CAPSULE",
+      "spl_id": "e75f30cd-3f50-4779-a480-24def4cf0e00",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20160328",
+      "product_id": "72162-1498_e75f30cd-3f50-4779-a480-24def4cf0e00",
+      "application_number": "NDA017443",
+      "brand_name_base": "dantrolene sodium",
+      "pharm_class": [
+        "Decreased Striated Muscle Contraction [PE]",
+        "Decreased Striated Muscle Tone [PE]",
+        "Skeletal Muscle Relaxant [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1504",
+      "generic_name": "cholestyramine",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Cholestyramine",
+      "active_ingredients": [
+        {
+          "name": "CHOLESTYRAMINE",
+          "strength": "4 g/9g"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1504-2",
+          "description": "378 g in 1 CAN (72162-1504-2)",
+          "marketing_start_date": "20230926",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "848943"
+        ],
+        "spl_set_id": [
+          "cc447b99-e654-42dd-8cf1-f9e7952a25cd"
+        ],
+        "nui": [
+          "N0000180292",
+          "N0000175365"
+        ],
+        "pharm_class_epc": [
+          "Bile Acid Sequestrant [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Bile-acid Binding Activity [MoA]"
+        ],
+        "unii": [
+          "4B33BGI082"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "cf7f5e91-db59-472d-aff1-d7d2650a8cef",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20050915",
+      "product_id": "72162-1504_cf7f5e91-db59-472d-aff1-d7d2650a8cef",
+      "application_number": "ANDA077204",
+      "brand_name_base": "Cholestyramine",
+      "pharm_class": [
+        "Bile Acid Sequestrant [EPC]",
+        "Bile-acid Binding Activity [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1514",
+      "generic_name": "olmesartan medoxomil / amlodipine besylate / hydrochlorothiazide",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "olmesartan medoxomil / amlodipine besylate / hydrochlorothiazide",
+      "active_ingredients": [
+        {
+          "name": "AMLODIPINE BESYLATE",
+          "strength": "5 mg/1"
+        },
+        {
+          "name": "HYDROCHLOROTHIAZIDE",
+          "strength": "12.5 mg/1"
+        },
+        {
+          "name": "OLMESARTAN MEDOXOMIL",
+          "strength": "20 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1514-3",
+          "description": "30 TABLET, FILM COATED in 1 BOTTLE (72162-1514-3)",
+          "marketing_start_date": "20231006",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1514-9",
+          "description": "90 TABLET, FILM COATED in 1 BOTTLE (72162-1514-9)",
+          "marketing_start_date": "20231006",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "999967"
+        ],
+        "spl_set_id": [
+          "b404a550-0df4-404a-8d10-c35e197ca399"
+        ],
+        "nui": [
+          "N0000175359",
+          "N0000175419",
+          "M0471776"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis [PE]"
+        ],
+        "pharm_class_epc": [
+          "Thiazide Diuretic [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Thiazides [CS]"
+        ],
+        "unii": [
+          "864V2Q084H",
+          "0J48LPH2TH",
+          "6M97XTV3HD"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "5785cd86-1317-465c-a6ff-45f65cb8c8f8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20161026",
+      "product_id": "72162-1514_5785cd86-1317-465c-a6ff-45f65cb8c8f8",
+      "application_number": "ANDA206137",
+      "brand_name_base": "olmesartan medoxomil / amlodipine besylate / hydrochlorothiazide",
+      "pharm_class": [
+        "Angiotensin 2 Receptor Antagonists [MoA]",
+        "Angiotensin 2 Receptor Blocker [EPC]",
+        "Calcium Channel Antagonists [MoA]",
+        "Calcium Channel Blocker [EPC]",
+        "Cytochrome P450 3A Inhibitors [MoA]",
+        "Dihydropyridine Calcium Channel Blocker [EPC]",
+        "Dihydropyridines [CS]",
+        "Increased Diuresis [PE]",
+        "Thiazide Diuretic [EPC]",
+        "Thiazides [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1515",
+      "generic_name": "olmesartan medoxomil / amlodipine besylate / hydrochlorothiazide",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "olmesartan medoxomil / amlodipine besylate / hydrochlorothiazide",
+      "active_ingredients": [
+        {
+          "name": "AMLODIPINE BESYLATE",
+          "strength": "5 mg/1"
+        },
+        {
+          "name": "HYDROCHLOROTHIAZIDE",
+          "strength": "25 mg/1"
+        },
+        {
+          "name": "OLMESARTAN MEDOXOMIL",
+          "strength": "40 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1515-3",
+          "description": "30 TABLET, FILM COATED in 1 BOTTLE (72162-1515-3)",
+          "marketing_start_date": "20161026",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "1000001"
+        ],
+        "spl_set_id": [
+          "49ec5ac8-a626-4ab2-9799-8a138920201e"
+        ],
+        "nui": [
+          "N0000175359",
+          "N0000175419",
+          "M0471776"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis [PE]"
+        ],
+        "pharm_class_epc": [
+          "Thiazide Diuretic [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Thiazides [CS]"
+        ],
+        "unii": [
+          "864V2Q084H",
+          "0J48LPH2TH",
+          "6M97XTV3HD"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "aedd747c-6f92-4721-95c2-5c793b3ad486",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20161026",
+      "product_id": "72162-1515_aedd747c-6f92-4721-95c2-5c793b3ad486",
+      "application_number": "ANDA206137",
+      "brand_name_base": "olmesartan medoxomil / amlodipine besylate / hydrochlorothiazide",
+      "pharm_class": [
+        "Angiotensin 2 Receptor Antagonists [MoA]",
+        "Angiotensin 2 Receptor Blocker [EPC]",
+        "Calcium Channel Antagonists [MoA]",
+        "Calcium Channel Blocker [EPC]",
+        "Cytochrome P450 3A Inhibitors [MoA]",
+        "Dihydropyridine Calcium Channel Blocker [EPC]",
+        "Dihydropyridines [CS]",
+        "Increased Diuresis [PE]",
+        "Thiazide Diuretic [EPC]",
+        "Thiazides [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1525",
+      "generic_name": "levocetirizine dihydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "levocetirizine dihydrochloride",
+      "active_ingredients": [
+        {
+          "name": "LEVOCETIRIZINE DIHYDROCHLORIDE",
+          "strength": "5 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1525-3",
+          "description": "30 TABLET in 1 BOTTLE (72162-1525-3)",
+          "marketing_start_date": "20240206",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "855172"
+        ],
+        "spl_set_id": [
+          "c79d3668-5243-4627-ad2b-cc7c045df120"
+        ],
+        "unii": [
+          "SOD6A38AGA"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "aeb98202-0606-4fb8-8d1f-b8f13a95c568",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20140909",
+      "product_id": "72162-1525_aeb98202-0606-4fb8-8d1f-b8f13a95c568",
+      "application_number": "ANDA203646",
+      "brand_name_base": "levocetirizine dihydrochloride",
+      "pharm_class": [
+        "Histamine H1 Receptor Antagonists [MoA]",
+        "Histamine-1 Receptor Antagonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1526",
+      "generic_name": "bupropion hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Bupropion Hydrochloride (XL)",
+      "brand_name_suffix": "(XL)",
+      "active_ingredients": [
+        {
+          "name": "BUPROPION HYDROCHLORIDE",
+          "strength": "150 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1526-3",
+          "description": "30 TABLET, FILM COATED, EXTENDED RELEASE in 1 BOTTLE, PLASTIC (72162-1526-3)",
+          "marketing_start_date": "20231207",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1526-5",
+          "description": "500 TABLET, FILM COATED, EXTENDED RELEASE in 1 BOTTLE, PLASTIC (72162-1526-5)",
+          "marketing_start_date": "20231207",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "993541"
+        ],
+        "spl_set_id": [
+          "cefaaa17-f79a-4ba6-8f97-a59f60e07b75"
+        ],
+        "unii": [
+          "ZG7E5POY8O"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED, EXTENDED RELEASE",
+      "spl_id": "bdb479e5-716d-42c3-9b39-7ca6c5351cca",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20170412",
+      "product_id": "72162-1526_bdb479e5-716d-42c3-9b39-7ca6c5351cca",
+      "application_number": "ANDA207479",
+      "brand_name_base": "Bupropion Hydrochloride",
+      "pharm_class": [
+        "Aminoketone [EPC]",
+        "Dopamine Uptake Inhibitors [MoA]",
+        "Increased Dopamine Activity [PE]",
+        "Increased Norepinephrine Activity [PE]",
+        "Norepinephrine Uptake Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1534",
+      "generic_name": "Gabapentin",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Gabapentin",
+      "active_ingredients": [
+        {
+          "name": "GABAPENTIN",
+          "strength": "400 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1534-1",
+          "description": "100 CAPSULE in 1 BOTTLE, PLASTIC (72162-1534-1)",
+          "marketing_start_date": "20240202",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "310432"
+        ],
+        "spl_set_id": [
+          "43cbff48-8219-41ba-b67d-3ae4544b78bb"
+        ],
+        "nui": [
+          "N0000008486"
+        ],
+        "pharm_class_pe": [
+          "Decreased Central Nervous System Disorganized Electrical Activity [PE]"
+        ],
+        "unii": [
+          "6CW7F3G59X"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "85994fa2-027d-4563-846e-a1c86c966e82",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20160218",
+      "product_id": "72162-1534_85994fa2-027d-4563-846e-a1c86c966e82",
+      "application_number": "ANDA204989",
+      "brand_name_base": "Gabapentin",
+      "pharm_class": [
+        "Decreased Central Nervous System Disorganized Electrical Activity [PE]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1562",
+      "generic_name": "Phentermine Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CIV",
+      "brand_name": "Phentermine Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "PHENTERMINE HYDROCHLORIDE",
+          "strength": "37.5 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1562-0",
+          "description": "1000 TABLET in 1 BOTTLE (72162-1562-0)",
+          "marketing_start_date": "20230913",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1562-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1562-1)",
+          "marketing_start_date": "20230913",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "803353"
+        ],
+        "spl_set_id": [
+          "707af68e-1630-4f86-87ba-1a643d2b4ef9"
+        ],
+        "unii": [
+          "0K2I505OTV"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "d7c5de39-2416-4cc7-8b34-5283df8aaca1",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20110308",
+      "product_id": "72162-1562_d7c5de39-2416-4cc7-8b34-5283df8aaca1",
+      "application_number": "ANDA200272",
+      "brand_name_base": "Phentermine Hydrochloride",
+      "pharm_class": [
+        "Appetite Suppression [PE]",
+        "Increased Sympathetic Activity [PE]",
+        "Sympathomimetic Amine Anorectic [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1566",
+      "generic_name": "Naltrexone Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Naltrexone Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "NALTREXONE HYDROCHLORIDE",
+          "strength": "50 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1566-1",
+          "description": "100 TABLET, FILM COATED in 1 BOTTLE (72162-1566-1)",
+          "marketing_start_date": "20230912",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1566-3",
+          "description": "30 TABLET, FILM COATED in 1 BOTTLE (72162-1566-3)",
+          "marketing_start_date": "20230912",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "1483744"
+        ],
+        "spl_set_id": [
+          "49b7b694-6fec-479b-be35-d03d816e13dd"
+        ],
+        "unii": [
+          "Z6375YW9SF"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "a3b74230-f1bf-4ab3-934d-fb9f43cfae3d",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20130923",
+      "product_id": "72162-1566_a3b74230-f1bf-4ab3-934d-fb9f43cfae3d",
+      "application_number": "ANDA075274",
+      "brand_name_base": "Naltrexone Hydrochloride",
+      "pharm_class": [
+        "Opioid Antagonist [EPC]",
+        "Opioid Antagonists [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1584",
+      "generic_name": "phenobarbital",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CIV",
+      "brand_name": "Phenobarbital",
+      "active_ingredients": [
+        {
+          "name": "PHENOBARBITAL",
+          "strength": "100 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1584-1",
+          "description": "100 TABLET in 1 BOTTLE, PLASTIC (72162-1584-1)",
+          "marketing_start_date": "20230421",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "198083"
+        ],
+        "spl_set_id": [
+          "97bab152-6c7b-4eb6-b8cc-9f64d2a5bdbe"
+        ],
+        "unii": [
+          "YQE403BP4D"
+        ]
+      },
+      "marketing_category": "UNAPPROVED DRUG OTHER",
+      "dosage_form": "TABLET",
+      "spl_id": "04275a50-1692-9977-e063-6294a90a7efe",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20200301",
+      "product_id": "72162-1584_04275a50-1692-9977-e063-6294a90a7efe",
+      "brand_name_base": "Phenobarbital"
+    },
+    {
+      "product_ndc": "72162-1595",
+      "generic_name": "Terbinafine Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Terbinafine Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "TERBINAFINE HYDROCHLORIDE",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1595-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1595-1)",
+          "marketing_start_date": "20240207",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "313222"
+        ],
+        "spl_set_id": [
+          "e2ecf7a5-1c84-4977-8a87-d1bfb9658668"
+        ],
+        "unii": [
+          "012C11ZU6G"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "f9f34f4d-d49d-4921-9e3e-8b6e2fd16d9f",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20101227",
+      "product_id": "72162-1595_f9f34f4d-d49d-4921-9e3e-8b6e2fd16d9f",
+      "application_number": "ANDA077714",
+      "brand_name_base": "Terbinafine Hydrochloride",
+      "pharm_class": [
+        "Allylamine Antifungal [EPC]",
+        "Allylamine [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1599",
+      "generic_name": "DULOXETINE HYDROCHLORIDE",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Duloxetine Delayed-Release",
+      "brand_name_suffix": "Delayed-Release",
+      "active_ingredients": [
+        {
+          "name": "DULOXETINE HYDROCHLORIDE",
+          "strength": "60 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1599-1",
+          "description": "100 CAPSULE, DELAYED RELEASE PELLETS in 1 BOTTLE (72162-1599-1)",
+          "marketing_start_date": "20240205",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1599-9",
+          "description": "90 CAPSULE, DELAYED RELEASE PELLETS in 1 BOTTLE (72162-1599-9)",
+          "marketing_start_date": "20240205",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "596934"
+        ],
+        "spl_set_id": [
+          "a23e79b3-7bd3-4b83-beb0-dc23d4830e9e"
+        ],
+        "unii": [
+          "9044SC542W"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE, DELAYED RELEASE PELLETS",
+      "spl_id": "7a0ab4db-866d-4ff1-82d7-9616b57409bb",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20140611",
+      "product_id": "72162-1599_7a0ab4db-866d-4ff1-82d7-9616b57409bb",
+      "application_number": "ANDA203088",
+      "brand_name_base": "Duloxetine",
+      "pharm_class": [
+        "Norepinephrine Uptake Inhibitors [MoA]",
+        "Serotonin Uptake Inhibitors [MoA]",
+        "Serotonin and Norepinephrine Reuptake Inhibitor [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1641",
+      "generic_name": "Tizanidine",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Tizanidine",
+      "active_ingredients": [
+        {
+          "name": "TIZANIDINE HYDROCHLORIDE",
+          "strength": "2 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1641-0",
+          "description": "1000 TABLET in 1 BOTTLE (72162-1641-0)",
+          "marketing_start_date": "20230913",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "313412"
+        ],
+        "spl_set_id": [
+          "5a5b6614-038f-4e5b-9543-0497872c7882"
+        ],
+        "unii": [
+          "B53E3NMY5C"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "22f61022-d96e-4e23-aacf-768f014220c8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20031211",
+      "product_id": "72162-1641_22f61022-d96e-4e23-aacf-768f014220c8",
+      "application_number": "ANDA076416",
+      "brand_name_base": "Tizanidine",
+      "pharm_class": [
+        "Adrenergic alpha2-Agonists [MoA]",
+        "Central alpha-2 Adrenergic Agonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1655",
+      "generic_name": ".ALPHA.-TOCOPHEROL ACETATE, DL-, ASCORBIC ACID, CYANOCOBALAMIN, FOLIC ACID, NIACIN, PYRIDOXINE, RIBOFLAVIN, SODIUM FLUORIDE, THIAMINE MONONITRATE, VITAMIN A and VITAMIN D",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Multivitamin with Fluoride",
+      "active_ingredients": [
+        {
+          "name": ".ALPHA.-TOCOPHEROL ACETATE, DL-",
+          "strength": "15 [iU]/1"
+        },
+        {
+          "name": "ASCORBIC ACID",
+          "strength": "60 mg/1"
+        },
+        {
+          "name": "CYANOCOBALAMIN",
+          "strength": "4.5 ug/1"
+        },
+        {
+          "name": "FOLIC ACID",
+          "strength": "300 ug/1"
+        },
+        {
+          "name": "NIACIN",
+          "strength": "13.5 mg/1"
+        },
+        {
+          "name": "PYRIDOXINE",
+          "strength": "1.05 mg/1"
+        },
+        {
+          "name": "RIBOFLAVIN",
+          "strength": "1.2 mg/1"
+        },
+        {
+          "name": "SODIUM FLUORIDE",
+          "strength": ".25 mg/1"
+        },
+        {
+          "name": "THIAMINE MONONITRATE",
+          "strength": "1.05 mg/1"
+        },
+        {
+          "name": "VITAMIN A",
+          "strength": "2500 [iU]/1"
+        },
+        {
+          "name": "VITAMIN D",
+          "strength": "400 [iU]/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1655-1",
+          "description": "100 TABLET, CHEWABLE in 1 BOTTLE (72162-1655-1)",
+          "marketing_start_date": "20240621",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1655-9",
+          "description": "90 TABLET, CHEWABLE in 1 BOTTLE (72162-1655-9)",
+          "marketing_start_date": "20240621",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "spl_set_id": [
+          "0f11c8c7-c73e-4610-83ed-e697539ac180"
+        ],
+        "nui": [
+          "N0000193618",
+          "M0001797",
+          "M0022794",
+          "N0000175951",
+          "N0000175594",
+          "M0014839",
+          "N0000192800",
+          "N0000005657",
+          "N0000175452",
+          "M0022788",
+          "N0000175950"
+        ],
+        "pharm_class_epc": [
+          "Vitamin C [EPC]",
+          "Vitamin B12 [EPC]",
+          "Nicotinic Acid [EPC]",
+          "Vitamin B6 Analog [EPC]",
+          "Vitamin A [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Ascorbic Acid [CS]",
+          "Vitamin B 12 [CS]",
+          "Nicotinic Acids [CS]",
+          "Vitamin B 6 [Chemical/Ingredient]",
+          "Analogs/Derivatives [Chemical/Ingredient]",
+          "Vitamin A [CS]"
+        ],
+        "unii": [
+          "WR1WPI7EW8",
+          "PQ6CK8PD0R",
+          "P6YC3EG204",
+          "935E97BOY8",
+          "2679MF687A",
+          "KV2JZ1BI6Z",
+          "TLM2976OFR",
+          "8ZYQ1474W7",
+          "8K0I04919X",
+          "81G40H8B0T",
+          "9VU1KI44GP"
+        ]
+      },
+      "marketing_category": "UNAPPROVED DRUG OTHER",
+      "dosage_form": "TABLET, CHEWABLE",
+      "spl_id": "9701ab40-7749-416b-a9cc-852c70ed84ef",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20180720",
+      "product_id": "72162-1655_9701ab40-7749-416b-a9cc-852c70ed84ef",
+      "brand_name_base": "Multivitamin with Fluoride",
+      "pharm_class": [
+        "Analogs/Derivatives [Chemical/Ingredient]",
+        "Ascorbic Acid [CS]",
+        "Nicotinic Acid [EPC]",
+        "Nicotinic Acids [CS]",
+        "Vitamin A [CS]",
+        "Vitamin A [EPC]",
+        "Vitamin B 12 [CS]",
+        "Vitamin B 6 [Chemical/Ingredient]",
+        "Vitamin B12 [EPC]",
+        "Vitamin B6 Analog [EPC]",
+        "Vitamin C [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1674",
+      "generic_name": "DIPHENHYDRAMINE HYDROCHLORIDE",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "M-Dryl",
+      "active_ingredients": [
+        {
+          "name": "DIPHENHYDRAMINE HYDROCHLORIDE",
+          "strength": "12.5 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1674-2",
+          "description": "120 mL in 1 BOTTLE (72162-1674-2)",
+          "marketing_start_date": "20231005",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1674-4",
+          "description": "473 mL in 1 BOTTLE (72162-1674-4)",
+          "marketing_start_date": "20231005",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "spl_set_id": [
+          "e1d545dc-9222-4d61-964d-1c781215d7d2"
+        ],
+        "unii": [
+          "TC2D6JAD40"
+        ]
+      },
+      "marketing_category": "OTC MONOGRAPH DRUG",
+      "dosage_form": "LIQUID",
+      "spl_id": "7c348b56-1a91-4472-9934-5498e136fbba",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20190801",
+      "product_id": "72162-1674_7c348b56-1a91-4472-9934-5498e136fbba",
+      "application_number": "M012",
+      "brand_name_base": "M-Dryl",
+      "pharm_class": [
+        "Histamine H1 Receptor Antagonists [MoA]",
+        "Histamine-1 Receptor Antagonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1677",
+      "generic_name": "Labetalol Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Labetalol Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "LABETALOL",
+          "strength": "300 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1677-1",
+          "description": "100 TABLET, FILM COATED in 1 BOTTLE (72162-1677-1)",
+          "marketing_start_date": "20191122",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1677-5",
+          "description": "500 TABLET, FILM COATED in 1 BOTTLE (72162-1677-5)",
+          "marketing_start_date": "20191122",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "896766"
+        ],
+        "spl_set_id": [
+          "f7f7fade-98a6-4741-bfb9-f1eb54ad4565"
+        ],
+        "nui": [
+          "N0000000161",
+          "N0000175556"
+        ],
+        "pharm_class_moa": [
+          "Adrenergic beta-Antagonists [MoA]"
+        ],
+        "pharm_class_epc": [
+          "beta-Adrenergic Blocker [EPC]"
+        ],
+        "unii": [
+          "R5H8897N95"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "2530ad68-027f-4560-bb86-45c1452d9d30",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20191122",
+      "product_id": "72162-1677_2530ad68-027f-4560-bb86-45c1452d9d30",
+      "application_number": "ANDA075215",
+      "brand_name_base": "Labetalol Hydrochloride",
+      "pharm_class": [
+        "Adrenergic beta-Antagonists [MoA]",
+        "beta-Adrenergic Blocker [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1681",
+      "generic_name": "Clonidine Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Clonidine Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "CLONIDINE HYDROCHLORIDE",
+          "strength": ".3 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1681-0",
+          "description": "1000 TABLET in 1 BOTTLE (72162-1681-0)",
+          "marketing_start_date": "20231003",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1681-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1681-1)",
+          "marketing_start_date": "20231003",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1681-5",
+          "description": "500 TABLET in 1 BOTTLE (72162-1681-5)",
+          "marketing_start_date": "20231003",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "884189"
+        ],
+        "spl_set_id": [
+          "849cafb5-0a98-4434-80bb-b16e7109dd06"
+        ],
+        "unii": [
+          "W76I6XXF06"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "a81f5bc2-a959-40fd-ab09-46dbe5258bad",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20200701",
+      "product_id": "72162-1681_a81f5bc2-a959-40fd-ab09-46dbe5258bad",
+      "application_number": "ANDA202297",
+      "brand_name_base": "Clonidine Hydrochloride",
+      "pharm_class": [
+        "Adrenergic alpha2-Agonists [MoA]",
+        "Central alpha-2 Adrenergic Agonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1692",
+      "generic_name": "Cyclobenzaprine Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Cyclobenzaprine Hydrochloride",
+      "active_ingredients": [
+        {
+          "name": "CYCLOBENZAPRINE HYDROCHLORIDE",
+          "strength": "5 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1692-0",
+          "description": "1000 TABLET, FILM COATED in 1 BOTTLE (72162-1692-0)",
+          "marketing_start_date": "20240131",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "828320"
+        ],
+        "spl_set_id": [
+          "3f1b9c8a-8f75-4b84-af0c-739815937fd7"
+        ],
+        "unii": [
+          "0VE05JYS2P"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "0208b80b-278d-4ef8-b9a2-858f77d9d789",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20060404",
+      "product_id": "72162-1692_0208b80b-278d-4ef8-b9a2-858f77d9d789",
+      "application_number": "ANDA077563",
+      "brand_name_base": "Cyclobenzaprine Hydrochloride",
+      "pharm_class": [
+        "Centrally-mediated Muscle Relaxation [PE]",
+        "Muscle Relaxant [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1701",
+      "generic_name": "losartan potassium and hydrochlorothiazide",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Losartan Potassium and Hydrochlorothiazide",
+      "active_ingredients": [
+        {
+          "name": "HYDROCHLOROTHIAZIDE",
+          "strength": "25 mg/1"
+        },
+        {
+          "name": "LOSARTAN POTASSIUM",
+          "strength": "100 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1701-0",
+          "description": "1000 TABLET, FILM COATED in 1 BOTTLE (72162-1701-0)",
+          "marketing_start_date": "20240206",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "spl_set_id": [
+          "59801c48-2af7-4967-ae70-99f865551a7a"
+        ],
+        "nui": [
+          "N0000175359",
+          "N0000175419",
+          "M0471776"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis [PE]"
+        ],
+        "pharm_class_epc": [
+          "Thiazide Diuretic [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Thiazides [CS]"
+        ],
+        "unii": [
+          "0J48LPH2TH",
+          "3ST302B24A"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "a179f245-04dd-4825-8ae3-06cdd5a02614",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20121030",
+      "product_id": "72162-1701_a179f245-04dd-4825-8ae3-06cdd5a02614",
+      "application_number": "ANDA201845",
+      "brand_name_base": "Losartan Potassium and Hydrochlorothiazide",
+      "pharm_class": [
+        "Angiotensin 2 Receptor Antagonists [MoA]",
+        "Angiotensin 2 Receptor Blocker [EPC]",
+        "Increased Diuresis [PE]",
+        "Thiazide Diuretic [EPC]",
+        "Thiazides [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1737",
+      "generic_name": "Famotidine",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Famotidine",
+      "active_ingredients": [
+        {
+          "name": "FAMOTIDINE",
+          "strength": "40 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1737-0",
+          "description": "1000 TABLET in 1 BOTTLE (72162-1737-0)",
+          "marketing_start_date": "20240917",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1737-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1737-1)",
+          "marketing_start_date": "20240917",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "284245"
+        ],
+        "spl_set_id": [
+          "67a6e7f3-04d6-426c-b952-7677a84ace4d"
+        ],
+        "nui": [
+          "N0000000151",
+          "N0000175784"
+        ],
+        "pharm_class_moa": [
+          "Histamine H2 Receptor Antagonists [MoA]"
+        ],
+        "pharm_class_epc": [
+          "Histamine-2 Receptor Antagonist [EPC]"
+        ],
+        "unii": [
+          "5QZO15J2Z8"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "67a6e7f3-04d6-426c-b952-7677a84ace4d",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20010416",
+      "product_id": "72162-1737_67a6e7f3-04d6-426c-b952-7677a84ace4d",
+      "application_number": "ANDA075805",
+      "brand_name_base": "Famotidine",
+      "pharm_class": [
+        "Histamine H2 Receptor Antagonists [MoA]",
+        "Histamine-2 Receptor Antagonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1740",
+      "generic_name": "Ciprofloxacin Hydrochloride",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Ciprofloxacin",
+      "active_ingredients": [
+        {
+          "name": "CIPROFLOXACIN HYDROCHLORIDE",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1740-1",
+          "description": "100 TABLET, FILM COATED in 1 BOTTLE (72162-1740-1)",
+          "marketing_start_date": "20240716",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "197511"
+        ],
+        "spl_set_id": [
+          "d6bd5021-cf56-4c8a-b5a0-bbc8919740af"
+        ],
+        "unii": [
+          "4BA73M5E37"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "1c857923-9e16-49e7-9e35-cd0236601cc8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20091010",
+      "product_id": "72162-1740_1c857923-9e16-49e7-9e35-cd0236601cc8",
+      "application_number": "ANDA076126",
+      "brand_name_base": "Ciprofloxacin",
+      "pharm_class": [
+        "Cytochrome P450 1A2 Inhibitors [MoA]",
+        "Fluoroquinolone Antibacterial [EPC]",
+        "Fluoroquinolones [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1755",
+      "generic_name": "Methazolamide",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Methazolamide",
+      "active_ingredients": [
+        {
+          "name": "METHAZOLAMIDE",
+          "strength": "50 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1755-1",
+          "description": "100 TABLET in 1 BOTTLE (72162-1755-1)",
+          "marketing_start_date": "20240205",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "197940"
+        ],
+        "spl_set_id": [
+          "369e89a4-9898-4a9f-a316-17d0fce8a08b"
+        ],
+        "unii": [
+          "W733B0S9SD"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET",
+      "spl_id": "6f0f34a3-5b3b-490c-8acc-82e0f433827b",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20141106",
+      "product_id": "72162-1755_6f0f34a3-5b3b-490c-8acc-82e0f433827b",
+      "application_number": "ANDA040001",
+      "brand_name_base": "Methazolamide"
+    },
+    {
+      "product_ndc": "72162-1756",
+      "generic_name": "Etodolac",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Etodolac",
+      "active_ingredients": [
+        {
+          "name": "ETODOLAC",
+          "strength": "200 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1756-1",
+          "description": "100 CAPSULE in 1 BOTTLE (72162-1756-1)",
+          "marketing_start_date": "20240906",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "197684"
+        ],
+        "spl_set_id": [
+          "301087e4-f05c-4fd3-8815-c86c6f12ff61"
+        ],
+        "nui": [
+          "N0000000160",
+          "M0001335",
+          "N0000175722"
+        ],
+        "pharm_class_moa": [
+          "Cyclooxygenase Inhibitors [MoA]"
+        ],
+        "pharm_class_cs": [
+          "Anti-Inflammatory Agents, Non-Steroidal [CS]"
+        ],
+        "pharm_class_epc": [
+          "Nonsteroidal Anti-inflammatory Drug [EPC]"
+        ],
+        "unii": [
+          "2M36281008"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "226ceb97-9680-4906-aa74-b0cd857ba9e5",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20150309",
+      "product_id": "72162-1756_226ceb97-9680-4906-aa74-b0cd857ba9e5",
+      "application_number": "ANDA075126",
+      "brand_name_base": "Etodolac",
+      "pharm_class": [
+        "Anti-Inflammatory Agents",
+        "Non-Steroidal [CS]",
+        "Cyclooxygenase Inhibitors [MoA]",
+        "Nonsteroidal Anti-inflammatory Drug [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1766",
+      "generic_name": "Indapamide",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Indapamide",
+      "active_ingredients": [
+        {
+          "name": "INDAPAMIDE",
+          "strength": "1.25 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1766-1",
+          "description": "100 TABLET, FILM COATED in 1 BOTTLE (72162-1766-1)",
+          "marketing_start_date": "20231005",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "197815"
+        ],
+        "spl_set_id": [
+          "8a16fc49-7a36-4873-9652-194ebb0bac68"
+        ],
+        "nui": [
+          "N0000175359",
+          "N0000175420"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis [PE]"
+        ],
+        "pharm_class_epc": [
+          "Thiazide-like Diuretic [EPC]"
+        ],
+        "unii": [
+          "F089I0511L"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "da7671a4-2348-46c8-8475-7092e7b999c5",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20170424",
+      "product_id": "72162-1766_da7671a4-2348-46c8-8475-7092e7b999c5",
+      "application_number": "ANDA074299",
+      "brand_name_base": "Indapamide",
+      "pharm_class": [
+        "Increased Diuresis [PE]",
+        "Thiazide-like Diuretic [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "0480-2308",
+      "generic_name": "Tadalafil",
+      "labeler_name": "Teva Pharmaceuticals, Inc.",
+      "brand_name": "Tadalafil",
+      "active_ingredients": [
+        {
+          "name": "TADALAFIL",
+          "strength": "2.5 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0480-2308-65",
+          "description": "2 BLISTER PACK in 1 CARTON (0480-2308-65)  / 15 TABLET, FILM COATED in 1 BLISTER PACK (0480-2308-30)",
+          "marketing_start_date": "20241106",
+          "marketing_end_date": "20260131",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Teva Pharmaceuticals, Inc."
+        ],
+        "rxcui": [
+          "402019",
+          "403957",
+          "484814",
+          "757707"
+        ],
+        "spl_set_id": [
+          "3ad14d63-42e7-493f-b56c-e02a4fd139f7"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0304802310566",
+          "0304802311563",
+          "0304802309560"
+        ],
+        "nui": [
+          "N0000175599",
+          "N0000020026"
+        ],
+        "pharm_class_epc": [
+          "Phosphodiesterase 5 Inhibitor [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Phosphodiesterase 5 Inhibitors [MoA]"
+        ],
+        "unii": [
+          "742SXX0ICT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "f56140f5-edaf-4ede-a7a4-4506caaca572",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20241106",
+      "product_id": "0480-2308_f56140f5-edaf-4ede-a7a4-4506caaca572",
+      "application_number": "ANDA205885",
+      "brand_name_base": "Tadalafil",
+      "pharm_class": [
+        "Phosphodiesterase 5 Inhibitor [EPC]",
+        "Phosphodiesterase 5 Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1791",
+      "generic_name": "morphine sulfate",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CII",
+      "brand_name": "Morphine sulfate",
+      "active_ingredients": [
+        {
+          "name": "MORPHINE SULFATE",
+          "strength": "100 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1791-1",
+          "description": "100 TABLET, FILM COATED, EXTENDED RELEASE in 1 BOTTLE (72162-1791-1)",
+          "marketing_start_date": "20120511",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1791-3",
+          "description": "30 TABLET, FILM COATED, EXTENDED RELEASE in 1 BOTTLE (72162-1791-3)",
+          "marketing_start_date": "20120511",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1791-6",
+          "description": "60 TABLET, FILM COATED, EXTENDED RELEASE in 1 BOTTLE (72162-1791-6)",
+          "marketing_start_date": "20120511",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1791-9",
+          "description": "90 TABLET, FILM COATED, EXTENDED RELEASE in 1 BOTTLE (72162-1791-9)",
+          "marketing_start_date": "20120511",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "891874"
+        ],
+        "spl_set_id": [
+          "3a89d0ca-4ff8-4bdc-8ea8-9ad591ce7226"
+        ],
+        "unii": [
+          "X3P646A2J0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED, EXTENDED RELEASE",
+      "spl_id": "73cb4d51-c9c9-4666-b56d-dcfe279c5085",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20120511",
+      "product_id": "72162-1791_73cb4d51-c9c9-4666-b56d-dcfe279c5085",
+      "application_number": "ANDA078761",
+      "brand_name_base": "Morphine sulfate",
+      "pharm_class": [
+        "Full Opioid Agonists [MoA]",
+        "Opioid Agonist [EPC]"
+      ]
+    },
+    {
+      "product_ndc": "72162-1824",
+      "generic_name": "temazepam",
+      "labeler_name": "Bryant Ranch Prepack",
+      "dea_schedule": "CIV",
+      "brand_name": "temazepam",
+      "active_ingredients": [
+        {
+          "name": "TEMAZEPAM",
+          "strength": "15 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72162-1824-1",
+          "description": "100 CAPSULE in 1 BOTTLE (72162-1824-1)",
+          "marketing_start_date": "20240307",
+          "sample": false
+        },
+        {
+          "package_ndc": "72162-1824-5",
+          "description": "500 CAPSULE in 1 BOTTLE (72162-1824-5)",
+          "marketing_start_date": "20240307",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "198241"
+        ],
+        "spl_set_id": [
+          "432252c6-648f-4c53-976c-ee271ba435bd"
+        ],
+        "nui": [
+          "N0000175694",
+          "M0002356"
+        ],
+        "pharm_class_epc": [
+          "Benzodiazepine [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Benzodiazepines [CS]"
+        ],
+        "unii": [
+          "CHB1QD2QSS"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "6c8efa4c-2cd1-47c0-8e82-cfdd16a7455b",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19870421",
+      "product_id": "72162-1824_6c8efa4c-2cd1-47c0-8e82-cfdd16a7455b",
+      "application_number": "ANDA071456",
+      "brand_name_base": "temazepam",
+      "pharm_class": [
+        "Benzodiazepine [EPC]",
+        "Benzodiazepines [CS]"
+      ]
+    },
+    {
+      "product_ndc": "0480-2311",
+      "generic_name": "Tadalafil",
+      "labeler_name": "Teva Pharmaceuticals, Inc.",
+      "brand_name": "Tadalafil",
+      "active_ingredients": [
+        {
+          "name": "TADALAFIL",
+          "strength": "20 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0480-2311-56",
+          "description": "30 TABLET, FILM COATED in 1 BOTTLE (0480-2311-56)",
+          "marketing_start_date": "20240116",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Teva Pharmaceuticals, Inc."
+        ],
+        "rxcui": [
+          "402019",
+          "403957",
+          "484814",
+          "757707"
+        ],
+        "spl_set_id": [
+          "3ad14d63-42e7-493f-b56c-e02a4fd139f7"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0304802310566",
+          "0304802311563",
+          "0304802309560"
+        ],
+        "nui": [
+          "N0000175599",
+          "N0000020026"
+        ],
+        "pharm_class_epc": [
+          "Phosphodiesterase 5 Inhibitor [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Phosphodiesterase 5 Inhibitors [MoA]"
+        ],
+        "unii": [
+          "742SXX0ICT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "f56140f5-edaf-4ede-a7a4-4506caaca572",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
