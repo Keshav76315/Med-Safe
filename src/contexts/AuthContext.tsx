@@ -67,13 +67,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUp = async (email: string, password: string, fullName: string) => {
     const redirectUrl = `${window.location.origin}/`;
     
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: redirectUrl,
         data: {
-          full_name: fullName
+          full_name: fullName,
+          is_new_user: true
         }
       }
     });
@@ -87,11 +88,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     } else {
       toast({
         title: "Success!",
-        description: "Please check your email to confirm your account."
+        description: "Welcome to MedSafe!"
       });
     }
     
-    return { error };
+    return { error, isNewUser: true };
   };
 
   const signIn = async (email: string, password: string) => {

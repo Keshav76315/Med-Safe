@@ -97,6 +97,9 @@ const Auth = () => {
     setLoading(false);
     if (!error) {
       setSignUpData({ email: '', password: '', fullName: '' });
+      // Store flag for demo
+      localStorage.setItem('showDemo', 'true');
+      navigate('/dashboard');
     }
   };
 

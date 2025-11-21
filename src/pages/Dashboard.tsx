@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { DashboardCard } from "@/components/DashboardCard";
+import { InteractiveDemo } from "@/components/InteractiveDemo";
 import { getDashboardStats } from "@/lib/api";
 import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Clock, Badge } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -12,11 +13,19 @@ export default function Dashboard() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [recentScans, setRecentScans] = useState<any[]>([]);
+  const [showDemo, setShowDemo] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     loadStats();
     loadRecentScans();
+    
+    // Check if we should show demo for new user
+    const shouldShowDemo = localStorage.getItem('showDemo');
+    if (shouldShowDemo === 'true') {
+      setShowDemo(true);
+      localStorage.removeItem('showDemo');
+    }
   }, []);
 
   async function loadStats() {
@@ -80,6 +89,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <InteractiveDemo isOpen={showDemo} onClose={() => setShowDemo(false)} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
