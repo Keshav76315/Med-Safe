@@ -8,6 +8,13 @@ import { useToast } from "@/hooks/use-toast";
 import { Shield, AlertTriangle, CheckCircle, XCircle, ScanLine, Loader2, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { QRScanner } from "@/components/QRScanner";
+import { z } from 'zod';
+
+const batchNumberSchema = z.string()
+  .trim()
+  .min(1, { message: "Batch number is required" })
+  .max(50, { message: "Batch number too long" })
+  .regex(/^[A-Z0-9-]+$/, { message: "Batch number can only contain uppercase letters, numbers, and hyphens" });
 
 export default function DrugVerification() {
   const [batchNo, setBatchNo] = useState("");
@@ -23,10 +30,11 @@ export default function DrugVerification() {
   async function handleVerify(batch?: string) {
     const batchToVerify = batch || batchNo;
     
-    if (!batchToVerify.trim()) {
+    const validation = batchNumberSchema.safeParse(batchToVerify);
+    if (!validation.success) {
       toast({
-        title: "Input Required",
-        description: "Please enter a batch number",
+        title: "Validation Error",
+        description: validation.error.errors[0].message,
         variant: "destructive",
       });
       return;
@@ -34,7 +42,7 @@ export default function DrugVerification() {
 
     setLoading(true);
     try {
-      const data = await verifyDrug(batchToVerify.trim());
+      const data = await verifyDrug(validation.data);
       setResult(data);
 
       if (data.status === "verified") {

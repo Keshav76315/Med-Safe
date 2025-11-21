@@ -9,8 +9,18 @@ import { calculateSafetyScore, SafetyScoreRequest, SafetyScoreResponse } from "@
 import { Activity, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/hooks/use-toast";
+import { z } from 'zod';
+
+const safetyScoreSchema = z.object({
+  age: z.number().min(0, { message: "Age must be positive" }).max(150, { message: "Invalid age" }),
+  newMedication: z.string().trim().min(1, { message: "Medication name required" }).max(200, { message: "Medication name too long" }),
+  conditions: z.array(z.string().trim().max(100, { message: "Condition name too long" })),
+  currentMedications: z.array(z.string().trim().max(200, { message: "Medication name too long" }))
+});
 
 export default function SafetyScore() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState<SafetyScoreRequest>({
     age: 0,
     conditions: [],
@@ -22,13 +32,23 @@ export default function SafetyScore() {
   const [result, setResult] = useState<SafetyScoreResponse | null>(null);
 
   function addCondition() {
-    if (conditionInput.trim()) {
-      setFormData({
-        ...formData,
-        conditions: [...formData.conditions, conditionInput.trim()],
+    const trimmed = conditionInput.trim();
+    if (!trimmed) return;
+    
+    if (trimmed.length > 100) {
+      toast({
+        title: "Validation Error",
+        description: "Condition name too long (max 100 characters)",
+        variant: "destructive",
       });
-      setConditionInput("");
+      return;
     }
+    
+    setFormData({
+      ...formData,
+      conditions: [...formData.conditions, trimmed],
+    });
+    setConditionInput("");
   }
 
   function removeCondition(index: number) {
@@ -39,13 +59,23 @@ export default function SafetyScore() {
   }
 
   function addMedication() {
-    if (medicationInput.trim()) {
-      setFormData({
-        ...formData,
-        currentMedications: [...formData.currentMedications, medicationInput.trim()],
+    const trimmed = medicationInput.trim();
+    if (!trimmed) return;
+    
+    if (trimmed.length > 200) {
+      toast({
+        title: "Validation Error",
+        description: "Medication name too long (max 200 characters)",
+        variant: "destructive",
       });
-      setMedicationInput("");
+      return;
     }
+    
+    setFormData({
+      ...formData,
+      currentMedications: [...formData.currentMedications, trimmed],
+    });
+    setMedicationInput("");
   }
 
   function removeMedication(index: number) {
@@ -56,6 +86,16 @@ export default function SafetyScore() {
   }
 
   function handleCalculate() {
+    const validation = safetyScoreSchema.safeParse(formData);
+    if (!validation.success) {
+      toast({
+        title: "Validation Error",
+        description: validation.error.errors[0].message,
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const score = calculateSafetyScore(formData);
     setResult(score);
   }

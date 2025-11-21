@@ -4,6 +4,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { z } from 'zod';
+
+const medicalHistorySchema = z.object({
+  medicine_name: z.string()
+    .trim()
+    .min(2, { message: "Medicine name must be at least 2 characters" })
+    .max(200, { message: "Medicine name too long" })
+    .regex(/^[a-zA-Z0-9\s.,-]+$/, { message: "Invalid characters in medicine name" }),
+  dosage: z.string()
+    .trim()
+    .min(1, { message: "Dosage is required" })
+    .max(100, { message: "Dosage description too long" }),
+  start_date: z.string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Invalid date format" }),
+  notes: z.string()
+    .max(1000, { message: "Notes too long (max 1000 characters)" })
+    .optional()
+    .or(z.literal(''))
+});
 import {
   Card,
   CardContent,
@@ -75,6 +94,16 @@ export default function MedicalHistory() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const validation = medicalHistorySchema.safeParse(formData);
+    if (!validation.success) {
+      toast({
+        title: "Validation Error",
+        description: validation.error.errors[0].message,
+        variant: "destructive",
+      });
+      return;
+    }
 
     try {
       if (editingRecord) {
