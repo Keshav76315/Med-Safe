@@ -19,7 +19,7 @@ export function Navigation() {
   const { user, userRole, signOut } = useAuth();
 
   const baseNavItems = [
-    { path: "/", label: "Dashboard", icon: Home },
+    { path: "/dashboard", label: "Dashboard", icon: Home },
     { path: "/verify", label: "Drug Verification", icon: Shield },
     { path: "/history", label: "Medical History", icon: FileText },
     { path: "/safety", label: "Safety Score", icon: Activity },
@@ -45,7 +45,7 @@ export function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/dashboard" className="flex items-center space-x-2">
               <Shield className="h-6 w-6 text-primary" />
               <span className="text-xl font-bold tracking-tight text-foreground">MediSafe</span>
             </Link>
