@@ -408,7 +408,6 @@ const Index = () => {
               </div>
               <div className="text-center md:text-right">
                 <div className="flex items-center justify-center md:justify-end gap-3 mb-3">
-                  <img src={logo} alt="MedSafe" className="h-6 w-6 rounded-lg" />
                   <span className="font-semibold">MedSafe</span>
                 </div>
                 <p className="text-muted-foreground text-sm">Protecting health through technology</p>
