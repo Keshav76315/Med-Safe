@@ -19,3 +19,6 @@ verify_jwt = false
 
 [functions.medicine-info]
 verify_jwt = false
+
+[functions.scan-medicine-image]
+verify_jwt = false
