@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { verifyDrug, Drug } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
-import { Shield, AlertTriangle, CheckCircle, XCircle, ScanLine, Loader2, Camera, Info, Pill } from "lucide-react";
+import { Shield, AlertTriangle, CheckCircle, XCircle, ScanLine, Loader2, Camera, Info, Pill, Upload, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { QRScanner } from "@/components/QRScanner";
 import { z } from 'zod';
@@ -35,6 +35,7 @@ export default function DrugVerification() {
   const [medicineName, setMedicineName] = useState("");
   const [loading, setLoading] = useState(false);
   const [medicineLoading, setMedicineLoading] = useState(false);
+  const [imageScanning, setImageScanning] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
   const [result, setResult] = useState<{
     status: "verified" | "counterfeit" | "expired" | "not_found";
@@ -42,6 +43,7 @@ export default function DrugVerification() {
     isDuplicate?: boolean;
   } | null>(null);
   const [medicineInfo, setMedicineInfo] = useState<MedicineInfo | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   async function handleVerify(batch?: string) {
@@ -149,6 +151,105 @@ export default function DrugVerification() {
     }
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: "Invalid File",
+        description: "Please upload an image file",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "File Too Large",
+        description: "Please upload an image smaller than 5MB",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setResult(null);
+    setMedicineInfo(null);
+    setImageScanning(true);
+
+    try {
+      // Convert image to base64
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      
+      await new Promise((resolve, reject) => {
+        reader.onload = resolve;
+        reader.onerror = reject;
+      });
+
+      const imageBase64 = reader.result as string;
+
+      // Scan the image for medicine name
+      const { data: scanData, error: scanError } = await supabase.functions.invoke('scan-medicine-image', {
+        body: { imageBase64 }
+      });
+
+      if (scanError) throw scanError;
+
+      if (scanData.scanResult.error) {
+        toast({
+          title: "No Medicine Detected",
+          description: scanData.scanResult.error,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { medicineName: detectedName, confidence, additionalInfo } = scanData.scanResult;
+
+      toast({
+        title: `Medicine Detected (${confidence} confidence)`,
+        description: additionalInfo || `Found: ${detectedName}`,
+      });
+
+      // Now get detailed medicine info
+      setMedicineName(detectedName);
+      
+      const { data: infoData, error: infoError } = await supabase.functions.invoke('medicine-info', {
+        body: { medicineName: detectedName }
+      });
+
+      if (infoError) throw infoError;
+
+      if (infoData.medicineInfo.error) {
+        toast({
+          title: "Medicine Details Not Available",
+          description: infoData.medicineInfo.error,
+          variant: "destructive",
+        });
+        setMedicineInfo(null);
+      } else {
+        setMedicineInfo(infoData.medicineInfo);
+      }
+
+    } catch (error) {
+      console.error("Image scan error:", error);
+      toast({
+        title: "Scan Failed",
+        description: "Could not analyze the image",
+        variant: "destructive",
+      });
+    } finally {
+      setImageScanning(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -216,7 +317,7 @@ export default function DrugVerification() {
                 <Pill className="h-5 w-5 text-primary" />
                 <span>Medicine Information</span>
               </CardTitle>
-              <CardDescription>Search for detailed medicine information</CardDescription>
+              <CardDescription>Search by name or scan medicine packaging</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -227,23 +328,46 @@ export default function DrugVerification() {
                   onKeyDown={(e) => e.key === "Enter" && handleMedicineSearch()}
                   className="text-lg"
                 />
-                <Button 
-                  onClick={() => handleMedicineSearch()} 
-                  disabled={medicineLoading}
-                  className="w-full"
-                >
-                  {medicineLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Searching
-                    </>
-                  ) : (
-                    <>
-                      <Info className="mr-2 h-4 w-4" />
-                      Search Medicine
-                    </>
-                  )}
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={() => handleMedicineSearch()} 
+                    disabled={medicineLoading || imageScanning}
+                    className="flex-1"
+                  >
+                    {medicineLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Searching
+                      </>
+                    ) : (
+                      <>
+                        <Info className="mr-2 h-4 w-4" />
+                        Search
+                      </>
+                    )}
+                  </Button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                  <Button 
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={medicineLoading || imageScanning}
+                    variant="outline"
+                  >
+                    {imageScanning ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <ImageIcon className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground text-center">
+                  Take a photo of medicine packaging to scan
+                </p>
               </div>
             </CardContent>
           </Card>
