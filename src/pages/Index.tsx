@@ -68,12 +68,24 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Apple-style Hero Section */}
+      {/* Apple-style Hero Section with Video Background */}
       <section 
         id="home" 
         className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-muted/20" />
+        {/* Video Background */}
+        <div className="absolute inset-0">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="w-full h-full object-cover opacity-20"
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+        </div>
         
         <div className="container mx-auto px-6 py-32 text-center relative z-10">
           <div className="max-w-5xl mx-auto space-y-6 animate-fade-in">
@@ -120,7 +132,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section - Apple Style */}
+      {/* Interactive 3D Product Showcase */}
       <section id="features" className="py-32 bg-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
@@ -131,9 +143,9 @@ const Index = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            <div className="group p-10 rounded-3xl bg-muted/50 hover:bg-muted/80 transition-all duration-300">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto perspective-1000">
+            <div className="group p-10 rounded-3xl bg-muted/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-4 hover:scale-105 transform-gpu" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
                 <Scan className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-2xl font-semibold mb-4">Multi-Modal Verification</h3>
@@ -142,8 +154,8 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="group p-10 rounded-3xl bg-muted/50 hover:bg-muted/80 transition-all duration-300">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <div className="group p-10 rounded-3xl bg-muted/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-4 hover:scale-105 transform-gpu" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
                 <Brain className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-2xl font-semibold mb-4">AI Recognition</h3>
@@ -152,8 +164,8 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="group p-10 rounded-3xl bg-muted/50 hover:bg-muted/80 transition-all duration-300">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <div className="group p-10 rounded-3xl bg-muted/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-4 hover:scale-105 transform-gpu" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
                 <Shield className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-2xl font-semibold mb-4">Safety Scoring</h3>
@@ -162,8 +174,8 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="group p-10 rounded-3xl bg-muted/50 hover:bg-muted/80 transition-all duration-300">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <div className="group p-10 rounded-3xl bg-muted/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-4 hover:scale-105 transform-gpu" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
                 <Users className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-2xl font-semibold mb-4">Pharmacist Verification</h3>
@@ -172,8 +184,8 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="group p-10 rounded-3xl bg-muted/50 hover:bg-muted/80 transition-all duration-300">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <div className="group p-10 rounded-3xl bg-muted/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-4 hover:scale-105 transform-gpu" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
                 <Bell className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-2xl font-semibold mb-4">Real-Time Alerts</h3>
@@ -182,8 +194,8 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="group p-10 rounded-3xl bg-muted/50 hover:bg-muted/80 transition-all duration-300">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <div className="group p-10 rounded-3xl bg-muted/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-4 hover:scale-105 transform-gpu" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
                 <Database className="w-8 h-8 text-primary" />
               </div>
               <h3 className="text-2xl font-semibold mb-4">FDA Database</h3>
