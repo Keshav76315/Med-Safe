@@ -8,10 +8,12 @@ import heroBackground from "@/assets/hero-background.jpg";
 const Index = () => {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      setScrollY(window.scrollY);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -73,8 +75,14 @@ const Index = () => {
         id="home" 
         className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
       >
-        {/* Video Background */}
-        <div className="absolute inset-0">
+        {/* Video Background with Parallax */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            transform: `translateY(${scrollY * 0.5}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        >
           <video 
             autoPlay 
             loop 
@@ -119,8 +127,14 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Floating Image */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-6xl px-6 pb-12">
+        {/* Floating Image with Parallax */}
+        <div 
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-6xl px-6 pb-12"
+          style={{
+            transform: `translate(-50%, ${scrollY * 0.15}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        >
           <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border border-border">
             <img 
               src={heroBackground} 
@@ -133,8 +147,16 @@ const Index = () => {
       </section>
 
       {/* Interactive 3D Product Showcase */}
-      <section id="features" className="py-32 bg-background">
-        <div className="container mx-auto px-6">
+      <section id="features" className="py-32 bg-background relative">
+        {/* Background Layer with Parallax */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-muted/20 to-transparent"
+          style={{
+            transform: `translateY(${(scrollY - 800) * 0.3}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        />
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-semibold mb-6 tracking-tight leading-tight">
               Powerful features.
@@ -208,8 +230,16 @@ const Index = () => {
       </section>
 
       {/* How It Works - Simplified Apple Style */}
-      <section id="how-it-works" className="py-32 bg-muted/30">
-        <div className="container mx-auto px-6">
+      <section id="how-it-works" className="py-32 bg-muted/30 relative overflow-hidden">
+        {/* Background Parallax Layer */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"
+          style={{
+            transform: `translateY(${(scrollY - 1500) * 0.25}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        />
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-semibold mb-6 tracking-tight">
               How it works.
@@ -264,8 +294,16 @@ const Index = () => {
       </section>
 
       {/* Benefits - Clean Apple Style */}
-      <section id="benefits" className="py-32 bg-background">
-        <div className="container mx-auto px-6">
+      <section id="benefits" className="py-32 bg-background relative overflow-hidden">
+        {/* Background Parallax Layer */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-tl from-muted/30 to-transparent"
+          style={{
+            transform: `translateY(${(scrollY - 2200) * 0.2}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        />
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-semibold mb-6 tracking-tight">
               Why MedSafe.
