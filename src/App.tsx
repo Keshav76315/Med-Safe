@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ChatBot } from "./components/ChatBot";
@@ -15,6 +15,17 @@ import PharmacistVerification from "./pages/PharmacistVerification";
 import FDAImport from "./pages/FDAImport";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+
+const ChatBotWrapper = () => {
+  const location = useLocation();
+  const hideChatBotRoutes = ['/', '/auth'];
+  
+  if (hideChatBotRoutes.includes(location.pathname)) {
+    return null;
+  }
+  
+  return <ChatBot />;
+};
 
 const queryClient = new QueryClient();
 
@@ -36,7 +47,7 @@ const App = () => (
             <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <ChatBot />
+          <ChatBotWrapper />
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
