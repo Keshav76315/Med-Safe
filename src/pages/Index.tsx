@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Shield, Scan, Users, Brain, Heart, Bell, Database, ArrowRight } from "lucide-react";
+import { Shield, Scan, Users, Brain, Heart, Bell, Database, ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import logo from "@/assets/medsafe-logo.jpg";
 import heroBackground from "@/assets/hero-background.jpg";
 
@@ -457,6 +463,95 @@ const Index = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section - Interactive Accordion */}
+      <section className="py-32 bg-muted/20 relative overflow-hidden">
+        {/* Background Parallax Layer */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-muted/30"
+          style={{
+            transform: `translateY(${(scrollY - 3000) * 0.15}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        />
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-7xl font-semibold mb-6 tracking-tight">
+              Frequently asked questions.
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-3xl mx-auto">
+              Everything you need to know about MedSafe.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="item-1" className="bg-background/50 backdrop-blur-sm rounded-2xl border border-border/50 px-8 overflow-hidden">
+                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline py-6">
+                  How does MedSafe verify if a medicine is authentic?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-base">
+                  MedSafe uses a multi-layered verification system. You can scan QR codes, barcodes, or take photos of medicines. Our AI instantly cross-references the information with our comprehensive FDA database of over 200,000 medications. The system checks batch numbers, expiration dates, and packaging details with 99.2% accuracy to detect counterfeits.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2" className="bg-background/50 backdrop-blur-sm rounded-2xl border border-border/50 px-8 overflow-hidden">
+                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline py-6">
+                  What is the Safety Score and how is it calculated?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-base">
+                  The Safety Score is a personalized risk assessment based on your medical history, current medications, allergies, and age. Our AI analyzes potential drug interactions, contraindications, and risk factors specific to your profile. The score updates in real-time as you add new medications, helping you make informed decisions about your health.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-3" className="bg-background/50 backdrop-blur-sm rounded-2xl border border-border/50 px-8 overflow-hidden">
+                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline py-6">
+                  How fast does the verification process take?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-base">
+                  Most verifications complete in under 2 seconds. Simply scan the QR code or take a photo, and our AI instantly analyzes the medicine. If the system flags any concerns, a licensed pharmacist will review it within minutes to ensure accuracy before providing the final verification result.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-4" className="bg-background/50 backdrop-blur-sm rounded-2xl border border-border/50 px-8 overflow-hidden">
+                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline py-6">
+                  What happens if MedSafe detects a counterfeit medicine?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-base">
+                  You'll receive an immediate alert with detailed information about why the medicine was flagged. The system will notify relevant healthcare authorities and provide guidance on safe disposal. We also track counterfeit patterns to help protect other users and contribute to broader pharmaceutical safety initiatives.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5" className="bg-background/50 backdrop-blur-sm rounded-2xl border border-border/50 px-8 overflow-hidden">
+                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline py-6">
+                  Is my medical information secure and private?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-base">
+                  Absolutely. MedSafe uses bank-level encryption to protect all your data. Your medical history, scan records, and personal information are stored securely and never shared with third parties without your explicit consent. We comply with all healthcare privacy regulations and industry best practices for data protection.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-6" className="bg-background/50 backdrop-blur-sm rounded-2xl border border-border/50 px-8 overflow-hidden">
+                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline py-6">
+                  Can I use MedSafe for over-the-counter medications?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-base">
+                  Yes! MedSafe works with both prescription and over-the-counter (OTC) medications. Our database includes all FDA-approved drugs, supplements, and common OTC medicines. The verification process and safety scoring work the same way regardless of whether a prescription is required.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-7" className="bg-background/50 backdrop-blur-sm rounded-2xl border border-border/50 px-8 overflow-hidden">
+                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline py-6">
+                  Do I need an internet connection to use MedSafe?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-base">
+                  An internet connection is required for real-time verification and database lookups. However, your previously scanned medications and medical history are cached locally on your device, so you can view your medication list and safety scores offline. Full verification features require connectivity.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>
