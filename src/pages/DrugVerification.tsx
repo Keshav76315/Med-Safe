@@ -63,7 +63,7 @@ export default function DrugVerification() {
     if (!validation.success) {
       toast({
         title: "Validation Error",
-        description: validation.error.errors[0].message,
+        description: validation.error.issues[0].message,
         variant: "destructive",
       });
       return;

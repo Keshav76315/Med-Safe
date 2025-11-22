@@ -31,3 +31,9 @@ verify_jwt = false
 
 [functions.check-medicine-reminders]
 verify_jwt = false
+
+[functions.drug-interactions]
+verify_jwt = false
+
+[functions.prescription-ocr]
+verify_jwt = false

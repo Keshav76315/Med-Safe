@@ -17,6 +17,7 @@ const Index = lazy(() => import("./pages/Index"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const DrugVerification = lazy(() => import("./pages/DrugVerification"));
+const DrugInteractions = lazy(() => import("./pages/DrugInteractions"));
 const MedicalHistory = lazy(() => import("./pages/MedicalHistory"));
 const SafetyScore = lazy(() => import("./pages/SafetyScore"));
 const PharmacistVerification = lazy(() => import("./pages/PharmacistVerification"));
@@ -57,6 +58,7 @@ const App = () => (
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                   <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
+                  <Route path="/interactions" element={<ProtectedRoute><DrugInteractions /></ProtectedRoute>} />
                   <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
                   <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
                   <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
