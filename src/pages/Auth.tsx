@@ -40,7 +40,7 @@ const phoneSchema = z.object({
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, user, loading: authLoading } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [isPasswordReset, setIsPasswordReset] = useState(false);
@@ -52,6 +52,13 @@ const Auth = () => {
   
   const [signInData, setSignInData] = useState({ email: '', password: '' });
   const [signUpData, setSignUpData] = useState({ email: '', password: '', fullName: '' });
+
+  // Redirect to dashboard if user is already authenticated
+  useEffect(() => {
+    if (!authLoading && user && !isPasswordReset) {
+      navigate('/dashboard');
+    }
+  }, [user, authLoading, navigate, isPasswordReset]);
 
   // Check if user arrived via password reset link
   useEffect(() => {
