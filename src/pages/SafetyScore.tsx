@@ -5,12 +5,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { calculateSafetyScore, SafetyScoreRequest, SafetyScoreResponse } from "@/lib/api";
-import { Activity, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { Activity, AlertTriangle, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { z } from 'zod';
+
+interface SafetyScoreRequest {
+  age: number;
+  conditions: string[];
+  currentMedications: string[];
+  newMedication: string;
+}
+
+interface SafetyScoreResponse {
+  score: number;
+  level: "safe" | "caution" | "danger";
+  risks: string[];
+  recommendations: string[];
+}
 
 const safetyScoreSchema = z.object({
   age: z.number().min(0, { message: "Age must be positive" }).max(150, { message: "Invalid age" }),
@@ -19,8 +33,40 @@ const safetyScoreSchema = z.object({
   currentMedications: z.array(z.string().trim().max(200, { message: "Medication name too long" }))
 });
 
+// Example test cases for users
+const EXAMPLE_TESTS = [
+  {
+    label: "Aspirin + Blood Thinner (High Risk)",
+    data: {
+      age: 65,
+      newMedication: "Aspirin",
+      conditions: ["Atrial Fibrillation"],
+      currentMedications: ["Warfarin", "Metoprolol"]
+    }
+  },
+  {
+    label: "Antibiotic with No Interactions (Safe)",
+    data: {
+      age: 35,
+      newMedication: "Amoxicillin",
+      conditions: ["Bacterial Infection"],
+      currentMedications: []
+    }
+  },
+  {
+    label: "Diabetes Drug Interaction (Caution)",
+    data: {
+      age: 50,
+      newMedication: "Glyburide",
+      conditions: ["Type 2 Diabetes", "Hypertension"],
+      currentMedications: ["Metformin", "Lisinopril"]
+    }
+  }
+];
+
 export default function SafetyScore() {
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<SafetyScoreRequest>({
     age: 0,
     conditions: [],
@@ -85,7 +131,7 @@ export default function SafetyScore() {
     });
   }
 
-  function handleCalculate() {
+  async function handleCalculate() {
     const validation = safetyScoreSchema.safeParse(formData);
     if (!validation.success) {
       toast({
@@ -95,9 +141,49 @@ export default function SafetyScore() {
       });
       return;
     }
+
+    setLoading(true);
+    setResult(null);
     
-    const score = calculateSafetyScore(formData);
-    setResult(score);
+    try {
+      const { data, error } = await supabase.functions.invoke('safety-score-ai', {
+        body: formData
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      setResult(data as SafetyScoreResponse);
+
+      toast({
+        title: "Analysis Complete",
+        description: `Safety score: ${data.score}/100`,
+      });
+
+    } catch (error: any) {
+      console.error('Error calculating safety score:', error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to calculate safety score. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function loadExample(example: typeof EXAMPLE_TESTS[0]) {
+    setFormData(example.data);
+    setResult(null);
+    toast({
+      title: "Example Loaded",
+      description: example.label,
+    });
   }
 
   return (
@@ -106,11 +192,34 @@ export default function SafetyScore() {
 
       <main className="container mx-auto px-4 py-8 max-w-5xl">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">Safety Score Calculator</h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-2">AI-Powered Safety Score Calculator</h1>
           <p className="text-muted-foreground text-lg">
-            Assess medication safety based on patient profile and existing medications
+            Advanced AI analysis of medication safety based on patient profile
           </p>
         </div>
+
+        {/* Example Test Cases */}
+        <Card className="mb-6 bg-muted/50">
+          <CardHeader>
+            <CardTitle className="text-lg">Try Example Test Cases</CardTitle>
+            <CardDescription>Click to load pre-filled scenarios for testing</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {EXAMPLE_TESTS.map((example, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => loadExample(example)}
+                  className="text-xs"
+                >
+                  {example.label}
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
 
         <div className="grid gap-6 md:grid-cols-2">
           <Card>
@@ -196,9 +305,18 @@ export default function SafetyScore() {
                 </div>
               </div>
 
-              <Button onClick={handleCalculate} className="w-full" size="lg">
-                <Activity className="mr-2 h-5 w-5" />
-                Calculate Safety Score
+              <Button onClick={handleCalculate} className="w-full" size="lg" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Analyzing with AI...
+                  </>
+                ) : (
+                  <>
+                    <Activity className="mr-2 h-5 w-5" />
+                    Calculate Safety Score
+                  </>
+                )}
               </Button>
             </CardContent>
           </Card>

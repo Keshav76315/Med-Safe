@@ -187,67 +187,7 @@ export async function deletePatientHistory(id: string) {
   if (error) throw error;
 }
 
-// Safety Score Calculation
-export function calculateSafetyScore(request: SafetyScoreRequest): SafetyScoreResponse {
-  let score = 100;
-  const risks: string[] = [];
-  const recommendations: string[] = [];
-
-  // Age-based deductions
-  if (request.age < 18) {
-    score -= 10;
-    risks.push("Pediatric patient - requires careful dosage monitoring");
-    recommendations.push("Consult pediatrician for appropriate dosage");
-  } else if (request.age > 65) {
-    score -= 15;
-    risks.push("Elderly patient - increased risk of adverse reactions");
-    recommendations.push("Start with lower doses and monitor closely");
-  }
-
-  // Condition-based deductions
-  const highRiskConditions = ["heart disease", "kidney disease", "liver disease", "diabetes"];
-  request.conditions.forEach((condition) => {
-    if (highRiskConditions.some((risk) => condition.toLowerCase().includes(risk))) {
-      score -= 20;
-      risks.push(`${condition} may interact with medication`);
-      recommendations.push(`Monitor ${condition} symptoms closely`);
-    }
-  });
-
-  // Medication interaction checks
-  if (request.currentMedications.length > 3) {
-    score -= 15;
-    risks.push("Polypharmacy detected - increased interaction risk");
-    recommendations.push("Review all medications with pharmacist");
-  }
-
-  // Common interaction patterns
-  const anticoagulants = ["warfarin", "aspirin"];
-  const hasAnticoagulant = request.currentMedications.some((med) =>
-    anticoagulants.some((ac) => med.toLowerCase().includes(ac))
-  );
-
-  if (hasAnticoagulant) {
-    score -= 25;
-    risks.push("Potential bleeding risk with anticoagulant therapy");
-    recommendations.push("Monitor INR levels regularly");
-  }
-
-  // Ensure score doesn't go below 0
-  score = Math.max(0, score);
-
-  // Determine level
-  let level: "safe" | "caution" | "danger";
-  if (score >= 75) {
-    level = "safe";
-  } else if (score >= 50) {
-    level = "caution";
-  } else {
-    level = "danger";
-  }
-
-  return { score, level, risks, recommendations };
-}
+// Safety Score Calculation - No longer used, moved to AI edge function
 
 // Pharmacist verification functions
 export async function getPendingVerifications() {
