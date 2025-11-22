@@ -3,7 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+
 import {
   Sheet,
   SheetContent,
@@ -301,34 +301,13 @@ export default function DrugVerification() {
         </div>
 
         {(medicineLoading || imageScanning) && (
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <Card>
-              <CardHeader>
-                <Skeleton className="h-6 w-48 mb-2" />
-                <Skeleton className="h-4 w-64" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-10 w-full mb-3" />
-                <div className="flex gap-2">
-                  <Skeleton className="h-10 flex-1" />
-                  <Skeleton className="h-10 w-16" />
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Skeleton className="h-6 w-48 mb-2" />
-                <Skeleton className="h-4 w-64" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-10 w-full mb-3" />
-                <div className="flex gap-2">
-                  <Skeleton className="h-10 flex-1" />
-                  <Skeleton className="h-10 w-16" />
-                </div>
-                <Skeleton className="h-3 w-full mt-2" />
-              </CardContent>
-            </Card>
+          <div className="flex items-center justify-center py-16 mb-6">
+            <div className="text-center">
+              <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
+              <p className="text-muted-foreground">
+                {imageScanning ? 'Scanning medicine image...' : 'Loading medicine information...'}
+              </p>
+            </div>
           </div>
         )}
 

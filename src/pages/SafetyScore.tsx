@@ -5,9 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+
 import { calculateSafetyScore, SafetyScoreRequest, SafetyScoreResponse } from "@/lib/api";
-import { Activity, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
+import { Activity, AlertTriangle, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
@@ -210,34 +210,12 @@ export default function SafetyScore() {
           </Card>
 
           {calculating ? (
-            <Card>
-              <CardHeader>
-                <div className="flex justify-between items-center">
-                  <Skeleton className="h-6 w-40" />
-                  <Skeleton className="h-8 w-8 rounded-full" />
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <Skeleton className="h-4 w-24" />
-                    <Skeleton className="h-8 w-16" />
-                  </div>
-                  <Skeleton className="h-3 w-full" />
-                </div>
-                <Skeleton className="h-8 w-48" />
-                <div className="space-y-3">
-                  <Skeleton className="h-5 w-32 mb-2" />
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <Skeleton className="h-4 w-4 mt-0.5 rounded-full" />
-                      <Skeleton className="h-4 flex-1" />
-                    </div>
-                  ))}
-                </div>
-                <Skeleton className="h-20 w-full rounded-lg" />
-              </CardContent>
-            </Card>
+            <div className="flex items-center justify-center py-16">
+              <div className="text-center">
+                <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
+                <p className="text-muted-foreground">Calculating safety score...</p>
+              </div>
+            </div>
           ) : result ? (
             <Card
               className={cn(
