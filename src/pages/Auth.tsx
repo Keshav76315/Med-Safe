@@ -53,11 +53,23 @@ const Auth = () => {
   const [signInData, setSignInData] = useState({ email: '', password: '' });
   const [signUpData, setSignUpData] = useState({ email: '', password: '', fullName: '' });
 
-  // Check if user arrived via password reset link
+  // Check if user arrived via password reset link or OAuth callback
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Auth.tsx - Auth event:', event);
+      
       if (event === 'PASSWORD_RECOVERY') {
         setIsPasswordReset(true);
+      }
+      
+      // Handle OAuth callback success
+      if (event === 'SIGNED_IN' && session?.user) {
+        console.log('OAuth sign-in detected, user:', session.user.email);
+        // Check if this is a new user (first time OAuth signup)
+        const isNewUser = session.user.created_at === session.user.updated_at;
+        if (isNewUser) {
+          localStorage.setItem('showDemo', 'true');
+        }
       }
     });
     
@@ -66,7 +78,10 @@ const Auth = () => {
 
   // Redirect to dashboard if user is already authenticated
   useEffect(() => {
+    console.log('Redirect check - loading:', auth.loading, 'user:', auth.user?.email, 'isPasswordReset:', isPasswordReset);
+    
     if (!auth.loading && auth.user && !isPasswordReset) {
+      console.log('Redirecting to dashboard...');
       navigate('/dashboard', { replace: true });
     }
   }, [auth.user, auth.loading, navigate, isPasswordReset]);
@@ -118,19 +133,50 @@ const Auth = () => {
 
 
   const handleGoogleSignIn = async () => {
-    setSubmitLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/dashboard`,
-      },
-    });
-    setSubmitLoading(false);
+    try {
+      setSubmitLoading(true);
+      console.log('Initiating Google OAuth...');
+      
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+        },
+      });
 
-    if (error) {
+      if (error) {
+        console.error('Google OAuth error:', error);
+        setSubmitLoading(false);
+        
+        // Handle specific OAuth errors
+        if (error.message.includes('invalid_client') || error.message.includes('Unauthorized')) {
+          toast({
+            title: "Google Sign-In Not Configured",
+            description: "Google authentication is not properly set up. Please contact the administrator or use email/password login.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Sign-In Error",
+            description: error.message,
+            variant: "destructive",
+          });
+        }
+      } else {
+        console.log('OAuth redirect initiated:', data);
+        // Don't set submitLoading to false here - user will be redirected away
+        // The page will unmount as they go to Google's OAuth page
+      }
+    } catch (err) {
+      console.error('Unexpected error during Google sign-in:', err);
+      setSubmitLoading(false);
       toast({
-        title: "Error",
-        description: error.message,
+        title: "Unexpected Error",
+        description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     }
