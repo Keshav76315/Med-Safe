@@ -42,6 +42,7 @@ interface MedicineInfo {
 export default function DrugVerification() {
   const [batchNo, setBatchNo] = useState("");
   const [medicineName, setMedicineName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
   const [showMedicineScanner, setShowMedicineScanner] = useState(false);
   const [showScanOptions, setShowScanOptions] = useState(false);
@@ -67,6 +68,7 @@ export default function DrugVerification() {
       return;
     }
 
+    setLoading(true);
     try {
       const data = await verifyDrug(validation.data);
       setResult(data);
@@ -96,11 +98,14 @@ export default function DrugVerification() {
         });
       }
     } catch (error) {
+      console.error("Verification error:", error);
       toast({
         title: "Verification Failed",
         description: "An error occurred during verification",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -121,6 +126,7 @@ export default function DrugVerification() {
     }
 
     setResult(null);
+    setLoading(true);
     
     try {
       const { data, error } = await supabase.functions.invoke('medicine-info', {
@@ -150,6 +156,8 @@ export default function DrugVerification() {
         description: "Could not get medicine details",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -179,6 +187,7 @@ export default function DrugVerification() {
 
     setResult(null);
     setMedicineInfo(null);
+    setLoading(true);
 
     try {
       // Convert image to base64
@@ -201,6 +210,7 @@ export default function DrugVerification() {
         variant: "destructive",
       });
     } finally {
+      setLoading(false);
       // Reset file input
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -212,6 +222,7 @@ export default function DrugVerification() {
     setShowMedicineScanner(false);
     setResult(null);
     setMedicineInfo(null);
+    setLoading(true);
 
     try {
       await processMedicineImage(imageBase64);
@@ -222,6 +233,8 @@ export default function DrugVerification() {
         description: "Could not analyze the image",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 

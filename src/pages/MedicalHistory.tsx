@@ -60,6 +60,7 @@ import { Plus, Edit, Trash2, Search } from "lucide-react";
 export default function MedicalHistory() {
   const [patientId, setPatientId] = useState("PAT001");
   const [history, setHistory] = useState<PatientHistory[]>([]);
+  const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingRecord, setEditingRecord] = useState<PatientHistory | null>(null);
   const [formData, setFormData] = useState({
@@ -71,16 +72,25 @@ export default function MedicalHistory() {
   const { toast } = useToast();
 
   useEffect(() => {
-    loadHistory();
+    const init = async () => {
+      setLoading(true);
+      await loadHistory();
+      setLoading(false);
+    };
+    init();
   }, [patientId]);
 
   async function loadHistory() {
-    if (!patientId.trim()) return;
+    if (!patientId.trim()) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const data = await getPatientHistory(patientId);
       setHistory(data);
     } catch (error) {
+      console.error("Error loading history:", error);
       toast({
         title: "Error",
         description: "Failed to load medical history",
