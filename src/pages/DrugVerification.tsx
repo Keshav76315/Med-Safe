@@ -657,57 +657,6 @@ export default function DrugVerification() {
           </Card>
         )}
 
-        <div className="mt-8 bg-muted/50 rounded-lg p-6">
-          <h3 className="font-semibold mb-3">Quick Test Examples</h3>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">Batch Verification:</p>
-              <div className="space-y-2">
-                <button
-                  onClick={() => { setBatchNo("BATCH001"); setMedicineInfo(null); }}
-                  className="w-full text-left p-2 rounded bg-background hover:bg-accent/10 transition-colors text-sm"
-                >
-                  BATCH001 - Authentic
-                </button>
-                <button
-                  onClick={() => { setBatchNo("BATCH010"); setMedicineInfo(null); }}
-                  className="w-full text-left p-2 rounded bg-background hover:bg-destructive/10 transition-colors text-sm"
-                >
-                  BATCH010 - Counterfeit
-                </button>
-                <button
-                  onClick={() => { setBatchNo("BATCH012"); setMedicineInfo(null); }}
-                  className="w-full text-left p-2 rounded bg-background hover:bg-warning/10 transition-colors text-sm"
-                >
-                  BATCH012 - Expired
-                </button>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">Medicine Search:</p>
-              <div className="space-y-2">
-                <button
-                  onClick={() => { setMedicineName("Aspirin"); setResult(null); }}
-                  className="w-full text-left p-2 rounded bg-background hover:bg-primary/10 transition-colors text-sm"
-                >
-                  Aspirin - Pain reliever
-                </button>
-                <button
-                  onClick={() => { setMedicineName("Ibuprofen"); setResult(null); }}
-                  className="w-full text-left p-2 rounded bg-background hover:bg-primary/10 transition-colors text-sm"
-                >
-                  Ibuprofen - Anti-inflammatory
-                </button>
-                <button
-                  onClick={() => { setMedicineName("Paracetamol"); setResult(null); }}
-                  className="w-full text-left p-2 rounded bg-background hover:bg-primary/10 transition-colors text-sm"
-                >
-                  Paracetamol - Fever reducer
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </main>
 
       {showScanner && (
