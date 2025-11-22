@@ -11,7 +11,7 @@ serve(async (req) => {
   }
 
   try {
-    const { dailyMeals, currentWeight, height, targetWeight, duration, goal } = await req.json();
+    const { dailyMeals, currentWeight, height, targetWeight, duration, goal, medicalHistory } = await req.json();
     
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
@@ -40,16 +40,24 @@ ${goal}
 ${targetWeight ? `Target Weight: ${targetWeight} kg (BMI: ${targetBMI?.toFixed(1)})` : ''}
 ${duration ? `Time Frame: ${duration} weeks` : ''}
 
+${medicalHistory ? `
+Medical History & Current Medications:
+${medicalHistory}
+
+IMPORTANT: Take into account the patient's medical history and current medications when making dietary recommendations. Consider potential drug-nutrient interactions, contraindications, and any dietary restrictions that may be necessary based on their medications and health conditions.
+` : ''}
+
 Please provide:
 1. Analysis of current diet
-2. Specific nutritional recommendations
+2. Specific nutritional recommendations considering medical history
 3. Suggested meal plan structure
-4. Foods to include and avoid
+4. Foods to include and avoid (considering medication interactions)
 5. Portion guidance
-6. Important health considerations
+6. Important health considerations based on medical history
 7. Tips for achieving their goals safely
+8. Any specific warnings about food-drug interactions if applicable
 
-Keep the recommendation practical, actionable, and encouraging.`;
+Keep the recommendation practical, actionable, and encouraging. Use **bold text** for important points and mathematical expressions where relevant (e.g., calorie calculations).`;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
