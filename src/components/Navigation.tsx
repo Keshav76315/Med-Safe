@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock, FlaskConical, MoreHorizontal, Pill, AlertCircle } from "lucide-react";
+import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock, FlaskConical, MoreHorizontal, Pill, AlertCircle, Users } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import { OptimizedImage } from "./OptimizedImage";
@@ -43,6 +43,7 @@ export function Navigation() {
     { path: "/history", label: "Medical History", icon: FileText },
     { path: "/safety", label: "Safety Score", icon: Activity },
     { path: "/diet", label: "Diet Recommendation", icon: Utensils },
+    { path: "/community-reports", label: "Community Reports", icon: Users },
   ];
 
   const pharmacistNavItems = (userRole === 'pharmacist' || userRole === 'admin') ? [
