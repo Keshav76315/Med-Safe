@@ -19,6 +19,7 @@ const MedicalHistory = lazy(() => import("./pages/MedicalHistory"));
 const SafetyScore = lazy(() => import("./pages/SafetyScore"));
 const PharmacistVerification = lazy(() => import("./pages/PharmacistVerification"));
 const FDAImport = lazy(() => import("./pages/FDAImport"));
+const DietRecommendation = lazy(() => import("./pages/DietRecommendation"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const ChatBotWrapper = () => {
@@ -52,6 +53,7 @@ const App = () => (
                 <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
                 <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
                 <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
+                <Route path="/diet" element={<ProtectedRoute><DietRecommendation /></ProtectedRoute>} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
