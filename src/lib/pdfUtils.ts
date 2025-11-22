@@ -1,0 +1,183 @@
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import QRCode from 'qrcode';
+
+export interface DrugVerificationData {
+  drugName: string;
+  batchNumber: string;
+  manufacturer: string;
+  status: 'verified' | 'counterfeit' | 'expired';
+  verificationDate: string;
+  expiryDate?: string;
+  riskLevel?: string;
+  verificationId: string;
+}
+
+export const generateQRCode = async (data: string): Promise<string> => {
+  try {
+    return await QRCode.toDataURL(data, {
+      width: 256,
+      margin: 2,
+      color: {
+        dark: '#000000',
+        light: '#FFFFFF',
+      },
+    });
+  } catch (error) {
+    console.error('QR code generation failed:', error);
+    throw new Error('Failed to generate QR code');
+  }
+};
+
+export const generateVerificationPDF = async (data: DrugVerificationData): Promise<Blob> => {
+  try {
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4',
+    });
+
+    // Header
+    pdf.setFillColor(59, 130, 246); // Primary blue
+    pdf.rect(0, 0, 210, 40, 'F');
+    
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(24);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('MedSafe', 105, 20, { align: 'center' });
+    
+    pdf.setFontSize(14);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Drug Verification Report', 105, 32, { align: 'center' });
+
+    // Reset text color for body
+    pdf.setTextColor(0, 0, 0);
+
+    // Verification Status Badge
+    let statusColor: [number, number, number];
+    let statusText: string;
+    
+    switch (data.status) {
+      case 'verified':
+        statusColor = [34, 197, 94]; // Green
+        statusText = 'VERIFIED AUTHENTIC';
+        break;
+      case 'counterfeit':
+        statusColor = [239, 68, 68]; // Red
+        statusText = 'COUNTERFEIT DETECTED';
+        break;
+      case 'expired':
+        statusColor = [251, 146, 60]; // Orange
+        statusText = 'EXPIRED MEDICATION';
+        break;
+      default:
+        statusColor = [156, 163, 175]; // Gray
+        statusText = 'UNKNOWN STATUS';
+    }
+
+    pdf.setFillColor(...statusColor);
+    pdf.roundedRect(40, 50, 130, 15, 3, 3, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(16);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(statusText, 105, 60, { align: 'center' });
+
+    // Drug Information
+    pdf.setTextColor(0, 0, 0);
+    pdf.setFontSize(12);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Drug Information', 20, 80);
+    
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(10);
+    
+    const infoY = 90;
+    const lineHeight = 8;
+    
+    pdf.text('Drug Name:', 20, infoY);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(data.drugName, 60, infoY);
+    
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Batch Number:', 20, infoY + lineHeight);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(data.batchNumber, 60, infoY + lineHeight);
+    
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Manufacturer:', 20, infoY + lineHeight * 2);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(data.manufacturer, 60, infoY + lineHeight * 2);
+    
+    if (data.expiryDate) {
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Expiry Date:', 20, infoY + lineHeight * 3);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text(new Date(data.expiryDate).toLocaleDateString(), 60, infoY + lineHeight * 3);
+    }
+    
+    if (data.riskLevel) {
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Risk Level:', 20, infoY + lineHeight * 4);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text(data.riskLevel.toUpperCase(), 60, infoY + lineHeight * 4);
+    }
+
+    // Verification Details
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(12);
+    pdf.text('Verification Details', 20, 145);
+    
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(10);
+    pdf.text('Verification Date:', 20, 155);
+    pdf.text(new Date(data.verificationDate).toLocaleString(), 60, 155);
+    
+    pdf.text('Verification ID:', 20, 163);
+    pdf.setFontSize(8);
+    pdf.text(data.verificationId, 60, 163);
+
+    // QR Code
+    pdf.setFontSize(12);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Verification QR Code', 20, 185);
+    
+    const qrData = JSON.stringify({
+      id: data.verificationId,
+      batch: data.batchNumber,
+      drug: data.drugName,
+      status: data.status,
+      date: data.verificationDate,
+    });
+    
+    const qrCodeDataUrl = await generateQRCode(qrData);
+    pdf.addImage(qrCodeDataUrl, 'PNG', 55, 190, 50, 50);
+    
+    pdf.setFontSize(8);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Scan to verify authenticity', 105, 250, { align: 'center' });
+
+    // Footer
+    pdf.setFillColor(241, 245, 249);
+    pdf.rect(0, 270, 210, 27, 'F');
+    
+    pdf.setTextColor(100, 116, 139);
+    pdf.setFontSize(8);
+    pdf.text('This report was generated by MedSafe Drug Verification System', 105, 280, { align: 'center' });
+    pdf.text(`Generated on: ${new Date().toLocaleString()}`, 105, 286, { align: 'center' });
+    pdf.text('For questions, contact: support@medsafe.in', 105, 292, { align: 'center' });
+
+    return pdf.output('blob');
+  } catch (error) {
+    console.error('PDF generation failed:', error);
+    throw new Error('Failed to generate PDF report');
+  }
+};
+
+export const downloadPDF = (blob: Blob, filename: string) => {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+};
