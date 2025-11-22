@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 
 import { calculateSafetyScore, SafetyScoreRequest, SafetyScoreResponse } from "@/lib/api";
-import { Activity, AlertTriangle, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { Activity, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
@@ -210,12 +210,11 @@ export default function SafetyScore() {
           </Card>
 
           {calculating ? (
-            <div className="flex items-center justify-center py-16">
-              <div className="text-center">
-                <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
-                <p className="text-muted-foreground">Calculating safety score...</p>
-              </div>
-            </div>
+            <Card className="flex items-center justify-center">
+              <CardContent className="py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+              </CardContent>
+            </Card>
           ) : result ? (
             <Card
               className={cn(

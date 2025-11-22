@@ -6,7 +6,6 @@ import { InteractiveDemo } from "@/components/InteractiveDemo";
 import { getDashboardStats } from "@/lib/api";
 import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Clock, Badge, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge as BadgeUI } from "@/components/ui/badge";
@@ -103,10 +102,9 @@ export default function Dashboard() {
         </div>
 
         {loading ? (
-          <div className="flex items-center justify-center py-16">
-            <div className="text-center">
-              <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
-              <p className="text-muted-foreground">Loading dashboard...</p>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
+            <div className="col-span-full flex justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
           </div>
         ) : (
