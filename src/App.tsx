@@ -68,6 +68,7 @@ const App = () => (
             <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
             <Route path="/interactions" element={<ProtectedRoute><DrugInteractions /></ProtectedRoute>} />
             <Route path="/prescription-scanner" element={<ProtectedRoute><PrescriptionScanner /></ProtectedRoute>} />
+            <Route path="/prescriptions" element={<Navigate to="/prescription-scanner" replace />} />
                   <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
                   <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
                   <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
