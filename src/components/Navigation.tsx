@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock, FlaskConical, MoreHorizontal, Pill, AlertCircle, Users } from "lucide-react";
+import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock, FlaskConical, MoreHorizontal, Pill, AlertCircle, Users, UserCog } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import { OptimizedImage } from "./OptimizedImage";
@@ -237,6 +237,14 @@ export function Navigation() {
                   <DropdownMenuItem onClick={() => navigate('/settings/security')}>
                     <Lock className="w-4 h-4 mr-2" />
                     Privacy & Security
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings/family')}>
+                    <Users className="w-4 h-4 mr-2" />
+                    Family Members
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings/caregivers')}>
+                    <UserCog className="w-4 h-4 mr-2" />
+                    Caregivers
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">

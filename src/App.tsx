@@ -30,6 +30,8 @@ const ProfileSettings = lazy(() => import("./pages/settings/Profile"));
 const ThemeSettings = lazy(() => import("./pages/settings/Theme"));
 const NotificationSettings = lazy(() => import("./pages/settings/Notifications"));
 const SecuritySettings = lazy(() => import("./pages/settings/Security"));
+const FamilyMembers = lazy(() => import("./pages/settings/FamilyMembers"));
+const Caregivers = lazy(() => import("./pages/settings/Caregivers"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const ChatBotWrapper = () => {
@@ -74,6 +76,8 @@ const App = () => (
                   <Route path="/settings/theme" element={<ProtectedRoute><ThemeSettings /></ProtectedRoute>} />
                   <Route path="/settings/notifications" element={<ProtectedRoute><NotificationSettings /></ProtectedRoute>} />
                   <Route path="/settings/security" element={<ProtectedRoute><SecuritySettings /></ProtectedRoute>} />
+                  <Route path="/settings/family" element={<ProtectedRoute><FamilyMembers /></ProtectedRoute>} />
+                  <Route path="/settings/caregivers" element={<ProtectedRoute><Caregivers /></ProtectedRoute>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
