@@ -53,22 +53,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             
             if (mounted) {
               setUserRole(data?.role || null);
+              console.log('User role set:', data?.role);
             }
           } catch (error) {
             console.error('Error fetching user role:', error);
             if (mounted) {
               setUserRole(null);
             }
+          } finally {
+            // Always set loading to false after role fetch attempt
+            if (mounted) {
+              console.log('Auth state change complete - setting loading to false');
+              setLoading(false);
+            }
           }
         } else {
           if (mounted) {
             setUserRole(null);
+            console.log('No user - setting loading to false');
+            setLoading(false);
           }
-        }
-        
-        // Always set loading to false after processing auth state
-        if (mounted) {
-          setLoading(false);
         }
       }
     );
@@ -92,18 +96,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           
           if (mounted) {
             setUserRole(data?.role || null);
+            console.log('Initial user role set:', data?.role);
           }
         } catch (error) {
           console.error('Error fetching user role:', error);
           if (mounted) {
             setUserRole(null);
           }
+        } finally {
+          // Always set loading to false after role fetch attempt
+          if (mounted) {
+            console.log('Initial session complete - setting loading to false');
+            setLoading(false);
+          }
         }
-      }
-      
-      // Always set loading to false after initial session check
-      if (mounted) {
-        setLoading(false);
+      } else {
+        // No user session, set loading to false immediately
+        if (mounted) {
+          console.log('No initial session - setting loading to false');
+          setLoading(false);
+        }
       }
     }).catch((error) => {
       console.error('Session fetch error:', error);
