@@ -6,33 +6,29 @@ import { InteractiveDemo } from "@/components/InteractiveDemo";
 import { getDashboardStats } from "@/lib/api";
 import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Clock, Badge, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge as BadgeUI } from "@/components/ui/badge";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [recentScans, setRecentScans] = useState<any[]>([]);
   const [showDemo, setShowDemo] = useState(false);
-  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const initDashboard = async () => {
-      setLoading(true);
-      await Promise.all([loadStats(), loadRecentScans()]);
-      setLoading(false);
-      
-      // Check if we should show demo for new user
-      const shouldShowDemo = localStorage.getItem('showDemo');
-      if (shouldShowDemo === 'true') {
-        setShowDemo(true);
-        localStorage.removeItem('showDemo');
-      }
-    };
+    loadStats();
+    loadRecentScans();
     
-    initDashboard();
+    // Check if we should show demo for new user
+    const shouldShowDemo = localStorage.getItem('showDemo');
+    if (shouldShowDemo === 'true') {
+      setShowDemo(true);
+      localStorage.removeItem('showDemo');
+    }
   }, []);
 
   async function loadStats() {
@@ -45,6 +41,8 @@ export default function Dashboard() {
         description: "Failed to load dashboard statistics",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -104,7 +102,14 @@ export default function Dashboard() {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
+        {loading ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[...Array(6)].map((_, i) => (
+              <Skeleton key={i} className="h-32" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <DashboardCard
               title="Total Drugs in Database"
               value={stats?.totalDrugs || 0}
@@ -153,6 +158,7 @@ export default function Dashboard() {
               variant="warning"
             />
           </div>
+        )}
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           <div className="bg-card border border-border rounded-lg p-6">

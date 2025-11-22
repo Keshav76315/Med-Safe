@@ -3,7 +3,6 @@ import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
 import {
   Sheet,
   SheetContent,
@@ -43,6 +42,8 @@ export default function DrugVerification() {
   const [batchNo, setBatchNo] = useState("");
   const [medicineName, setMedicineName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [medicineLoading, setMedicineLoading] = useState(false);
+  const [imageScanning, setImageScanning] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
   const [showMedicineScanner, setShowMedicineScanner] = useState(false);
   const [showScanOptions, setShowScanOptions] = useState(false);
@@ -98,7 +99,6 @@ export default function DrugVerification() {
         });
       }
     } catch (error) {
-      console.error("Verification error:", error);
       toast({
         title: "Verification Failed",
         description: "An error occurred during verification",
@@ -126,7 +126,7 @@ export default function DrugVerification() {
     }
 
     setResult(null);
-    setLoading(true);
+    setMedicineLoading(true);
     
     try {
       const { data, error } = await supabase.functions.invoke('medicine-info', {
@@ -157,7 +157,7 @@ export default function DrugVerification() {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setMedicineLoading(false);
     }
   };
 
@@ -187,7 +187,7 @@ export default function DrugVerification() {
 
     setResult(null);
     setMedicineInfo(null);
-    setLoading(true);
+    setImageScanning(true);
 
     try {
       // Convert image to base64
@@ -210,7 +210,7 @@ export default function DrugVerification() {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setImageScanning(false);
       // Reset file input
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -222,7 +222,7 @@ export default function DrugVerification() {
     setShowMedicineScanner(false);
     setResult(null);
     setMedicineInfo(null);
-    setLoading(true);
+    setImageScanning(true);
 
     try {
       await processMedicineImage(imageBase64);
@@ -234,7 +234,7 @@ export default function DrugVerification() {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setImageScanning(false);
     }
   };
 
@@ -321,11 +321,20 @@ export default function DrugVerification() {
                 <div className="flex gap-2">
                   <Button 
                     onClick={() => handleVerify()} 
-                    disabled={!batchNo.trim()}
+                    disabled={loading} 
                     className="flex-1"
                   >
-                    <Shield className="mr-2 h-4 w-4" />
-                    Verify
+                    {loading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Verifying
+                      </>
+                    ) : (
+                      <>
+                        <Shield className="mr-2 h-4 w-4" />
+                        Verify
+                      </>
+                    )}
                   </Button>
                   <Button 
                     onClick={() => setShowScanner(true)} 
@@ -359,11 +368,20 @@ export default function DrugVerification() {
                 <div className="flex gap-2">
                   <Button 
                     onClick={() => handleMedicineSearch()} 
-                    disabled={!medicineName.trim()}
+                    disabled={medicineLoading || imageScanning}
                     className="flex-1"
                   >
-                    <Info className="mr-2 h-4 w-4" />
-                    Search
+                    {medicineLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Searching
+                      </>
+                    ) : (
+                      <>
+                        <Info className="mr-2 h-4 w-4" />
+                        Search
+                      </>
+                    )}
                   </Button>
                   <input
                     ref={fileInputRef}
@@ -374,10 +392,14 @@ export default function DrugVerification() {
                   />
                   <Button 
                     onClick={() => setShowScanOptions(true)}
-                    disabled={!medicineName.trim()}
+                    disabled={medicineLoading || imageScanning}
                     variant="outline"
                   >
-                    <ImageIcon className="h-4 w-4" />
+                    {imageScanning ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <ImageIcon className="h-4 w-4" />
+                    )}
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground text-center">

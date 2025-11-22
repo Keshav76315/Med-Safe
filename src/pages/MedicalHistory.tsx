@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-
 import { z } from 'zod';
 
 const medicalHistorySchema = z.object({
@@ -60,7 +59,7 @@ import { Plus, Edit, Trash2, Search } from "lucide-react";
 export default function MedicalHistory() {
   const [patientId, setPatientId] = useState("PAT001");
   const [history, setHistory] = useState<PatientHistory[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingRecord, setEditingRecord] = useState<PatientHistory | null>(null);
   const [formData, setFormData] = useState({
@@ -72,30 +71,24 @@ export default function MedicalHistory() {
   const { toast } = useToast();
 
   useEffect(() => {
-    const init = async () => {
-      setLoading(true);
-      await loadHistory();
-      setLoading(false);
-    };
-    init();
+    loadHistory();
   }, [patientId]);
 
   async function loadHistory() {
-    if (!patientId.trim()) {
-      setLoading(false);
-      return;
-    }
+    if (!patientId.trim()) return;
 
+    setLoading(true);
     try {
       const data = await getPatientHistory(patientId);
       setHistory(data);
     } catch (error) {
-      console.error("Error loading history:", error);
       toast({
         title: "Error",
         description: "Failed to load medical history",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -198,7 +191,7 @@ export default function MedicalHistory() {
                   onChange={(e) => setPatientId(e.target.value.toUpperCase())}
                 />
               </div>
-              <Button onClick={loadHistory} className="mt-6">
+              <Button onClick={loadHistory} className="mt-6" disabled={loading}>
                 <Search className="mr-2 h-4 w-4" />
                 Search
               </Button>

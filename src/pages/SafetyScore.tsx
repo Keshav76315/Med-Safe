@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
 import { calculateSafetyScore, SafetyScoreRequest, SafetyScoreResponse } from "@/lib/api";
 import { Activity, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -22,7 +21,6 @@ const safetyScoreSchema = z.object({
 
 export default function SafetyScore() {
   const { toast } = useToast();
-  const [calculating, setCalculating] = useState(false);
   const [formData, setFormData] = useState<SafetyScoreRequest>({
     age: 0,
     conditions: [],
@@ -98,20 +96,8 @@ export default function SafetyScore() {
       return;
     }
     
-    setCalculating(true);
-    try {
-      const score = calculateSafetyScore(formData);
-      setResult(score);
-    } catch (error) {
-      console.error("Error calculating score:", error);
-      toast({
-        title: "Calculation Error",
-        description: "Failed to calculate safety score",
-        variant: "destructive",
-      });
-    } finally {
-      setCalculating(false);
-    }
+    const score = calculateSafetyScore(formData);
+    setResult(score);
   }
 
   return (
@@ -217,7 +203,7 @@ export default function SafetyScore() {
             </CardContent>
           </Card>
 
-          {result ? (
+          {result && (
             <Card
               className={cn(
                 "border-2 animate-in fade-in-50 slide-in-from-right-4",
@@ -304,7 +290,7 @@ export default function SafetyScore() {
                 </div>
               </CardContent>
             </Card>
-          ) : null}
+          )}
 
           {!result && (
             <Card className="flex items-center justify-center">
