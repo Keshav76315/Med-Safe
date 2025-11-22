@@ -22,11 +22,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+
     // Listen for auth state changes (including OAuth callbacks)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         console.log('Auth state change:', event, session?.user?.email);
         
+        if (!mounted) return;
+
         setSession(session);
         setUser(session?.user ?? null);
         
@@ -38,23 +42,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               .select('role')
               .eq('user_id', session.user.id)
               .maybeSingle();
-            setUserRole(data?.role || null);
+            
+            if (mounted) {
+              setUserRole(data?.role || null);
+            }
           } catch (error) {
             console.error('Error fetching user role:', error);
-            setUserRole(null);
+            if (mounted) {
+              setUserRole(null);
+            }
           }
         } else {
-          setUserRole(null);
+          if (mounted) {
+            setUserRole(null);
+          }
         }
         
         // Always set loading to false after processing auth state
-        setLoading(false);
+        if (mounted) {
+          setLoading(false);
+        }
       }
     );
 
     // Get initial session
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       console.log('Initial session:', session?.user?.email);
+      
+      if (!mounted) return;
       
       setSession(session);
       setUser(session?.user ?? null);
@@ -66,18 +81,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             .select('role')
             .eq('user_id', session.user.id)
             .maybeSingle();
-          setUserRole(data?.role || null);
+          
+          if (mounted) {
+            setUserRole(data?.role || null);
+          }
         } catch (error) {
           console.error('Error fetching user role:', error);
-          setUserRole(null);
+          if (mounted) {
+            setUserRole(null);
+          }
         }
       }
       
       // Always set loading to false after initial session check
-      setLoading(false);
+      if (mounted) {
+        setLoading(false);
+      }
+    }).catch((error) => {
+      console.error('Session fetch error:', error);
+      if (mounted) {
+        setLoading(false);
+      }
     });
 
-    return () => subscription.unsubscribe();
+    // Cleanup
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email: string, password: string, fullName: string) => {
