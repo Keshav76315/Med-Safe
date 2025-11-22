@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu } from "lucide-react";
+import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import { OptimizedImage } from "./OptimizedImage";
@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
+  DropdownMenuLabel,
 } from "./ui/dropdown-menu";
 import {
   Drawer,
@@ -138,20 +139,39 @@ export function Navigation() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon">
-                    <User className="h-5 w-5" />
+                    <Settings className="h-5 w-5" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <div className="px-2 py-2">
-                    <p className="text-sm font-medium truncate max-w-[200px]">{user.email}</p>
-                    {userRole && (
-                      <Badge variant="secondary" className="mt-1 capitalize">
-                        {userRole}
-                      </Badge>
-                    )}
-                  </div>
+                <DropdownMenuContent align="end" className="w-56 bg-card z-50">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium truncate">{user.email}</p>
+                      {userRole && (
+                        <Badge variant="secondary" className="w-fit capitalize text-xs">
+                          {userRole}
+                        </Badge>
+                      )}
+                    </div>
+                  </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut}>
+                  <DropdownMenuItem onClick={() => navigate('/settings/profile')}>
+                    <User className="w-4 h-4 mr-2" />
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings/theme')}>
+                    <Moon className="w-4 h-4 mr-2" />
+                    System Theme
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings/notifications')}>
+                    <Bell className="w-4 h-4 mr-2" />
+                    Notification Settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings/security')}>
+                    <Lock className="w-4 h-4 mr-2" />
+                    Privacy & Security
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
                   </DropdownMenuItem>
