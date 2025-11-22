@@ -14,6 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
+      counterfeit_reports: {
+        Row: {
+          batch_number: string | null
+          created_at: string | null
+          description: string
+          drug_name: string
+          id: string
+          is_anonymous: boolean | null
+          is_verified: boolean | null
+          location_address: string
+          location_city: string | null
+          location_coordinates: unknown
+          location_state: string | null
+          manufacturer: string | null
+          photo_urls: string[] | null
+          purchase_location: string | null
+          reporter_name: string | null
+          reward_points: number | null
+          severity: string | null
+          status: string
+          symptoms: string | null
+          updated_at: string | null
+          user_id: string | null
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          batch_number?: string | null
+          created_at?: string | null
+          description: string
+          drug_name: string
+          id?: string
+          is_anonymous?: boolean | null
+          is_verified?: boolean | null
+          location_address: string
+          location_city?: string | null
+          location_coordinates?: unknown
+          location_state?: string | null
+          manufacturer?: string | null
+          photo_urls?: string[] | null
+          purchase_location?: string | null
+          reporter_name?: string | null
+          reward_points?: number | null
+          severity?: string | null
+          status?: string
+          symptoms?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          batch_number?: string | null
+          created_at?: string | null
+          description?: string
+          drug_name?: string
+          id?: string
+          is_anonymous?: boolean | null
+          is_verified?: boolean | null
+          location_address?: string
+          location_city?: string | null
+          location_coordinates?: unknown
+          location_state?: string | null
+          manufacturer?: string | null
+          photo_urls?: string[] | null
+          purchase_location?: string | null
+          reporter_name?: string | null
+          reward_points?: number | null
+          severity?: string | null
+          status?: string
+          symptoms?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: []
+      }
       drugs: {
         Row: {
           active_ingredient: string
@@ -210,6 +288,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_rewards: {
+        Row: {
+          badges: Json | null
+          created_at: string | null
+          id: string
+          level: number | null
+          total_points: number | null
+          updated_at: string | null
+          user_id: string
+          verified_reports_count: number | null
+        }
+        Insert: {
+          badges?: Json | null
+          created_at?: string | null
+          id?: string
+          level?: number | null
+          total_points?: number | null
+          updated_at?: string | null
+          user_id: string
+          verified_reports_count?: number | null
+        }
+        Update: {
+          badges?: Json | null
+          created_at?: string | null
+          id?: string
+          level?: number | null
+          total_points?: number | null
+          updated_at?: string | null
+          user_id?: string
+          verified_reports_count?: number | null
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
