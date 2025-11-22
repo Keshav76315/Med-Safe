@@ -23,6 +23,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     let mounted = true;
+    
+    // Safety timeout to prevent infinite loading
+    const loadingTimeout = setTimeout(() => {
+      if (mounted) {
+        console.error('Auth loading timeout - forcing loading to false');
+        setLoading(false);
+      }
+    }, 5000); // 5 second timeout
 
     // Listen for auth state changes (including OAuth callbacks)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -107,6 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Cleanup
     return () => {
       mounted = false;
+      clearTimeout(loadingTimeout);
       subscription.unsubscribe();
     };
   }, []);
