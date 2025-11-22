@@ -162,8 +162,8 @@ export default function DietRecommendation() {
               </CardTitle>
               <CardDescription>Ask questions about nutrition, meal planning, and dietary advice</CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 flex flex-col">
-              <ScrollArea className="flex-1 pr-4 mb-4">
+            <CardContent className="flex-1 flex flex-col overflow-hidden">
+              <ScrollArea className="flex-1 pr-4 mb-4 h-full overflow-y-auto">
                 {messages.length === 0 ? (
                   <div className="text-center text-muted-foreground py-8 animate-fade-in">
                     <p>Start a conversation with our AI nutritionist!</p>
