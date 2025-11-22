@@ -103,11 +103,53 @@ export default function Dashboard() {
         </div>
 
         {loading ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[...Array(6)].map((_, i) => (
-              <Skeleton key={i} className="h-32" />
-            ))}
-          </div>
+          <>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-card border border-border rounded-lg p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-10 w-10 rounded-full" />
+                  </div>
+                  <Skeleton className="h-8 w-20 mb-2" />
+                  <Skeleton className="h-3 w-24" />
+                </div>
+              ))}
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="bg-card border border-border rounded-lg p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <Skeleton className="h-6 w-40" />
+                  <Skeleton className="h-8 w-20" />
+                </div>
+                <div className="space-y-3">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="flex items-center gap-3 p-3 rounded-md bg-muted/50">
+                      <Skeleton className="h-4 w-4 rounded-full" />
+                      <div className="flex-1 space-y-2">
+                        <Skeleton className="h-4 w-32" />
+                        <Skeleton className="h-3 w-24" />
+                      </div>
+                      <Skeleton className="h-6 w-16" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-lg p-6">
+                <Skeleton className="h-6 w-32 mb-4" />
+                <div className="space-y-4">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="flex items-center justify-between">
+                      <Skeleton className="h-4 w-40" />
+                      <Skeleton className="h-4 w-20" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <DashboardCard
@@ -160,7 +202,8 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        {!loading && (
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
           <div className="bg-card border border-border rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold flex items-center gap-2">
@@ -261,6 +304,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+        )}
       </main>
     </div>
   );
