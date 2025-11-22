@@ -50,19 +50,19 @@ const App = () => (
             <BrowserRouter>
               <Suspense fallback={<LoadingFallback />}>
                 <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-                  <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
-                  <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
-                  <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
-                  <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
-                  <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
-                  <Route path="/diet" element={<ProtectedRoute><DietRecommendation /></ProtectedRoute>} />
-                  <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                  <Route path="/settings/notifications" element={<ProtectedRoute><NotificationSettings /></ProtectedRoute>} />
-                  <Route path="/settings/privacy" element={<ProtectedRoute><PrivacySettings /></ProtectedRoute>} />
-                  <Route path="*" element={<NotFound />} />
+                  <Route path="/" element={<ErrorBoundary><Index /></ErrorBoundary>} />
+                  <Route path="/auth" element={<ErrorBoundary><Auth /></ErrorBoundary>} />
+                  <Route path="/dashboard" element={<ErrorBoundary><ProtectedRoute><Dashboard /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/verify" element={<ErrorBoundary><ProtectedRoute><DrugVerification /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/history" element={<ErrorBoundary><ProtectedRoute><MedicalHistory /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/safety" element={<ErrorBoundary><ProtectedRoute><SafetyScore /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/pharmacist" element={<ErrorBoundary><ProtectedRoute><PharmacistVerification /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/fda-import" element={<ErrorBoundary><ProtectedRoute><FDAImport /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/diet" element={<ErrorBoundary><ProtectedRoute><DietRecommendation /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/profile" element={<ErrorBoundary><ProtectedRoute><Profile /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/settings/notifications" element={<ErrorBoundary><ProtectedRoute><NotificationSettings /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="/settings/privacy" element={<ErrorBoundary><ProtectedRoute><PrivacySettings /></ProtectedRoute></ErrorBoundary>} />
+                  <Route path="*" element={<ErrorBoundary><NotFound /></ErrorBoundary>} />
                 </Routes>
               </Suspense>
               <ChatBotWrapper />
