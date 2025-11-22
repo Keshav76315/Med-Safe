@@ -22,6 +22,7 @@ const safetyScoreSchema = z.object({
 
 export default function SafetyScore() {
   const { toast } = useToast();
+  const [calculating, setCalculating] = useState(false);
   const [formData, setFormData] = useState<SafetyScoreRequest>({
     age: 0,
     conditions: [],
@@ -97,8 +98,20 @@ export default function SafetyScore() {
       return;
     }
     
-    const score = calculateSafetyScore(formData);
-    setResult(score);
+    setCalculating(true);
+    try {
+      const score = calculateSafetyScore(formData);
+      setResult(score);
+    } catch (error) {
+      console.error("Error calculating score:", error);
+      toast({
+        title: "Calculation Error",
+        description: "Failed to calculate safety score",
+        variant: "destructive",
+      });
+    } finally {
+      setCalculating(false);
+    }
   }
 
   return (

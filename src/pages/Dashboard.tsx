@@ -14,19 +14,25 @@ export default function Dashboard() {
   const [stats, setStats] = useState<any>(null);
   const [recentScans, setRecentScans] = useState<any[]>([]);
   const [showDemo, setShowDemo] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadStats();
-    loadRecentScans();
+    const initDashboard = async () => {
+      setLoading(true);
+      await Promise.all([loadStats(), loadRecentScans()]);
+      setLoading(false);
+      
+      // Check if we should show demo for new user
+      const shouldShowDemo = localStorage.getItem('showDemo');
+      if (shouldShowDemo === 'true') {
+        setShowDemo(true);
+        localStorage.removeItem('showDemo');
+      }
+    };
     
-    // Check if we should show demo for new user
-    const shouldShowDemo = localStorage.getItem('showDemo');
-    if (shouldShowDemo === 'true') {
-      setShowDemo(true);
-      localStorage.removeItem('showDemo');
-    }
+    initDashboard();
   }, []);
 
   async function loadStats() {
