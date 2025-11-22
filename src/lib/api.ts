@@ -17,6 +17,23 @@ export interface Drug {
   updated_at?: string;
 }
 
+export interface Patient {
+  id: string;
+  user_id: string;
+  patient_name: string;
+  date_of_birth?: string;
+  blood_group?: string;
+  gender?: string;
+  phone_number?: string;
+  email?: string;
+  medical_conditions?: string[];
+  allergies?: string[];
+  emergency_contact_name?: string;
+  emergency_contact_phone?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface PatientHistory {
   id: string;
   patient_id: string;
@@ -144,6 +161,67 @@ export async function verifyDrug(batchNo: string) {
     console.error("Error verifying drug:", error);
     throw error;
   }
+}
+
+// Patient CRUD
+export async function getPatients() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const { data, error } = await supabase
+    .from("patients")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return data as Patient[];
+}
+
+export async function getPatient(id: string) {
+  const { data, error } = await supabase
+    .from("patients")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) throw error;
+  return data as Patient;
+}
+
+export async function addPatient(patient: Omit<Patient, "id" | "user_id" | "created_at" | "updated_at">) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const { data, error } = await supabase
+    .from("patients")
+    .insert({ ...patient, user_id: user.id })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as Patient;
+}
+
+export async function updatePatient(id: string, patient: Partial<Patient>) {
+  const { data, error } = await supabase
+    .from("patients")
+    .update(patient)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as Patient;
+}
+
+export async function deletePatient(id: string) {
+  const { error } = await supabase
+    .from("patients")
+    .delete()
+    .eq("id", id);
+
+  if (error) throw error;
 }
 
 // Patient History CRUD

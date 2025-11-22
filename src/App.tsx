@@ -22,6 +22,7 @@ const PrescriptionScanner = lazy(() => import("./pages/PrescriptionScanner"));
 const Emergency = lazy(() => import("./pages/Emergency"));
 const CommunityReporting = lazy(() => import("./pages/CommunityReporting"));
 const MedicalHistory = lazy(() => import("./pages/MedicalHistory"));
+const PatientDetails = lazy(() => import("./pages/PatientDetails"));
 const SafetyScore = lazy(() => import("./pages/SafetyScore"));
 const PharmacistVerification = lazy(() => import("./pages/PharmacistVerification"));
 const PharmacyLocator = lazy(() => import("./pages/PharmacyLocator"));
@@ -69,7 +70,8 @@ const App = () => (
             <Route path="/interactions" element={<ProtectedRoute><DrugInteractions /></ProtectedRoute>} />
             <Route path="/prescription-scanner" element={<ProtectedRoute><PrescriptionScanner /></ProtectedRoute>} />
             <Route path="/prescriptions" element={<Navigate to="/prescription-scanner" replace />} />
-                  <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
+          <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
+          <Route path="/history/:patientId" element={<ProtectedRoute><PatientDetails /></ProtectedRoute>} />
                   <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
                   <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
                   <Route path="/pharmacy-locator" element={<ProtectedRoute><PharmacyLocator /></ProtectedRoute>} />
