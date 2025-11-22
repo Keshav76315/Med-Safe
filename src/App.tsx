@@ -20,6 +20,9 @@ const SafetyScore = lazy(() => import("./pages/SafetyScore"));
 const PharmacistVerification = lazy(() => import("./pages/PharmacistVerification"));
 const FDAImport = lazy(() => import("./pages/FDAImport"));
 const DietRecommendation = lazy(() => import("./pages/DietRecommendation"));
+const Profile = lazy(() => import("./pages/Profile"));
+const NotificationSettings = lazy(() => import("./pages/NotificationSettings"));
+const PrivacySettings = lazy(() => import("./pages/PrivacySettings"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const ChatBotWrapper = () => {
@@ -54,6 +57,9 @@ const App = () => (
                 <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
                 <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
                 <Route path="/diet" element={<ProtectedRoute><DietRecommendation /></ProtectedRoute>} />
+                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                <Route path="/settings/notifications" element={<ProtectedRoute><NotificationSettings /></ProtectedRoute>} />
+                <Route path="/settings/privacy" element={<ProtectedRoute><PrivacySettings /></ProtectedRoute>} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
