@@ -135,48 +135,41 @@ const Auth = () => {
   const handleGoogleSignIn = async () => {
     try {
       setSubmitLoading(true);
-      console.log('Initiating Google OAuth...');
       
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth`,
+          redirectTo: `${window.location.origin}/dashboard`,
           queryParams: {
             access_type: 'offline',
-            prompt: 'consent',
+            prompt: 'select_account',
           },
         },
       });
 
       if (error) {
-        console.error('Google OAuth error:', error);
         setSubmitLoading(false);
         
-        // Handle specific OAuth errors
         if (error.message.includes('invalid_client') || error.message.includes('Unauthorized')) {
           toast({
-            title: "Google Sign-In Not Configured",
-            description: "Google authentication is not properly set up. Please contact the administrator or use email/password login.",
+            title: "⚠️ Google Sign-In Unavailable",
+            description: "Google authentication requires admin configuration. Please use email/password to sign in.",
             variant: "destructive",
+            duration: 6000,
           });
         } else {
           toast({
             title: "Sign-In Error",
-            description: error.message,
+            description: error.message || "Failed to connect with Google",
             variant: "destructive",
           });
         }
-      } else {
-        console.log('OAuth redirect initiated:', data);
-        // Don't set submitLoading to false here - user will be redirected away
-        // The page will unmount as they go to Google's OAuth page
       }
     } catch (err) {
-      console.error('Unexpected error during Google sign-in:', err);
       setSubmitLoading(false);
       toast({
-        title: "Unexpected Error",
-        description: "An unexpected error occurred. Please try again.",
+        title: "Connection Error",
+        description: "Unable to connect with Google. Please use email/password login.",
         variant: "destructive",
       });
     }
