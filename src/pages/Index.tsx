@@ -171,7 +171,7 @@ const Index = () => {
             <h2 className="text-6xl md:text-8xl font-semibold tracking-tight leading-none text-primary">
               Against counterfeits.
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto pt-6 font-light leading-relaxed">
+            <p className="text-xl md:text-2xl text-foreground max-w-3xl mx-auto pt-6 font-light leading-relaxed">
               Advanced AI verification that ensures every medicine you take is authentic, safe, and life-saving.
             </p>
             <div className="flex gap-6 justify-center pt-8">
