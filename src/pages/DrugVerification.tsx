@@ -301,14 +301,11 @@ export default function DrugVerification() {
         </div>
 
         {(medicineLoading || imageScanning) && (
-          <div className="flex items-center justify-center py-16 mb-6">
-            <div className="text-center">
-              <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
-              <p className="text-muted-foreground">
-                {imageScanning ? 'Scanning medicine image...' : 'Loading medicine information...'}
-              </p>
-            </div>
-          </div>
+          <Card className="mb-6">
+            <CardContent className="flex justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            </CardContent>
+          </Card>
         )}
 
         {!medicineLoading && !imageScanning && (

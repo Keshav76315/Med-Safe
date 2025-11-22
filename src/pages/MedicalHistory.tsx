@@ -55,7 +55,7 @@ import {
   PatientHistory,
 } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit, Trash2, Search, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, Search } from "lucide-react";
 
 export default function MedicalHistory() {
   const [patientId, setPatientId] = useState("PAT001");
@@ -201,12 +201,11 @@ export default function MedicalHistory() {
         </Card>
 
         {loading ? (
-          <div className="flex items-center justify-center py-16">
-            <div className="text-center">
-              <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
-              <p className="text-muted-foreground">Loading medical history...</p>
-            </div>
-          </div>
+          <Card>
+            <CardContent className="flex justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            </CardContent>
+          </Card>
         ) : (
           <Card>
           <CardHeader className="flex flex-row items-center justify-between">
