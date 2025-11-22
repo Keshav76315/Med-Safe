@@ -13,12 +13,23 @@ serve(async (req) => {
   try {
     const { medicineName } = await req.json();
     
-    if (!medicineName) {
+    // Input validation
+    if (!medicineName || typeof medicineName !== 'string') {
       return new Response(
-        JSON.stringify({ error: "Medicine name is required" }),
+        JSON.stringify({ error: "Valid medicine name is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    if (medicineName.length > 200) {
+      return new Response(
+        JSON.stringify({ error: "Medicine name too long (max 200 characters)" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Sanitize input - remove special characters
+    const sanitizedName = medicineName.trim().replace(/[^a-zA-Z0-9\s-]/g, '');
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -40,7 +51,7 @@ Format your response as a structured JSON with the following fields:
 
 If the medicine is not recognized or you're unsure, return an error field with an explanation.`;
 
-    const userPrompt = `Provide detailed medical information about: ${medicineName}
+    const userPrompt = `Provide detailed medical information about: ${sanitizedName}
 
 Return ONLY valid JSON with no additional text.`;
 

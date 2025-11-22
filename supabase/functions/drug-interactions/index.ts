@@ -13,9 +13,30 @@ serve(async (req) => {
   try {
     const { medications, checkFood = false, checkAlcohol = false } = await req.json();
     
+    // Input validation
     if (!medications || !Array.isArray(medications) || medications.length < 2) {
       return new Response(
         JSON.stringify({ error: 'At least 2 medications are required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (medications.length > 50) {
+      return new Response(
+        JSON.stringify({ error: 'Too many medications (max 50)' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate and sanitize each medication
+    const sanitizedMedications = medications
+      .filter(med => typeof med === 'string')
+      .map(med => med.trim().slice(0, 200))
+      .filter(med => med.length > 0);
+
+    if (sanitizedMedications.length < 2) {
+      return new Response(
+        JSON.stringify({ error: 'At least 2 valid medications are required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -25,7 +46,7 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY not configured');
     }
 
-    const medicationList = medications.join(', ');
+    const medicationList = sanitizedMedications.join(', ');
     
     const systemPrompt = `You are a medical drug interaction expert. Analyze drug interactions with extreme accuracy and provide actionable medical guidance.
 

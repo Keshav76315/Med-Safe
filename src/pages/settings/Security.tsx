@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Lock, Trash2, Loader2, Shield, Eye, EyeOff } from "lucide-react";
+import { passwordSchema } from "@/lib/validators";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -47,10 +48,12 @@ export default function Security() {
       return;
     }
 
-    if (passwords.newPassword.length < 6) {
+    // Use strong password validation
+    const validation = passwordSchema.safeParse(passwords.newPassword);
+    if (!validation.success) {
       toast({
-        title: "Password too short",
-        description: "Password must be at least 6 characters long.",
+        title: "Weak password",
+        description: validation.error.issues[0].message,
         variant: "destructive",
       });
       return;

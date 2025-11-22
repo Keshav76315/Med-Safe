@@ -13,7 +13,47 @@ serve(async (req) => {
   try {
     const { age, conditions, currentMedications, newMedication } = await req.json();
 
-    console.log("Safety Score Request:", { age, conditions, currentMedications, newMedication });
+    // Input validation
+    if (typeof age !== 'number' || age < 0 || age > 150) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid age (must be 0-150)' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!Array.isArray(conditions) || conditions.length > 50) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid conditions (max 50)' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!Array.isArray(currentMedications) || currentMedications.length > 50) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid medications list (max 50)' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!newMedication || typeof newMedication !== 'string' || newMedication.length > 200) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid medication name' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Sanitize inputs
+    const sanitizedConditions = conditions
+      .filter(c => typeof c === 'string')
+      .map(c => c.trim().slice(0, 200));
+    
+    const sanitizedMedications = currentMedications
+      .filter(m => typeof m === 'string')
+      .map(m => m.trim().slice(0, 200));
+    
+    const sanitizedNewMed = newMedication.trim().slice(0, 200);
+
+    console.log("Safety Score Request:", { age, conditions: sanitizedConditions, currentMedications: sanitizedMedications, newMedication: sanitizedNewMed });
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
@@ -37,10 +77,10 @@ Be specific and professional. Always recommend consulting a healthcare professio
 
     const userPrompt = `Patient Profile:
 - Age: ${age} years old
-- Medical Conditions: ${conditions.length > 0 ? conditions.join(', ') : 'None reported'}
-- Current Medications: ${currentMedications.length > 0 ? currentMedications.join(', ') : 'None'}
+- Medical Conditions: ${sanitizedConditions.length > 0 ? sanitizedConditions.join(', ') : 'None reported'}
+- Current Medications: ${sanitizedMedications.length > 0 ? sanitizedMedications.join(', ') : 'None'}
 
-New Medication to Evaluate: ${newMedication}
+New Medication to Evaluate: ${sanitizedNewMed}
 
 Provide a comprehensive safety assessment in JSON format with this structure:
 {
