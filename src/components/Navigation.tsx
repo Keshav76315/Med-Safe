@@ -59,12 +59,14 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-4 md:space-x-8">
             <Link to="/dashboard" className="flex items-center space-x-2">
-              <OptimizedImage 
-                src={medSafeLogo} 
-                alt="MedSafe Logo" 
-                className="h-8 w-8 object-contain" 
-                priority 
-              />
+              <div className="relative h-8 w-8 rounded-md bg-background border border-border overflow-hidden shadow-sm">
+                <OptimizedImage 
+                  src={medSafeLogo} 
+                  alt="MedSafe Logo" 
+                  className="h-full w-full object-cover" 
+                  priority 
+                />
+              </div>
               <span className="text-lg md:text-xl font-bold tracking-tight text-foreground">MedSafe</span>
             </Link>
 
