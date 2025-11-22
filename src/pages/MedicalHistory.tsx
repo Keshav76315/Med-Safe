@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Skeleton } from "@/components/ui/skeleton";
+
 import { z } from 'zod';
 
 const medicalHistorySchema = z.object({
@@ -55,7 +55,7 @@ import {
   PatientHistory,
 } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit, Trash2, Search } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Loader2 } from "lucide-react";
 
 export default function MedicalHistory() {
   const [patientId, setPatientId] = useState("PAT001");
@@ -201,34 +201,12 @@ export default function MedicalHistory() {
         </Card>
 
         {loading ? (
-          <Card>
-            <CardHeader>
-              <div className="flex justify-between items-center">
-                <div className="flex-1">
-                  <Skeleton className="h-6 w-40 mb-2" />
-                  <Skeleton className="h-4 w-32" />
-                </div>
-                <Skeleton className="h-10 w-32" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="flex items-center gap-4 p-3 border rounded-lg">
-                    <Skeleton className="h-12 w-12 rounded" />
-                    <div className="flex-1 space-y-2">
-                      <Skeleton className="h-4 w-32" />
-                      <Skeleton className="h-3 w-48" />
-                    </div>
-                    <div className="flex gap-2">
-                      <Skeleton className="h-8 w-8" />
-                      <Skeleton className="h-8 w-8" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="flex items-center justify-center py-16">
+            <div className="text-center">
+              <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
+              <p className="text-muted-foreground">Loading medical history...</p>
+            </div>
+          </div>
         ) : (
           <Card>
           <CardHeader className="flex flex-row items-center justify-between">
