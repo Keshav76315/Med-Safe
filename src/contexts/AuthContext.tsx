@@ -22,40 +22,58 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Listen for auth state changes (including OAuth callbacks)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state change:', event, session?.user?.email);
+        
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          setTimeout(async () => {
+          // Fetch user role
+          try {
             const { data } = await supabase
               .from('user_roles')
               .select('role')
               .eq('user_id', session.user.id)
               .single();
             setUserRole(data?.role || null);
-          }, 0);
+          } catch (error) {
+            console.error('Error fetching user role:', error);
+            setUserRole(null);
+          } finally {
+            // CRITICAL: Set loading to false after handling auth state change
+            setLoading(false);
+          }
         } else {
           setUserRole(null);
+          setLoading(false);
         }
       }
     );
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Get initial session
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      console.log('Initial session:', session?.user?.email);
+      
       setSession(session);
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        supabase
-          .from('user_roles')
-          .select('role')
-          .eq('user_id', session.user.id)
-          .single()
-          .then(({ data }) => {
-            setUserRole(data?.role || null);
-            setLoading(false);
-          });
+        try {
+          const { data } = await supabase
+            .from('user_roles')
+            .select('role')
+            .eq('user_id', session.user.id)
+            .single();
+          setUserRole(data?.role || null);
+        } catch (error) {
+          console.error('Error fetching user role:', error);
+          setUserRole(null);
+        } finally {
+          setLoading(false);
+        }
       } else {
         setLoading(false);
       }
