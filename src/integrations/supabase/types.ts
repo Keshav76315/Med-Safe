@@ -359,6 +359,114 @@ export type Database = {
         }
         Relationships: []
       }
+      pharmacies: {
+        Row: {
+          address: string
+          city: string
+          created_at: string | null
+          email: string | null
+          id: string
+          is_24_7: boolean | null
+          latitude: number | null
+          license_number: string
+          longitude: number | null
+          name: string
+          phone: string | null
+          postal_code: string | null
+          rating: number | null
+          review_count: number | null
+          services: Json | null
+          state: string
+          updated_at: string | null
+          verified: boolean | null
+        }
+        Insert: {
+          address: string
+          city: string
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          is_24_7?: boolean | null
+          latitude?: number | null
+          license_number: string
+          longitude?: number | null
+          name: string
+          phone?: string | null
+          postal_code?: string | null
+          rating?: number | null
+          review_count?: number | null
+          services?: Json | null
+          state: string
+          updated_at?: string | null
+          verified?: boolean | null
+        }
+        Update: {
+          address?: string
+          city?: string
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          is_24_7?: boolean | null
+          latitude?: number | null
+          license_number?: string
+          longitude?: number | null
+          name?: string
+          phone?: string | null
+          postal_code?: string | null
+          rating?: number | null
+          review_count?: number | null
+          services?: Json | null
+          state?: string
+          updated_at?: string | null
+          verified?: boolean | null
+        }
+        Relationships: []
+      }
+      prescriptions: {
+        Row: {
+          created_at: string | null
+          doctor_license: string | null
+          doctor_name: string | null
+          id: string
+          image_url: string | null
+          medications: Json
+          notes: string | null
+          patient_name: string
+          prescription_date: string | null
+          updated_at: string | null
+          user_id: string
+          verified: boolean | null
+        }
+        Insert: {
+          created_at?: string | null
+          doctor_license?: string | null
+          doctor_name?: string | null
+          id?: string
+          image_url?: string | null
+          medications: Json
+          notes?: string | null
+          patient_name: string
+          prescription_date?: string | null
+          updated_at?: string | null
+          user_id: string
+          verified?: boolean | null
+        }
+        Update: {
+          created_at?: string | null
+          doctor_license?: string | null
+          doctor_name?: string | null
+          id?: string
+          image_url?: string | null
+          medications?: Json
+          notes?: string | null
+          patient_name?: string
+          prescription_date?: string | null
+          updated_at?: string | null
+          user_id?: string
+          verified?: boolean | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
