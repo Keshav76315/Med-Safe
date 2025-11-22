@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import logo from "@/assets/medsafe-logo.jpg";
+import logo from "@/assets/medsafe-logo-transparent.png";
 import heroBackground from "@/assets/hero-background.jpg";
 
 // Animated Counter Component
@@ -101,7 +101,7 @@ const Index = () => {
               <OptimizedImage 
                 src={logo} 
                 alt="MedSafe Logo" 
-                className="h-8 w-8 rounded-lg" 
+                className="h-10 w-10 object-contain" 
                 priority 
               />
               <span className="text-xl font-semibold">MedSafe</span>
