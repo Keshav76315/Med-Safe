@@ -4,24 +4,28 @@ import { Navigation } from "@/components/Navigation";
 import { DashboardCard } from "@/components/DashboardCard";
 import { InteractiveDemo } from "@/components/InteractiveDemo";
 import { getDashboardStats } from "@/lib/api";
-import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Clock, Badge, ArrowRight } from "lucide-react";
+import { Pill, Users, ScanLine, AlertTriangle, CheckCircle, XCircle, Clock, Badge, ArrowRight, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge as BadgeUI } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function Dashboard() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [recentScans, setRecentScans] = useState<any[]>([]);
   const [showDemo, setShowDemo] = useState(false);
+  const [chartData, setChartData] = useState<any[]>([]);
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
     loadStats();
     loadRecentScans();
+    loadChartData();
     
     // Check if we should show demo for new user
     const shouldShowDemo = localStorage.getItem('showDemo');
@@ -58,6 +62,39 @@ export default function Dashboard() {
       setRecentScans(data || []);
     } catch (error) {
       console.error('Failed to load recent scans:', error);
+    }
+  }
+
+  async function loadChartData() {
+    try {
+      // Get scan trends for the last 7 days
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      const { data: scanData, error } = await supabase
+        .from('scan_logs')
+        .select('timestamp, status')
+        .gte('timestamp', sevenDaysAgo.toISOString());
+
+      if (error) throw error;
+
+      // Group by date
+      const dateMap = new Map();
+      scanData?.forEach((scan) => {
+        const date = new Date(scan.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        if (!dateMap.has(date)) {
+          dateMap.set(date, { date, verified: 0, counterfeit: 0, expired: 0, total: 0 });
+        }
+        const entry = dateMap.get(date);
+        entry.total += 1;
+        if (scan.status === 'verified') entry.verified += 1;
+        if (scan.status === 'counterfeit') entry.counterfeit += 1;
+        if (scan.status === 'expired') entry.expired += 1;
+      });
+
+      setChartData(Array.from(dateMap.values()));
+    } catch (error) {
+      console.error('Failed to load chart data:', error);
     }
   }
 
@@ -267,6 +304,113 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+
+        {/* Analytics Charts */}
+        {chartData.length > 0 && (
+          <div className="mt-12 space-y-6">
+            <div className="flex items-center gap-2 mb-4">
+              <TrendingUp className="h-6 w-6 text-primary" />
+              <h2 className="text-2xl font-bold">Analytics & Trends</h2>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              {/* Scan Trends Line Chart */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Verification Trends (Last 7 Days)</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={chartData}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                      <XAxis dataKey="date" className="text-xs" />
+                      <YAxis className="text-xs" />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: 'hsl(var(--card))', 
+                          border: '1px solid hsl(var(--border))',
+                          borderRadius: '0.5rem'
+                        }} 
+                      />
+                      <Legend />
+                      <Line type="monotone" dataKey="verified" stroke="hsl(var(--accent))" strokeWidth={2} name="Verified" />
+                      <Line type="monotone" dataKey="counterfeit" stroke="hsl(var(--destructive))" strokeWidth={2} name="Counterfeit" />
+                      <Line type="monotone" dataKey="expired" stroke="hsl(var(--warning))" strokeWidth={2} name="Expired" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              {/* Status Distribution Bar Chart */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Daily Scan Volume</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={chartData}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                      <XAxis dataKey="date" className="text-xs" />
+                      <YAxis className="text-xs" />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: 'hsl(var(--card))', 
+                          border: '1px solid hsl(var(--border))',
+                          borderRadius: '0.5rem'
+                        }} 
+                      />
+                      <Legend />
+                      <Bar dataKey="total" fill="hsl(var(--primary))" name="Total Scans" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              {/* Status Distribution Pie Chart */}
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <CardTitle>Overall Status Distribution</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={[
+                          { name: 'Verified', value: stats?.verifiedScans || 0, color: 'hsl(var(--accent))' },
+                          { name: 'Counterfeit', value: stats?.counterfeitDetected || 0, color: 'hsl(var(--destructive))' },
+                          { name: 'Expired', value: stats?.expiredDetected || 0, color: 'hsl(var(--warning))' },
+                        ]}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        outerRadius={100}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {[
+                          { name: 'Verified', value: stats?.verifiedScans || 0, color: 'hsl(var(--accent))' },
+                          { name: 'Counterfeit', value: stats?.counterfeitDetected || 0, color: 'hsl(var(--destructive))' },
+                          { name: 'Expired', value: stats?.expiredDetected || 0, color: 'hsl(var(--warning))' },
+                        ].map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: 'hsl(var(--card))', 
+                          border: '1px solid hsl(var(--border))',
+                          borderRadius: '0.5rem'
+                        }} 
+                      />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

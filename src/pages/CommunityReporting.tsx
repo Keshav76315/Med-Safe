@@ -73,6 +73,7 @@ export default function CommunityReporting() {
   const [reports, setReports] = useState<CounterfeitReport[]>([]);
   const [myReports, setMyReports] = useState<CounterfeitReport[]>([]);
   const [userRewards, setUserRewards] = useState<UserReward | null>(null);
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterSeverity, setFilterSeverity] = useState<string>('all');
@@ -92,6 +93,7 @@ export default function CommunityReporting() {
 
   useEffect(() => {
     loadReports();
+    loadLeaderboard();
     if (user) {
       loadMyReports();
       loadUserRewards();
@@ -157,6 +159,21 @@ export default function CommunityReporting() {
       setUserRewards(data);
     } catch (error) {
       console.error('Error loading rewards:', error);
+    }
+  };
+
+  const loadLeaderboard = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('user_rewards')
+        .select('*, profiles(full_name)')
+        .order('total_points', { ascending: false })
+        .limit(10);
+
+      if (error) throw error;
+      setLeaderboard(data || []);
+    } catch (error) {
+      console.error('Error loading leaderboard:', error);
     }
   };
 
@@ -793,11 +810,87 @@ export default function CommunityReporting() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-center py-8 text-muted-foreground">
-                  Leaderboard coming soon...
-                </p>
+                {leaderboard.length === 0 ? (
+                  <p className="text-center py-8 text-muted-foreground">No contributors yet</p>
+                ) : (
+                  <div className="space-y-3">
+                    {leaderboard.map((contributor, index) => (
+                      <div
+                        key={contributor.id}
+                        className={cn(
+                          "flex items-center gap-4 p-4 rounded-lg border transition-colors",
+                          index === 0 && "bg-yellow-500/10 border-yellow-500/50",
+                          index === 1 && "bg-gray-400/10 border-gray-400/50",
+                          index === 2 && "bg-orange-600/10 border-orange-600/50"
+                        )}
+                      >
+                        {/* Rank Badge */}
+                        <div className="flex-shrink-0">
+                          {index < 3 ? (
+                            <div className={cn(
+                              "w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg",
+                              index === 0 && "bg-yellow-500 text-yellow-950",
+                              index === 1 && "bg-gray-400 text-gray-950",
+                              index === 2 && "bg-orange-600 text-orange-950"
+                            )}>
+                              {index === 0 && <Trophy className="h-6 w-6" />}
+                              {index === 1 && "2"}
+                              {index === 2 && "3"}
+                            </div>
+                          ) : (
+                            <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center font-semibold text-muted-foreground">
+                              {index + 1}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* User Info */}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-semibold truncate">
+                            {(contributor.profiles as any)?.full_name || 'Anonymous User'}
+                          </h4>
+                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Shield className="h-3 w-3" />
+                              {contributor.verified_reports_count} verified reports
+                            </span>
+                            <Badge variant="outline">Level {contributor.level}</Badge>
+                          </div>
+                        </div>
+
+                        {/* Points */}
+                        <div className="text-right flex-shrink-0">
+                          <div className="text-2xl font-bold text-primary">
+                            {contributor.total_points}
+                          </div>
+                          <div className="text-xs text-muted-foreground">points</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
+
+            {/* User's Rank Card */}
+            {user && userRewards && (
+              <Card className="border-primary">
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-semibold text-lg mb-1">Your Ranking</h3>
+                      <p className="text-muted-foreground text-sm">
+                        You're #{leaderboard.findIndex(l => l.user_id === user.id) + 1 || 'Not ranked yet'}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-3xl font-bold text-primary">{userRewards.total_points}</div>
+                      <p className="text-sm text-muted-foreground">total points</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
         </Tabs>
       </main>
