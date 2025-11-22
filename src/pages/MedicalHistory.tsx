@@ -56,6 +56,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Edit, Trash2, Search, Bell, BellOff } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Select,
   SelectContent,
@@ -360,7 +361,13 @@ export default function MedicalHistory() {
             </Dialog>
           </CardHeader>
           <CardContent>
-            {history.length === 0 ? (
+            {loading ? (
+              <div className="space-y-3">
+                {[...Array(3)].map((_, i) => (
+                  <Skeleton key={i} className="h-16 w-full" />
+                ))}
+              </div>
+            ) : history.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-muted-foreground mb-4">No medical records found</p>
                 <Button onClick={() => setDialogOpen(true)}>

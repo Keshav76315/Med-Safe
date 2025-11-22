@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Activity, AlertTriangle, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { z } from 'zod';
 
@@ -321,7 +322,22 @@ export default function SafetyScore() {
             </CardContent>
           </Card>
 
-          {result && (
+          {/* Right Column: Results */}
+          {loading && !result ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>Safety Assessment</CardTitle>
+                <CardDescription>AI-powered medication safety analysis</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <Skeleton className="h-8 w-3/4" />
+                  <Skeleton className="h-24 w-full" />
+                  <Skeleton className="h-32 w-full" />
+                </div>
+              </CardContent>
+            </Card>
+          ) : result ? (
             <Card
               className={cn(
                 "border-2 animate-in fade-in-50 slide-in-from-right-4",
@@ -408,15 +424,19 @@ export default function SafetyScore() {
                 </div>
               </CardContent>
             </Card>
-          )}
-
-          {!result && (
-            <Card className="flex items-center justify-center">
-              <CardContent className="text-center py-12">
-                <Activity className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                <p className="text-muted-foreground">
-                  Fill in the patient information and click Calculate to see the safety assessment
-                </p>
+          ) : (
+            <Card>
+              <CardHeader>
+                <CardTitle>Safety Assessment</CardTitle>
+                <CardDescription>AI-powered medication safety analysis</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12">
+                  <Activity className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                  <p className="text-muted-foreground">
+                    Fill in the patient information and click Calculate to see the safety assessment
+                  </p>
+                </div>
               </CardContent>
             </Card>
           )}

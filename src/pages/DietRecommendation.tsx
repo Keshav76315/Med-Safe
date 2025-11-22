@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Send, Utensils } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -336,7 +337,18 @@ export default function DietRecommendation() {
                 Get Personalized Recommendation
               </Button>
 
-              {recommendation && (
+              {loading && !recommendation ? (
+                <Card className="mt-4 bg-muted">
+                  <CardHeader>
+                    <Skeleton className="h-6 w-1/3" />
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <Skeleton className="h-40 w-full" />
+                    <Skeleton className="h-40 w-full" />
+                    <Skeleton className="h-32 w-full" />
+                  </CardContent>
+                </Card>
+              ) : recommendation ? (
                 <Card className="mt-4 bg-muted animate-scale-in">
                   <CardHeader>
                     <CardTitle className="text-lg">Your Personalized Diet Plan</CardTitle>
@@ -362,7 +374,7 @@ export default function DietRecommendation() {
                     </div>
                   </CardContent>
                 </Card>
-              )}
+              ) : null}
             </CardContent>
           </Card>
         </div>

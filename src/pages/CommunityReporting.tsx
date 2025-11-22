@@ -28,6 +28,7 @@ import {
   X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
 
 const reportSchema = z.object({
@@ -692,7 +693,11 @@ export default function CommunityReporting() {
                 {/* Simplified map visualization - list view */}
                 <div className="space-y-3">
                   {loading ? (
-                    <p className="text-center py-8 text-muted-foreground">Loading reports...</p>
+                    <div className="space-y-3">
+                      {[...Array(5)].map((_, i) => (
+                        <Skeleton key={i} className="h-32 w-full" />
+                      ))}
+                    </div>
                   ) : reports.length === 0 ? (
                     <p className="text-center py-8 text-muted-foreground">No reports found</p>
                   ) : (
