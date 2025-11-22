@@ -31,7 +31,6 @@ export default function SafetyScore() {
   const [conditionInput, setConditionInput] = useState("");
   const [medicationInput, setMedicationInput] = useState("");
   const [result, setResult] = useState<SafetyScoreResponse | null>(null);
-  const [calculating, setCalculating] = useState(false);
 
   function addCondition() {
     const trimmed = conditionInput.trim();
@@ -98,12 +97,8 @@ export default function SafetyScore() {
       return;
     }
     
-    setCalculating(true);
-    setTimeout(() => {
-      const score = calculateSafetyScore(formData);
-      setResult(score);
-      setCalculating(false);
-    }, 800);
+    const score = calculateSafetyScore(formData);
+    setResult(score);
   }
 
   return (
@@ -209,13 +204,7 @@ export default function SafetyScore() {
             </CardContent>
           </Card>
 
-          {calculating ? (
-            <Card className="flex items-center justify-center">
-              <CardContent className="py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-              </CardContent>
-            </Card>
-          ) : result ? (
+          {result ? (
             <Card
               className={cn(
                 "border-2 animate-in fade-in-50 slide-in-from-right-4",
@@ -304,7 +293,7 @@ export default function SafetyScore() {
             </Card>
           ) : null}
 
-          {!calculating && !result && (
+          {!result && (
             <Card className="flex items-center justify-center">
               <CardContent className="text-center py-12">
                 <Activity className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />

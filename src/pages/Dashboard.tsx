@@ -12,7 +12,6 @@ import { Badge as BadgeUI } from "@/components/ui/badge";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [recentScans, setRecentScans] = useState<any[]>([]);
   const [showDemo, setShowDemo] = useState(false);
   const { toast } = useToast();
@@ -40,8 +39,6 @@ export default function Dashboard() {
         description: "Failed to load dashboard statistics",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -101,14 +98,7 @@ export default function Dashboard() {
           </p>
         </div>
 
-        {loading ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
-            <div className="col-span-full flex justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            </div>
-          </div>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
             <DashboardCard
               title="Total Drugs in Database"
               value={stats?.totalDrugs || 0}
@@ -157,10 +147,8 @@ export default function Dashboard() {
               variant="warning"
             />
           </div>
-        )}
 
-        {!loading && (
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
           <div className="bg-card border border-border rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold flex items-center gap-2">
@@ -261,7 +249,6 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        )}
       </main>
     </div>
   );

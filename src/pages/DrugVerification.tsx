@@ -42,9 +42,6 @@ interface MedicineInfo {
 export default function DrugVerification() {
   const [batchNo, setBatchNo] = useState("");
   const [medicineName, setMedicineName] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [medicineLoading, setMedicineLoading] = useState(false);
-  const [imageScanning, setImageScanning] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
   const [showMedicineScanner, setShowMedicineScanner] = useState(false);
   const [showScanOptions, setShowScanOptions] = useState(false);
@@ -70,7 +67,6 @@ export default function DrugVerification() {
       return;
     }
 
-    setLoading(true);
     try {
       const data = await verifyDrug(validation.data);
       setResult(data);
@@ -105,8 +101,6 @@ export default function DrugVerification() {
         description: "An error occurred during verification",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -127,7 +121,6 @@ export default function DrugVerification() {
     }
 
     setResult(null);
-    setMedicineLoading(true);
     
     try {
       const { data, error } = await supabase.functions.invoke('medicine-info', {
@@ -157,8 +150,6 @@ export default function DrugVerification() {
         description: "Could not get medicine details",
         variant: "destructive",
       });
-    } finally {
-      setMedicineLoading(false);
     }
   };
 
@@ -188,7 +179,6 @@ export default function DrugVerification() {
 
     setResult(null);
     setMedicineInfo(null);
-    setImageScanning(true);
 
     try {
       // Convert image to base64
@@ -211,7 +201,6 @@ export default function DrugVerification() {
         variant: "destructive",
       });
     } finally {
-      setImageScanning(false);
       // Reset file input
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -223,7 +212,6 @@ export default function DrugVerification() {
     setShowMedicineScanner(false);
     setResult(null);
     setMedicineInfo(null);
-    setImageScanning(true);
 
     try {
       await processMedicineImage(imageBase64);
@@ -234,8 +222,6 @@ export default function DrugVerification() {
         description: "Could not analyze the image",
         variant: "destructive",
       });
-    } finally {
-      setImageScanning(false);
     }
   };
 
@@ -300,16 +286,7 @@ export default function DrugVerification() {
           </p>
         </div>
 
-        {(medicineLoading || imageScanning) && (
-          <Card className="mb-6">
-            <CardContent className="flex justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            </CardContent>
-          </Card>
-        )}
-
-        {!medicineLoading && !imageScanning && (
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
           {/* Batch Verification Section */}
           <Card className="border-accent/50">
             <CardHeader>
@@ -331,20 +308,11 @@ export default function DrugVerification() {
                 <div className="flex gap-2">
                   <Button 
                     onClick={() => handleVerify()} 
-                    disabled={loading} 
+                    disabled={!batchNo.trim()}
                     className="flex-1"
                   >
-                    {loading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Verifying
-                      </>
-                    ) : (
-                      <>
-                        <Shield className="mr-2 h-4 w-4" />
-                        Verify
-                      </>
-                    )}
+                    <Shield className="mr-2 h-4 w-4" />
+                    Verify
                   </Button>
                   <Button 
                     onClick={() => setShowScanner(true)} 
@@ -378,20 +346,11 @@ export default function DrugVerification() {
                 <div className="flex gap-2">
                   <Button 
                     onClick={() => handleMedicineSearch()} 
-                    disabled={medicineLoading || imageScanning}
+                    disabled={!medicineName.trim()}
                     className="flex-1"
                   >
-                    {medicineLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Searching
-                      </>
-                    ) : (
-                      <>
-                        <Info className="mr-2 h-4 w-4" />
-                        Search
-                      </>
-                    )}
+                    <Info className="mr-2 h-4 w-4" />
+                    Search
                   </Button>
                   <input
                     ref={fileInputRef}
@@ -402,14 +361,10 @@ export default function DrugVerification() {
                   />
                   <Button 
                     onClick={() => setShowScanOptions(true)}
-                    disabled={medicineLoading || imageScanning}
+                    disabled={!medicineName.trim()}
                     variant="outline"
                   >
-                    {imageScanning ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <ImageIcon className="h-4 w-4" />
-                    )}
+                    <ImageIcon className="h-4 w-4" />
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground text-center">
@@ -419,7 +374,6 @@ export default function DrugVerification() {
             </CardContent>
           </Card>
         </div>
-        )}
 
         {/* Medicine Scan Options Sheet */}
         <Sheet open={showScanOptions} onOpenChange={setShowScanOptions}>

@@ -60,7 +60,6 @@ import { Plus, Edit, Trash2, Search } from "lucide-react";
 export default function MedicalHistory() {
   const [patientId, setPatientId] = useState("PAT001");
   const [history, setHistory] = useState<PatientHistory[]>([]);
-  const [loading, setLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingRecord, setEditingRecord] = useState<PatientHistory | null>(null);
   const [formData, setFormData] = useState({
@@ -78,7 +77,6 @@ export default function MedicalHistory() {
   async function loadHistory() {
     if (!patientId.trim()) return;
 
-    setLoading(true);
     try {
       const data = await getPatientHistory(patientId);
       setHistory(data);
@@ -88,8 +86,6 @@ export default function MedicalHistory() {
         description: "Failed to load medical history",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -192,7 +188,7 @@ export default function MedicalHistory() {
                   onChange={(e) => setPatientId(e.target.value.toUpperCase())}
                 />
               </div>
-              <Button onClick={loadHistory} className="mt-6" disabled={loading}>
+              <Button onClick={loadHistory} className="mt-6">
                 <Search className="mr-2 h-4 w-4" />
                 Search
               </Button>
@@ -200,14 +196,7 @@ export default function MedicalHistory() {
           </CardContent>
         </Card>
 
-        {loading ? (
-          <Card>
-            <CardContent className="flex justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            </CardContent>
-          </Card>
-        ) : (
-          <Card>
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle>Patient Records</CardTitle>
@@ -357,7 +346,6 @@ export default function MedicalHistory() {
             )}
           </CardContent>
         </Card>
-        )}
       </main>
     </div>
   );
