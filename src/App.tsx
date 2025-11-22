@@ -24,6 +24,7 @@ const CommunityReporting = lazy(() => import("./pages/CommunityReporting"));
 const MedicalHistory = lazy(() => import("./pages/MedicalHistory"));
 const SafetyScore = lazy(() => import("./pages/SafetyScore"));
 const PharmacistVerification = lazy(() => import("./pages/PharmacistVerification"));
+const PharmacyLocator = lazy(() => import("./pages/PharmacyLocator"));
 const FDAImport = lazy(() => import("./pages/FDAImport"));
 const DietRecommendation = lazy(() => import("./pages/DietRecommendation"));
 const ProfileSettings = lazy(() => import("./pages/settings/Profile"));
@@ -70,6 +71,7 @@ const App = () => (
                   <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
                   <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
                   <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
+                  <Route path="/pharmacy-locator" element={<ProtectedRoute><PharmacyLocator /></ProtectedRoute>} />
                   <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
                   <Route path="/diet" element={<ProtectedRoute><DietRecommendation /></ProtectedRoute>} />
                   <Route path="/settings/profile" element={<ProtectedRoute><ProfileSettings /></ProtectedRoute>} />
