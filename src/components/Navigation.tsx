@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Shield, FileText, Activity, LogOut, Settings, ClipboardCheck, Database, Utensils, User, Bell, Lock, Moon, Sun, Monitor } from "lucide-react";
+import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import { OptimizedImage } from "./OptimizedImage";
@@ -10,21 +10,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
-  DropdownMenuLabel,
 } from "./ui/dropdown-menu";
 import { Badge } from "./ui/badge";
 import { NotificationBell } from "./NotificationBell";
 import medSafeLogo from "@/assets/medsafe-logo.jpg";
-import { useTheme } from "next-themes";
 
 export function Navigation() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, userRole, signOut } = useAuth();
-  const { theme, setTheme } = useTheme();
 
   const baseNavItems = [
     { path: "/verify", label: "Drug Verification", icon: Shield },
@@ -94,61 +88,18 @@ export function Navigation() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon">
-                    <Settings className="h-5 w-5" />
+                    <User className="h-5 w-5" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{user.email}</p>
-                      {userRole && (
-                        <Badge variant="secondary" className="mt-1 capitalize w-fit">
-                          {userRole}
-                        </Badge>
-                      )}
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  
-                  <DropdownMenuItem onClick={() => navigate('/profile')}>
-                    <User className="w-4 h-4 mr-2" />
-                    Profile
-                  </DropdownMenuItem>
-
-                  <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>
-                      <Monitor className="w-4 h-4 mr-2" />
-                      System Theme
-                    </DropdownMenuSubTrigger>
-                    <DropdownMenuSubContent>
-                      <DropdownMenuItem onClick={() => setTheme('light')}>
-                        <Sun className="w-4 h-4 mr-2" />
-                        Light
-                        {theme === 'light' && <span className="ml-auto">✓</span>}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme('dark')}>
-                        <Moon className="w-4 h-4 mr-2" />
-                        Dark
-                        {theme === 'dark' && <span className="ml-auto">✓</span>}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setTheme('system')}>
-                        <Monitor className="w-4 h-4 mr-2" />
-                        System
-                        {theme === 'system' && <span className="ml-auto">✓</span>}
-                      </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuSub>
-
-                  <DropdownMenuItem onClick={() => navigate('/settings/notifications')}>
-                    <Bell className="w-4 h-4 mr-2" />
-                    Notification Settings
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem onClick={() => navigate('/settings/privacy')}>
-                    <Lock className="w-4 h-4 mr-2" />
-                    Privacy & Security
-                  </DropdownMenuItem>
-
+                <DropdownMenuContent align="end">
+                  <div className="px-2 py-2">
+                    <p className="text-sm font-medium">{user.email}</p>
+                    {userRole && (
+                      <Badge variant="secondary" className="mt-1 capitalize">
+                        {userRole}
+                      </Badge>
+                    )}
+                  </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="w-4 h-4 mr-2" />
