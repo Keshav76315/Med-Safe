@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { calculateSafetyScore, SafetyScoreRequest, SafetyScoreResponse } from "@/lib/api";
 import { Activity, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -30,6 +31,7 @@ export default function SafetyScore() {
   const [conditionInput, setConditionInput] = useState("");
   const [medicationInput, setMedicationInput] = useState("");
   const [result, setResult] = useState<SafetyScoreResponse | null>(null);
+  const [calculating, setCalculating] = useState(false);
 
   function addCondition() {
     const trimmed = conditionInput.trim();
@@ -96,8 +98,12 @@ export default function SafetyScore() {
       return;
     }
     
-    const score = calculateSafetyScore(formData);
-    setResult(score);
+    setCalculating(true);
+    setTimeout(() => {
+      const score = calculateSafetyScore(formData);
+      setResult(score);
+      setCalculating(false);
+    }, 800);
   }
 
   return (
@@ -203,7 +209,36 @@ export default function SafetyScore() {
             </CardContent>
           </Card>
 
-          {result && (
+          {calculating ? (
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <Skeleton className="h-6 w-40" />
+                  <Skeleton className="h-8 w-8 rounded-full" />
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-8 w-16" />
+                  </div>
+                  <Skeleton className="h-3 w-full" />
+                </div>
+                <Skeleton className="h-8 w-48" />
+                <div className="space-y-3">
+                  <Skeleton className="h-5 w-32 mb-2" />
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <Skeleton className="h-4 w-4 mt-0.5 rounded-full" />
+                      <Skeleton className="h-4 flex-1" />
+                    </div>
+                  ))}
+                </div>
+                <Skeleton className="h-20 w-full rounded-lg" />
+              </CardContent>
+            </Card>
+          ) : result ? (
             <Card
               className={cn(
                 "border-2 animate-in fade-in-50 slide-in-from-right-4",
@@ -290,9 +325,9 @@ export default function SafetyScore() {
                 </div>
               </CardContent>
             </Card>
-          )}
+          ) : null}
 
-          {!result && (
+          {!calculating && !result && (
             <Card className="flex items-center justify-center">
               <CardContent className="text-center py-12">
                 <Activity className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
