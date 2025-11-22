@@ -9,6 +9,10 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Send, Utensils } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 interface Message {
   role: "user" | "assistant";
@@ -211,7 +215,24 @@ export default function DietRecommendation() {
                     <CardTitle className="text-lg">Your Personalized Diet Plan</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="whitespace-pre-wrap text-sm">{recommendation}</div>
+                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkMath]}
+                        rehypePlugins={[rehypeKatex]}
+                        components={{
+                          h1: ({ children }) => <h1 className="text-xl font-bold text-foreground mt-4 mb-2">{children}</h1>,
+                          h2: ({ children }) => <h2 className="text-lg font-semibold text-foreground mt-3 mb-2">{children}</h2>,
+                          h3: ({ children }) => <h3 className="text-base font-semibold text-foreground mt-2 mb-1">{children}</h3>,
+                          p: ({ children }) => <p className="text-foreground mb-2">{children}</p>,
+                          strong: ({ children }) => <strong className="font-bold text-foreground">{children}</strong>,
+                          ul: ({ children }) => <ul className="list-disc list-inside mb-2 text-foreground">{children}</ul>,
+                          ol: ({ children }) => <ol className="list-decimal list-inside mb-2 text-foreground">{children}</ol>,
+                          li: ({ children }) => <li className="text-foreground mb-1">{children}</li>,
+                        }}
+                      >
+                        {recommendation}
+                      </ReactMarkdown>
+                    </div>
                   </CardContent>
                 </Card>
               )}
@@ -245,7 +266,25 @@ export default function DietRecommendation() {
                               : "bg-muted text-foreground"
                           }`}
                         >
-                          <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                          {message.role === "user" ? (
+                            <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                          ) : (
+                            <div className="prose prose-sm dark:prose-invert max-w-none">
+                              <ReactMarkdown
+                                remarkPlugins={[remarkMath]}
+                                rehypePlugins={[rehypeKatex]}
+                                components={{
+                                  p: ({ children }) => <p className="text-sm mb-1">{children}</p>,
+                                  strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+                                  ul: ({ children }) => <ul className="list-disc list-inside text-sm mb-1">{children}</ul>,
+                                  ol: ({ children }) => <ol className="list-decimal list-inside text-sm mb-1">{children}</ol>,
+                                  li: ({ children }) => <li className="text-sm">{children}</li>,
+                                }}
+                              >
+                                {message.content}
+                              </ReactMarkdown>
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
