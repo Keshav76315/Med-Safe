@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ChatBot } from "./components/ChatBot";
 import { ErrorBoundary } from "./components/ErrorBoundary";
@@ -20,6 +21,10 @@ const SafetyScore = lazy(() => import("./pages/SafetyScore"));
 const PharmacistVerification = lazy(() => import("./pages/PharmacistVerification"));
 const FDAImport = lazy(() => import("./pages/FDAImport"));
 const DietRecommendation = lazy(() => import("./pages/DietRecommendation"));
+const ProfileSettings = lazy(() => import("./pages/settings/Profile"));
+const ThemeSettings = lazy(() => import("./pages/settings/Theme"));
+const NotificationSettings = lazy(() => import("./pages/settings/Notifications"));
+const SecuritySettings = lazy(() => import("./pages/settings/Security"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const ChatBotWrapper = () => {
@@ -38,29 +43,35 @@ const queryClient = new QueryClient();
 const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Suspense fallback={<LoadingFallback />}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-                <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
-                <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
-                <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
-                <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
-                <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
-                <Route path="/diet" element={<ProtectedRoute><DietRecommendation /></ProtectedRoute>} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-            <ChatBotWrapper />
-          </BrowserRouter>
-        </TooltipProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Suspense fallback={<LoadingFallback />}>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                  <Route path="/verify" element={<ProtectedRoute><DrugVerification /></ProtectedRoute>} />
+                  <Route path="/history" element={<ProtectedRoute><MedicalHistory /></ProtectedRoute>} />
+                  <Route path="/safety" element={<ProtectedRoute><SafetyScore /></ProtectedRoute>} />
+                  <Route path="/pharmacist" element={<ProtectedRoute><PharmacistVerification /></ProtectedRoute>} />
+                  <Route path="/fda-import" element={<ProtectedRoute><FDAImport /></ProtectedRoute>} />
+                  <Route path="/diet" element={<ProtectedRoute><DietRecommendation /></ProtectedRoute>} />
+                  <Route path="/settings/profile" element={<ProtectedRoute><ProfileSettings /></ProtectedRoute>} />
+                  <Route path="/settings/theme" element={<ProtectedRoute><ThemeSettings /></ProtectedRoute>} />
+                  <Route path="/settings/notifications" element={<ProtectedRoute><NotificationSettings /></ProtectedRoute>} />
+                  <Route path="/settings/security" element={<ProtectedRoute><SecuritySettings /></ProtectedRoute>} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+              <ChatBotWrapper />
+            </BrowserRouter>
+          </TooltipProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   </ErrorBoundary>
 );
