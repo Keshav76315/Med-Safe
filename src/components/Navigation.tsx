@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock, FlaskConical, MoreHorizontal, Pill } from "lucide-react";
+import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock, FlaskConical, MoreHorizontal, Pill, AlertCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import { OptimizedImage } from "./OptimizedImage";
@@ -191,6 +191,14 @@ export function Navigation() {
                 </DrawerContent>
               </Drawer>
             )}
+
+            {/* Emergency Button - Always Visible */}
+            <Link to="/emergency">
+              <Button variant="destructive" size={isMobile ? "icon" : "default"} className="font-semibold">
+                <AlertCircle className="h-5 w-5" />
+                {!isMobile && <span className="ml-2">Emergency</span>}
+              </Button>
+            </Link>
 
             {user && <NotificationBell />}
             
