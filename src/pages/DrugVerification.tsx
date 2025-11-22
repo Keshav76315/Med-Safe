@@ -12,12 +12,13 @@ import {
 } from "@/components/ui/sheet";
 import { verifyDrug, Drug } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
-import { Shield, AlertTriangle, CheckCircle, XCircle, ScanLine, Loader2, Camera, Info, Pill, Upload, Image as ImageIcon } from "lucide-react";
+import { Shield, AlertTriangle, CheckCircle, XCircle, ScanLine, Loader2, Camera, Info, Pill, Upload, Image as ImageIcon, Download, QrCode } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { QRScanner } from "@/components/QRScanner";
 import { MedicineScanner } from "@/components/MedicineScanner";
 import { z } from 'zod';
 import { supabase } from "@/integrations/supabase/client";
+import { generateQRCode, generateVerificationPDF } from "@/lib/pdfUtils";
 
 const batchNumberSchema = z.string()
   .trim()
@@ -53,6 +54,8 @@ export default function DrugVerification() {
     isDuplicate?: boolean;
   } | null>(null);
   const [medicineInfo, setMedicineInfo] = useState<MedicineInfo | null>(null);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
+  const [generatingPDF, setGeneratingPDF] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -73,6 +76,12 @@ export default function DrugVerification() {
     try {
       const data = await verifyDrug(validation.data);
       setResult(data);
+
+      // Generate QR code for the batch number
+      if (data.drug) {
+        const qrCode = await generateQRCode(validation.data);
+        setQrCodeDataUrl(qrCode);
+      }
 
       if (data.status === "verified") {
         toast({
@@ -108,6 +117,48 @@ export default function DrugVerification() {
       setLoading(false);
     }
   }
+
+  const handleDownloadPDF = async () => {
+    if (!result || !result.drug) return;
+    
+    setGeneratingPDF(true);
+    try {
+      const pdfData = {
+        drugName: result.drug.name,
+        batchNumber: result.drug.batch_no,
+        manufacturer: result.drug.manufacturer,
+        status: result.status,
+        verificationDate: new Date().toISOString(),
+        expiryDate: result.drug.exp_date,
+        riskLevel: result.drug.risk_level,
+        verificationId: result.drug.id,
+      };
+      
+      const pdfBlob = await generateVerificationPDF(pdfData);
+      
+      // Download the PDF
+      const url = URL.createObjectURL(pdfBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `verification-${result.drug.batch_no}-${new Date().toISOString().split('T')[0]}.pdf`;
+      link.click();
+      URL.revokeObjectURL(url);
+      
+      toast({
+        title: "PDF Generated",
+        description: "Verification report downloaded successfully",
+      });
+    } catch (error) {
+      console.error("PDF generation error:", error);
+      toast({
+        title: "PDF Generation Failed",
+        description: "Could not generate the report",
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingPDF(false);
+    }
+  };
 
   const handleQRScan = async (scannedText: string) => {
     setShowScanner(false);
@@ -554,6 +605,40 @@ export default function DrugVerification() {
                     </p>
                   </div>
                 )}
+
+                {/* Export Options */}
+                <div className="flex gap-3 mt-6">
+                  <Button
+                    onClick={handleDownloadPDF}
+                    disabled={generatingPDF}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    {generatingPDF ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Download className="mr-2 h-4 w-4" />
+                        Download Report
+                      </>
+                    )}
+                  </Button>
+                  {qrCodeDataUrl && (
+                    <a
+                      href={qrCodeDataUrl}
+                      download={`qr-${result.drug.batch_no}.png`}
+                      className="flex-1"
+                    >
+                      <Button variant="outline" className="w-full">
+                        <QrCode className="mr-2 h-4 w-4" />
+                        Save QR Code
+                      </Button>
+                    </a>
+                  )}
+                </div>
               </CardContent>
             )}
           </Card>

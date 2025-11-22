@@ -6,7 +6,7 @@ export interface DrugVerificationData {
   drugName: string;
   batchNumber: string;
   manufacturer: string;
-  status: 'verified' | 'counterfeit' | 'expired';
+  status: 'verified' | 'counterfeit' | 'expired' | 'not_found';
   verificationDate: string;
   expiryDate?: string;
   riskLevel?: string;
@@ -69,6 +69,10 @@ export const generateVerificationPDF = async (data: DrugVerificationData): Promi
       case 'expired':
         statusColor = [251, 146, 60]; // Orange
         statusText = 'EXPIRED MEDICATION';
+        break;
+      case 'not_found':
+        statusColor = [156, 163, 175]; // Gray
+        statusText = 'NOT FOUND IN DATABASE';
         break;
       default:
         statusColor = [156, 163, 175]; // Gray

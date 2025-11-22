@@ -34,6 +34,7 @@ export function Navigation() {
   const baseNavItems = [
     { path: "/verify", label: "Drug Verification", icon: Shield },
     { path: "/interactions", label: "Interactions", icon: FlaskConical },
+    { path: "/prescription-scanner", label: "Prescriptions", icon: FileText },
     { path: "/history", label: "Medical History", icon: FileText },
     { path: "/safety", label: "Safety Score", icon: Activity },
     { path: "/diet", label: "Diet Recommendation", icon: Utensils },
