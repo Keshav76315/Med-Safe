@@ -28,3 +28,6 @@ verify_jwt = false
 
 [functions.diet-chat]
 verify_jwt = false
+
+[functions.check-medicine-reminders]
+verify_jwt = false

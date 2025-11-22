@@ -54,7 +54,15 @@ import {
   PatientHistory,
 } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit, Trash2, Search } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Bell, BellOff } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function MedicalHistory() {
   const [patientId, setPatientId] = useState("PAT001");
@@ -67,6 +75,9 @@ export default function MedicalHistory() {
     dosage: "",
     start_date: "",
     notes: "",
+    reminder_enabled: false,
+    reminder_time: "09:00",
+    reminder_frequency: "daily",
   });
   const { toast } = useToast();
 
@@ -149,6 +160,9 @@ export default function MedicalHistory() {
       dosage: record.dosage,
       start_date: record.start_date,
       notes: record.notes || "",
+      reminder_enabled: record.reminder_enabled || false,
+      reminder_time: record.reminder_time || "09:00",
+      reminder_frequency: record.reminder_frequency || "daily",
     });
     setDialogOpen(true);
   }
@@ -160,6 +174,9 @@ export default function MedicalHistory() {
       dosage: "",
       start_date: "",
       notes: "",
+      reminder_enabled: false,
+      reminder_time: "09:00",
+      reminder_frequency: "daily",
     });
   }
 
@@ -273,6 +290,59 @@ export default function MedicalHistory() {
                     />
                   </div>
 
+                  <div className="border-t pt-4 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="reminder_enabled">Enable Reminder</Label>
+                        <p className="text-sm text-muted-foreground">
+                          Get notified to take this medicine
+                        </p>
+                      </div>
+                      <Switch
+                        id="reminder_enabled"
+                        checked={formData.reminder_enabled}
+                        onCheckedChange={(checked) =>
+                          setFormData({ ...formData, reminder_enabled: checked })
+                        }
+                      />
+                    </div>
+
+                    {formData.reminder_enabled && (
+                      <>
+                        <div>
+                          <Label htmlFor="reminder_time">Reminder Time</Label>
+                          <Input
+                            id="reminder_time"
+                            type="time"
+                            value={formData.reminder_time}
+                            onChange={(e) =>
+                              setFormData({ ...formData, reminder_time: e.target.value })
+                            }
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor="reminder_frequency">Frequency</Label>
+                          <Select
+                            value={formData.reminder_frequency}
+                            onValueChange={(value) =>
+                              setFormData({ ...formData, reminder_frequency: value })
+                            }
+                          >
+                            <SelectTrigger id="reminder_frequency">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="daily">Once Daily</SelectItem>
+                              <SelectItem value="twice_daily">Twice Daily</SelectItem>
+                              <SelectItem value="weekly">Weekly</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
                   <div className="flex justify-end space-x-2">
                     <Button
                       type="button"
@@ -300,16 +370,17 @@ export default function MedicalHistory() {
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Medicine Name</TableHead>
-                      <TableHead>Dosage</TableHead>
-                      <TableHead>Start Date</TableHead>
-                      <TableHead>Notes</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Medicine Name</TableHead>
+                        <TableHead>Dosage</TableHead>
+                        <TableHead>Start Date</TableHead>
+                        <TableHead>Reminder</TableHead>
+                        <TableHead>Notes</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
                   <TableBody>
                     {history.map((record) => (
                       <TableRow key={record.id}>
@@ -319,6 +390,22 @@ export default function MedicalHistory() {
                         <TableCell>{record.dosage}</TableCell>
                         <TableCell>
                           {new Date(record.start_date).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell>
+                          {record.reminder_enabled ? (
+                            <div className="flex items-center gap-2 text-sm">
+                              <Bell className="h-4 w-4 text-medical-blue" />
+                              <span>{record.reminder_time}</span>
+                              <span className="text-muted-foreground">
+                                ({record.reminder_frequency?.replace('_', ' ')})
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                              <BellOff className="h-4 w-4" />
+                              <span>Off</span>
+                            </div>
+                          )}
                         </TableCell>
                         <TableCell className="max-w-xs truncate">
                           {record.notes || "-"}

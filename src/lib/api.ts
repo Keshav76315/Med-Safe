@@ -24,6 +24,9 @@ export interface PatientHistory {
   dosage: string;
   start_date: string;
   notes?: string;
+  reminder_enabled?: boolean;
+  reminder_time?: string;
+  reminder_frequency?: string;
   created_at?: string;
   updated_at?: string;
 }

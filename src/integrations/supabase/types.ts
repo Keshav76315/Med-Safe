@@ -103,6 +103,9 @@ export type Database = {
           medicine_name: string
           notes: string | null
           patient_id: string
+          reminder_enabled: boolean | null
+          reminder_frequency: string | null
+          reminder_time: string | null
           start_date: string
           updated_at: string | null
         }
@@ -113,6 +116,9 @@ export type Database = {
           medicine_name: string
           notes?: string | null
           patient_id: string
+          reminder_enabled?: boolean | null
+          reminder_frequency?: string | null
+          reminder_time?: string | null
           start_date: string
           updated_at?: string | null
         }
@@ -123,6 +129,9 @@ export type Database = {
           medicine_name?: string
           notes?: string | null
           patient_id?: string
+          reminder_enabled?: boolean | null
+          reminder_frequency?: string | null
+          reminder_time?: string | null
           start_date?: string
           updated_at?: string | null
         }
