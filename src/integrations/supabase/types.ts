@@ -324,7 +324,7 @@ export type Database = {
           id: string
           medicine_name: string
           notes: string | null
-          patient_id: string
+          patient_id: string | null
           reminder_enabled: boolean | null
           reminder_frequency: string | null
           reminder_time: string | null
@@ -337,7 +337,7 @@ export type Database = {
           id?: string
           medicine_name: string
           notes?: string | null
-          patient_id: string
+          patient_id?: string | null
           reminder_enabled?: boolean | null
           reminder_frequency?: string | null
           reminder_time?: string | null
@@ -350,12 +350,71 @@ export type Database = {
           id?: string
           medicine_name?: string
           notes?: string | null
-          patient_id?: string
+          patient_id?: string | null
           reminder_enabled?: boolean | null
           reminder_frequency?: string | null
           reminder_time?: string | null
           start_date?: string
           updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_history_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patients: {
+        Row: {
+          allergies: string[] | null
+          blood_group: string | null
+          created_at: string | null
+          date_of_birth: string | null
+          email: string | null
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          gender: string | null
+          id: string
+          medical_conditions: string[] | null
+          patient_name: string
+          phone_number: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          allergies?: string[] | null
+          blood_group?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          email?: string | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          gender?: string | null
+          id?: string
+          medical_conditions?: string[] | null
+          patient_name: string
+          phone_number?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          allergies?: string[] | null
+          blood_group?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          email?: string | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          gender?: string | null
+          id?: string
+          medical_conditions?: string[] | null
+          patient_name?: string
+          phone_number?: string | null
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
