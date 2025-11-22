@@ -256,7 +256,13 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Last Updated</span>
-                <span className="text-sm font-medium">{new Date().toLocaleDateString()}</span>
+                <span className="text-sm font-medium" title={new Date().toLocaleString()}>
+                  {new Date().toLocaleTimeString('en-US', { 
+                    hour: 'numeric', 
+                    minute: '2-digit',
+                    hour12: true 
+                  })}
+                </span>
               </div>
             </div>
           </div>
