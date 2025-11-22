@@ -1,28 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { z } from 'zod';
-
-const medicalHistorySchema = z.object({
-  medicine_name: z.string()
-    .trim()
-    .min(2, { message: "Medicine name must be at least 2 characters" })
-    .max(200, { message: "Medicine name too long" })
-    .regex(/^[a-zA-Z0-9\s.,-]+$/, { message: "Invalid characters in medicine name" }),
-  dosage: z.string()
-    .trim()
-    .min(1, { message: "Dosage is required" })
-    .max(100, { message: "Dosage description too long" }),
-  start_date: z.string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Invalid date format" }),
-  notes: z.string()
-    .max(1000, { message: "Notes too long (max 1000 characters)" })
-    .optional()
-    .or(z.literal(''))
-});
 import {
   Card,
   CardContent,
@@ -39,64 +21,82 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  getPatientHistory,
-  addPatientHistory,
-  updatePatientHistory,
-  deletePatientHistory,
-  PatientHistory,
+  getPatients,
+  addPatient,
+  updatePatient,
+  deletePatient,
+  Patient,
 } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit, Trash2, Search, Bell, BellOff } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+import { Plus, Edit, Trash2, Search, User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+
+const patientSchema = z.object({
+  patient_name: z.string()
+    .trim()
+    .min(2, { message: "Name must be at least 2 characters" })
+    .max(100, { message: "Name too long" }),
+  date_of_birth: z.string().optional().or(z.literal('')),
+  blood_group: z.string().optional().or(z.literal('')),
+  gender: z.string().optional().or(z.literal('')),
+  phone_number: z.string().optional().or(z.literal('')),
+  email: z.string().email({ message: "Invalid email" }).optional().or(z.literal('')),
+  medical_conditions: z.string().optional().or(z.literal('')),
+  allergies: z.string().optional().or(z.literal('')),
+  emergency_contact_name: z.string().optional().or(z.literal('')),
+  emergency_contact_phone: z.string().optional().or(z.literal('')),
+});
 
 export default function MedicalHistory() {
-  const [patientId, setPatientId] = useState("PAT001");
-  const [history, setHistory] = useState<PatientHistory[]>([]);
+  const navigate = useNavigate();
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingRecord, setEditingRecord] = useState<PatientHistory | null>(null);
+  const [editingPatient, setEditingPatient] = useState<Patient | null>(null);
   const [formData, setFormData] = useState({
-    medicine_name: "",
-    dosage: "",
-    start_date: "",
-    notes: "",
-    reminder_enabled: false,
-    reminder_time: "09:00",
-    reminder_frequency: "daily",
+    patient_name: "",
+    date_of_birth: "",
+    blood_group: "",
+    gender: "",
+    phone_number: "",
+    email: "",
+    medical_conditions: "",
+    allergies: "",
+    emergency_contact_name: "",
+    emergency_contact_phone: "",
   });
   const { toast } = useToast();
 
   useEffect(() => {
-    loadHistory();
-  }, [patientId]);
+    loadPatients();
+  }, []);
 
-  async function loadHistory() {
-    if (!patientId.trim()) return;
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const filtered = patients.filter(p => 
+        p.patient_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.phone_number?.includes(searchQuery)
+      );
+      setFilteredPatients(filtered);
+    } else {
+      setFilteredPatients(patients);
+    }
+  }, [searchQuery, patients]);
 
+  async function loadPatients() {
     setLoading(true);
     try {
-      const data = await getPatientHistory(patientId);
-      setHistory(data);
+      const data = await getPatients();
+      setPatients(data);
+      setFilteredPatients(data);
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to load medical history",
+        description: "Failed to load patients",
         variant: "destructive",
       });
     } finally {
@@ -107,7 +107,7 @@ export default function MedicalHistory() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const validation = medicalHistorySchema.safeParse(formData);
+    const validation = patientSchema.safeParse(formData);
     if (!validation.success) {
       toast({
         title: "Validation Error",
@@ -118,66 +118,82 @@ export default function MedicalHistory() {
     }
 
     try {
-      if (editingRecord) {
-        await updatePatientHistory(editingRecord.id, formData);
-        toast({ title: "Record updated successfully" });
+      const patientData = {
+        ...formData,
+        medical_conditions: formData.medical_conditions 
+          ? formData.medical_conditions.split(',').map(c => c.trim()).filter(Boolean)
+          : [],
+        allergies: formData.allergies
+          ? formData.allergies.split(',').map(a => a.trim()).filter(Boolean)
+          : [],
+      };
+
+      if (editingPatient) {
+        await updatePatient(editingPatient.id, patientData);
+        toast({ title: "Patient updated successfully" });
       } else {
-        await addPatientHistory({ ...formData, patient_id: patientId });
-        toast({ title: "Record added successfully" });
+        await addPatient(patientData);
+        toast({ title: "Patient added successfully" });
       }
 
       setDialogOpen(false);
       resetForm();
-      loadHistory();
+      loadPatients();
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to save record",
+        description: "Failed to save patient",
         variant: "destructive",
       });
     }
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Are you sure you want to delete this record?")) return;
+    if (!confirm("Are you sure you want to delete this patient? All medical records will be deleted.")) return;
 
     try {
-      await deletePatientHistory(id);
-      toast({ title: "Record deleted successfully" });
-      loadHistory();
+      await deletePatient(id);
+      toast({ title: "Patient deleted successfully" });
+      loadPatients();
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to delete record",
+        description: "Failed to delete patient",
         variant: "destructive",
       });
     }
   }
 
-  function openEditDialog(record: PatientHistory) {
-    setEditingRecord(record);
+  function openEditDialog(patient: Patient) {
+    setEditingPatient(patient);
     setFormData({
-      medicine_name: record.medicine_name,
-      dosage: record.dosage,
-      start_date: record.start_date,
-      notes: record.notes || "",
-      reminder_enabled: record.reminder_enabled || false,
-      reminder_time: record.reminder_time || "09:00",
-      reminder_frequency: record.reminder_frequency || "daily",
+      patient_name: patient.patient_name,
+      date_of_birth: patient.date_of_birth || "",
+      blood_group: patient.blood_group || "",
+      gender: patient.gender || "",
+      phone_number: patient.phone_number || "",
+      email: patient.email || "",
+      medical_conditions: patient.medical_conditions?.join(', ') || "",
+      allergies: patient.allergies?.join(', ') || "",
+      emergency_contact_name: patient.emergency_contact_name || "",
+      emergency_contact_phone: patient.emergency_contact_phone || "",
     });
     setDialogOpen(true);
   }
 
   function resetForm() {
-    setEditingRecord(null);
+    setEditingPatient(null);
     setFormData({
-      medicine_name: "",
-      dosage: "",
-      start_date: "",
-      notes: "",
-      reminder_enabled: false,
-      reminder_time: "09:00",
-      reminder_frequency: "daily",
+      patient_name: "",
+      date_of_birth: "",
+      blood_group: "",
+      gender: "",
+      phone_number: "",
+      email: "",
+      medical_conditions: "",
+      allergies: "",
+      emergency_contact_name: "",
+      emergency_contact_phone: "",
     });
   }
 
@@ -189,260 +205,269 @@ export default function MedicalHistory() {
         <div className="mb-8">
           <h1 className="text-4xl font-bold tracking-tight mb-2">Medical History</h1>
           <p className="text-muted-foreground text-lg">
-            Manage patient medication records and treatment history
+            Manage patient profiles and medication records
           </p>
         </div>
 
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Search Patient</CardTitle>
-            <CardDescription>Enter patient ID to view medical history</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex space-x-2">
-              <div className="flex-1">
-                <Label htmlFor="patientId">Patient ID</Label>
-                <Input
-                  id="patientId"
-                  placeholder="e.g., PAT001"
-                  value={patientId}
-                  onChange={(e) => setPatientId(e.target.value.toUpperCase())}
-                />
-              </div>
-              <Button onClick={loadHistory} className="mt-6" disabled={loading}>
-                <Search className="mr-2 h-4 w-4" />
-                Search
+        <div className="flex flex-col sm:flex-row gap-4 mb-6">
+          <div className="flex-1">
+            <div className="relative">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search by name, email, or phone..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+          </div>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button onClick={resetForm}>
+                <Plus className="mr-2 h-4 w-4" />
+                Add Patient
               </Button>
-            </div>
-          </CardContent>
-        </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>
+                  {editingPatient ? "Edit" : "Add"} Patient Profile
+                </DialogTitle>
+                <DialogDescription>
+                  {editingPatient ? "Update" : "Enter"} patient information
+                </DialogDescription>
+              </DialogHeader>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div>
-              <CardTitle>Patient Records</CardTitle>
-              <CardDescription>
-                {history.length} {history.length === 1 ? "record" : "records"} found for{" "}
-                {patientId}
-              </CardDescription>
-            </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="patient_name">Patient Name *</Label>
+                  <Input
+                    id="patient_name"
+                    required
+                    value={formData.patient_name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, patient_name: e.target.value })
+                    }
+                  />
+                </div>
 
-            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <DialogTrigger asChild>
-                <Button onClick={resetForm}>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Add Record
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[500px]">
-                <DialogHeader>
-                  <DialogTitle>
-                    {editingRecord ? "Edit" : "Add"} Medical Record
-                  </DialogTitle>
-                  <DialogDescription>
-                    {editingRecord ? "Update" : "Enter"} medication information
-                  </DialogDescription>
-                </DialogHeader>
-
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="medicine_name">Medicine Name</Label>
+                    <Label htmlFor="date_of_birth">Date of Birth</Label>
                     <Input
-                      id="medicine_name"
-                      required
-                      value={formData.medicine_name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, medicine_name: e.target.value })
-                      }
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="dosage">Dosage</Label>
-                    <Input
-                      id="dosage"
-                      required
-                      placeholder="e.g., 500mg twice daily"
-                      value={formData.dosage}
-                      onChange={(e) => setFormData({ ...formData, dosage: e.target.value })}
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="start_date">Start Date</Label>
-                    <Input
-                      id="start_date"
+                      id="date_of_birth"
                       type="date"
-                      required
-                      value={formData.start_date}
+                      value={formData.date_of_birth}
                       onChange={(e) =>
-                        setFormData({ ...formData, start_date: e.target.value })
+                        setFormData({ ...formData, date_of_birth: e.target.value })
                       }
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="notes">Notes (Optional)</Label>
-                    <Textarea
-                      id="notes"
-                      placeholder="Additional information..."
-                      value={formData.notes}
-                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    <Label htmlFor="gender">Gender</Label>
+                    <Input
+                      id="gender"
+                      placeholder="Male/Female/Other"
+                      value={formData.gender}
+                      onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="blood_group">Blood Group</Label>
+                  <Input
+                    id="blood_group"
+                    placeholder="e.g., A+, O-, AB+"
+                    value={formData.blood_group}
+                    onChange={(e) => setFormData({ ...formData, blood_group: e.target.value })}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="phone_number">Phone Number</Label>
+                    <Input
+                      id="phone_number"
+                      type="tel"
+                      value={formData.phone_number}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone_number: e.target.value })
+                      }
                     />
                   </div>
 
-                  <div className="border-t pt-4 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="space-y-0.5">
-                        <Label htmlFor="reminder_enabled">Enable Reminder</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Get notified to take this medicine
-                        </p>
-                      </div>
-                      <Switch
-                        id="reminder_enabled"
-                        checked={formData.reminder_enabled}
-                        onCheckedChange={(checked) =>
-                          setFormData({ ...formData, reminder_enabled: checked })
+                  <div>
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="medical_conditions">Medical Conditions</Label>
+                  <Input
+                    id="medical_conditions"
+                    placeholder="Comma separated (e.g., Diabetes, Hypertension)"
+                    value={formData.medical_conditions}
+                    onChange={(e) =>
+                      setFormData({ ...formData, medical_conditions: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="allergies">Allergies</Label>
+                  <Input
+                    id="allergies"
+                    placeholder="Comma separated (e.g., Penicillin, Peanuts)"
+                    value={formData.allergies}
+                    onChange={(e) => setFormData({ ...formData, allergies: e.target.value })}
+                  />
+                </div>
+
+                <div className="border-t pt-4">
+                  <h3 className="font-medium mb-4">Emergency Contact</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="emergency_contact_name">Contact Name</Label>
+                      <Input
+                        id="emergency_contact_name"
+                        value={formData.emergency_contact_name}
+                        onChange={(e) =>
+                          setFormData({ ...formData, emergency_contact_name: e.target.value })
                         }
                       />
                     </div>
-
-                    {formData.reminder_enabled && (
-                      <>
-                        <div>
-                          <Label htmlFor="reminder_time">Reminder Time</Label>
-                          <Input
-                            id="reminder_time"
-                            type="time"
-                            value={formData.reminder_time}
-                            onChange={(e) =>
-                              setFormData({ ...formData, reminder_time: e.target.value })
-                            }
-                          />
-                        </div>
-
-                        <div>
-                          <Label htmlFor="reminder_frequency">Frequency</Label>
-                          <Select
-                            value={formData.reminder_frequency}
-                            onValueChange={(value) =>
-                              setFormData({ ...formData, reminder_frequency: value })
-                            }
-                          >
-                            <SelectTrigger id="reminder_frequency">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="daily">Once Daily</SelectItem>
-                              <SelectItem value="twice_daily">Twice Daily</SelectItem>
-                              <SelectItem value="weekly">Weekly</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </>
-                    )}
+                    <div>
+                      <Label htmlFor="emergency_contact_phone">Contact Phone</Label>
+                      <Input
+                        id="emergency_contact_phone"
+                        type="tel"
+                        value={formData.emergency_contact_phone}
+                        onChange={(e) =>
+                          setFormData({ ...formData, emergency_contact_phone: e.target.value })
+                        }
+                      />
+                    </div>
                   </div>
+                </div>
 
-                  <div className="flex justify-end space-x-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => setDialogOpen(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button type="submit">
-                      {editingRecord ? "Update" : "Add"} Record
-                    </Button>
-                  </div>
-                </form>
-              </DialogContent>
-            </Dialog>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div className="space-y-3">
-                {[...Array(3)].map((_, i) => (
-                  <Skeleton key={i} className="h-16 w-full" />
-                ))}
-              </div>
-            ) : history.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground mb-4">No medical records found</p>
+                <div className="flex justify-end space-x-2 pt-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setDialogOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit">
+                    {editingPatient ? "Update" : "Add"} Patient
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
+
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[...Array(6)].map((_, i) => (
+              <Skeleton key={i} className="h-48 w-full" />
+            ))}
+          </div>
+        ) : filteredPatients.length === 0 ? (
+          <Card>
+            <CardContent className="text-center py-12">
+              <User className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-muted-foreground mb-4">
+                {searchQuery ? "No patients found matching your search" : "No patients added yet"}
+              </p>
+              {!searchQuery && (
                 <Button onClick={() => setDialogOpen(true)}>
                   <Plus className="mr-2 h-4 w-4" />
-                  Add First Record
+                  Add First Patient
                 </Button>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Medicine Name</TableHead>
-                        <TableHead>Dosage</TableHead>
-                        <TableHead>Start Date</TableHead>
-                        <TableHead>Reminder</TableHead>
-                        <TableHead>Notes</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                  <TableBody>
-                    {history.map((record) => (
-                      <TableRow key={record.id}>
-                        <TableCell className="font-medium">
-                          {record.medicine_name}
-                        </TableCell>
-                        <TableCell>{record.dosage}</TableCell>
-                        <TableCell>
-                          {new Date(record.start_date).toLocaleDateString()}
-                        </TableCell>
-                        <TableCell>
-                          {record.reminder_enabled ? (
-                            <div className="flex items-center gap-2 text-sm">
-                              <Bell className="h-4 w-4 text-medical-blue" />
-                              <span>{record.reminder_time}</span>
-                              <span className="text-muted-foreground">
-                                ({record.reminder_frequency?.replace('_', ' ')})
-                              </span>
-                            </div>
-                          ) : (
-                            <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                              <BellOff className="h-4 w-4" />
-                              <span>Off</span>
-                            </div>
+              )}
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredPatients.map((patient) => (
+              <Card 
+                key={patient.id} 
+                className="cursor-pointer hover:shadow-lg transition-shadow"
+                onClick={() => navigate(`/history/${patient.id}`)}
+              >
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <CardTitle className="text-xl">{patient.patient_name}</CardTitle>
+                      <CardDescription className="mt-1">
+                        {patient.gender && `${patient.gender} • `}
+                        {patient.date_of_birth && 
+                          `Age ${new Date().getFullYear() - new Date(patient.date_of_birth).getFullYear()}`
+                        }
+                      </CardDescription>
+                    </div>
+                    <div className="flex space-x-1" onClick={(e) => e.stopPropagation()}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => openEditDialog(patient)}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDelete(patient.id)}
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-sm">
+                    {patient.blood_group && (
+                      <div>
+                        <span className="font-medium">Blood Group:</span> {patient.blood_group}
+                      </div>
+                    )}
+                    {patient.phone_number && (
+                      <div>
+                        <span className="font-medium">Phone:</span> {patient.phone_number}
+                      </div>
+                    )}
+                    {patient.medical_conditions && patient.medical_conditions.length > 0 && (
+                      <div>
+                        <span className="font-medium">Conditions:</span>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {patient.medical_conditions.slice(0, 3).map((condition, idx) => (
+                            <Badge key={idx} variant="secondary" className="text-xs">
+                              {condition}
+                            </Badge>
+                          ))}
+                          {patient.medical_conditions.length > 3 && (
+                            <Badge variant="outline" className="text-xs">
+                              +{patient.medical_conditions.length - 3} more
+                            </Badge>
                           )}
-                        </TableCell>
-                        <TableCell className="max-w-xs truncate">
-                          {record.notes || "-"}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex justify-end space-x-2">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => openEditDialog(record)}
-                            >
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleDelete(record.id)}
-                            >
-                              <Trash2 className="h-4 w-4 text-destructive" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
