@@ -24,26 +24,70 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     let mounted = true;
     
-    // Safety timeout to prevent infinite loading
+    // Aggressive 3-second timeout
     const loadingTimeout = setTimeout(() => {
-      if (mounted) {
-        console.error('Auth loading timeout - forcing loading to false');
-        setLoading(false);
-      }
-    }, 5000); // 5 second timeout
+      console.error('⚠️ Auth loading timeout - forcing loading to false');
+      setLoading(false);
+    }, 3000);
 
-    // Listen for auth state changes (including OAuth callbacks)
+    // Get initial session immediately
+    const initAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        console.log('Initial session:', session?.user?.email);
+        
+        if (!mounted) return;
+        
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          // Fetch user role with timeout
+          const rolePromise = supabase
+            .from('user_roles')
+            .select('role')
+            .eq('user_id', session.user.id)
+            .maybeSingle();
+          
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Role fetch timeout')), 2000)
+          );
+          
+          try {
+            const { data } = await Promise.race([rolePromise, timeoutPromise]) as any;
+            if (mounted) {
+              setUserRole(data?.role || null);
+              console.log('User role set:', data?.role);
+            }
+          } catch (roleError) {
+            console.error('Role fetch error:', roleError);
+            if (mounted) setUserRole(null);
+          }
+        } else {
+          if (mounted) setUserRole(null);
+        }
+      } catch (error) {
+        console.error('Session fetch error:', error);
+      } finally {
+        if (mounted) {
+          console.log('✅ Auth initialization complete - loading set to false');
+          setLoading(false);
+        }
+      }
+    };
+
+    initAuth();
+
+    // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         console.log('Auth state change:', event, session?.user?.email);
-        
         if (!mounted) return;
 
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          // Fetch user role
           try {
             const { data } = await supabase
               .from('user_roles')
@@ -51,80 +95,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               .eq('user_id', session.user.id)
               .maybeSingle();
             
-            if (mounted) {
-              setUserRole(data?.role || null);
-              console.log('User role set:', data?.role);
-            }
+            if (mounted) setUserRole(data?.role || null);
           } catch (error) {
             console.error('Error fetching user role:', error);
-            if (mounted) {
-              setUserRole(null);
-            }
-          } finally {
-            // Always set loading to false after role fetch attempt
-            if (mounted) {
-              console.log('Auth state change complete - setting loading to false');
-              setLoading(false);
-            }
+            if (mounted) setUserRole(null);
           }
         } else {
-          if (mounted) {
-            setUserRole(null);
-            console.log('No user - setting loading to false');
-            setLoading(false);
-          }
+          if (mounted) setUserRole(null);
         }
       }
     );
 
-    // Get initial session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      console.log('Initial session:', session?.user?.email);
-      
-      if (!mounted) return;
-      
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        try {
-          const { data } = await supabase
-            .from('user_roles')
-            .select('role')
-            .eq('user_id', session.user.id)
-            .maybeSingle();
-          
-          if (mounted) {
-            setUserRole(data?.role || null);
-            console.log('Initial user role set:', data?.role);
-          }
-        } catch (error) {
-          console.error('Error fetching user role:', error);
-          if (mounted) {
-            setUserRole(null);
-          }
-        } finally {
-          // Always set loading to false after role fetch attempt
-          if (mounted) {
-            console.log('Initial session complete - setting loading to false');
-            setLoading(false);
-          }
-        }
-      } else {
-        // No user session, set loading to false immediately
-        if (mounted) {
-          console.log('No initial session - setting loading to false');
-          setLoading(false);
-        }
-      }
-    }).catch((error) => {
-      console.error('Session fetch error:', error);
-      if (mounted) {
-        setLoading(false);
-      }
-    });
-
-    // Cleanup
     return () => {
       mounted = false;
       clearTimeout(loadingTimeout);
