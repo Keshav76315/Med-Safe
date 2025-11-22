@@ -10,6 +10,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ChatBot } from "./components/ChatBot";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { LoadingFallback } from "./components/LoadingFallback";
+import { SessionTimeout } from "./components/SessionTimeout";
 
 // Lazy load all route components for code splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -48,6 +49,7 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <SessionTimeout />
             <BrowserRouter>
               <Suspense fallback={<LoadingFallback />}>
                 <Routes>

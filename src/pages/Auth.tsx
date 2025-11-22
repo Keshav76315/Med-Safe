@@ -6,12 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail, Eye, EyeOff } from 'lucide-react';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Separator } from '@/components/ui/separator';
 import { OptimizedImage } from '@/components/OptimizedImage';
+import { PasswordStrengthIndicator } from '@/components/PasswordStrengthIndicator';
 import medSafeLogo from "@/assets/medsafe-logo.jpg";
 
 const signInSchema = z.object({
@@ -49,6 +50,9 @@ const Auth = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showSignUpPassword, setShowSignUpPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   
   const [signInData, setSignInData] = useState({ email: '', password: '' });
   const [signUpData, setSignUpData] = useState({ email: '', password: '', fullName: '' });
@@ -69,7 +73,7 @@ const Auth = () => {
     if (!validation.success) {
       toast({
         title: "Validation Error",
-        description: validation.error.errors[0].message,
+        description: validation.error.issues[0].message,
         variant: "destructive",
       });
       return;
@@ -88,7 +92,7 @@ const Auth = () => {
     if (!validation.success) {
       toast({
         title: "Validation Error",
-        description: validation.error.errors[0].message,
+        description: validation.error.issues[0].message,
         variant: "destructive",
       });
       return;
@@ -172,7 +176,7 @@ const Auth = () => {
     if (!passwordValidation.success) {
       toast({
         title: "Invalid Password",
-        description: passwordValidation.error.errors[0].message,
+        description: passwordValidation.error.issues[0].message,
         variant: "destructive",
       });
       return;
@@ -206,7 +210,7 @@ const Auth = () => {
     if (!validation.success) {
       toast({
         title: "Validation Error",
-        description: validation.error.errors[0].message,
+        description: validation.error.issues[0].message,
         variant: "destructive",
       });
       return;
@@ -285,15 +289,28 @@ const Auth = () => {
               <form onSubmit={handlePasswordUpdate} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="new-password">New Password</Label>
-                  <Input
-                    id="new-password"
-                    type="password"
-                    placeholder="Enter your new password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    required
-                    minLength={8}
-                  />
+                  <div className="relative">
+                    <Input
+                      id="new-password"
+                      type={showNewPassword ? "text" : "password"}
+                      placeholder="Enter your new password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      required
+                      minLength={8}
+                      className="pr-10"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-0 top-0 h-full px-3"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                    >
+                      {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                  <PasswordStrengthIndicator password={newPassword} />
                   <p className="text-xs text-muted-foreground">
                     Password must be at least 8 characters with uppercase, lowercase, and numbers
                   </p>
@@ -400,13 +417,25 @@ const Auth = () => {
                         Forgot password?
                       </Button>
                     </div>
-                    <Input
-                      id="signin-password"
-                      type="password"
-                      value={signInData.password}
-                      onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
-                      required
-                    />
+                    <div className="relative">
+                      <Input
+                        id="signin-password"
+                        type={showPassword ? "text" : "password"}
+                        value={signInData.password}
+                        onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
+                        required
+                        className="pr-10"
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-0 top-0 h-full px-3"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </Button>
+                    </div>
                   </div>
                       <Button type="submit" className="w-full" disabled={loading}>
                         {loading ? 'Signing in...' : 'Sign In'}
@@ -558,13 +587,26 @@ const Auth = () => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Password</Label>
-                    <Input
-                      id="signup-password"
-                      type="password"
-                      value={signUpData.password}
-                      onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
-                      required
-                    />
+                    <div className="relative">
+                      <Input
+                        id="signup-password"
+                        type={showSignUpPassword ? "text" : "password"}
+                        value={signUpData.password}
+                        onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
+                        required
+                        className="pr-10"
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-0 top-0 h-full px-3"
+                        onClick={() => setShowSignUpPassword(!showSignUpPassword)}
+                      >
+                        {showSignUpPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </Button>
+                    </div>
+                    <PasswordStrengthIndicator password={signUpData.password} />
                     <p className="text-xs text-muted-foreground">
                       Must be 8+ characters with uppercase, lowercase, and numbers
                     </p>

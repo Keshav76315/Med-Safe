@@ -593,8 +593,12 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-12 mb-12">
               <div className="text-center md:text-left">
                 <h3 className="font-semibold mb-3">Contact</h3>
-                <p className="text-muted-foreground text-sm">+91 98765 43210</p>
-                <p className="text-muted-foreground text-sm">support@medsafe.in</p>
+                <a href="tel:+919876543210" className="block text-muted-foreground text-sm hover:text-primary transition-colors">
+                  +91 98765 43210
+                </a>
+                <a href="mailto:support@medsafe.in" className="block text-muted-foreground text-sm hover:text-primary transition-colors">
+                  support@medsafe.in
+                </a>
               </div>
               <div className="text-center">
                 <h3 className="font-semibold mb-3">Location</h3>
