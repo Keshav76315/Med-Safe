@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock, FlaskConical } from "lucide-react";
+import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils, Menu, Settings, Moon, Bell, Lock, FlaskConical, MoreHorizontal, Pill } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import { OptimizedImage } from "./OptimizedImage";
@@ -31,24 +31,30 @@ export function Navigation() {
   const { user, userRole, signOut } = useAuth();
   const isMobile = useIsMobile();
 
-  const baseNavItems = [
-    { path: "/verify", label: "Drug Verification", icon: Shield },
+  // High priority items - always visible
+  const primaryNavItems = [
+    { path: "/verify", label: "Verify", icon: Shield },
     { path: "/interactions", label: "Interactions", icon: FlaskConical },
-    { path: "/prescription-scanner", label: "Prescriptions", icon: FileText },
+    { path: "/prescription-scanner", label: "Prescriptions", icon: Pill },
+  ];
+
+  // Lower priority items - in "More" dropdown
+  const secondaryNavItems = [
     { path: "/history", label: "Medical History", icon: FileText },
     { path: "/safety", label: "Safety Score", icon: Activity },
     { path: "/diet", label: "Diet Recommendation", icon: Utensils },
   ];
 
   const pharmacistNavItems = (userRole === 'pharmacist' || userRole === 'admin') ? [
-    { path: "/pharmacist", label: "Verifications", icon: ClipboardCheck }
+    { path: "/pharmacist", label: "Pharmacist Verifications", icon: ClipboardCheck }
   ] : [];
 
   const adminNavItems = userRole === 'admin' ? [
-    { path: "/fda-import", label: "FDA Import", icon: Database }
+    { path: "/fda-import", label: "FDA Drug Import", icon: Database }
   ] : [];
 
-  const navItems = [...baseNavItems, ...pharmacistNavItems, ...adminNavItems];
+  const moreMenuItems = [...secondaryNavItems, ...pharmacistNavItems, ...adminNavItems];
+  const allNavItems = [...primaryNavItems, ...moreMenuItems];
 
   const handleSignOut = async () => {
     await signOut();
@@ -71,8 +77,8 @@ export function Navigation() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-1">
-              {navItems.map((item) => {
+            <div className="hidden md:flex items-center space-x-1">
+              {primaryNavItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path;
 
@@ -92,6 +98,50 @@ export function Navigation() {
                   </Link>
                 );
               })}
+
+              {/* More dropdown menu */}
+              {moreMenuItems.length > 0 && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "flex items-center space-x-2 px-4 py-2 text-sm font-medium",
+                        moreMenuItems.some(item => location.pathname === item.path)
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      )}
+                    >
+                      <MoreHorizontal className="h-4 w-4" />
+                      <span>More</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 bg-card z-50">
+                    {moreMenuItems.map((item, index) => {
+                      const Icon = item.icon;
+                      const isActive = location.pathname === item.path;
+                      const isFirstPharmacist = item.path === "/pharmacist" && index > 0;
+                      const isFirstAdmin = item.path === "/fda-import" && index > 0;
+
+                      return (
+                        <div key={item.path}>
+                          {(isFirstPharmacist || isFirstAdmin) && <DropdownMenuSeparator />}
+                          <DropdownMenuItem
+                            onClick={() => navigate(item.path)}
+                            className={cn(
+                              "cursor-pointer",
+                              isActive && "bg-muted"
+                            )}
+                          >
+                            <Icon className="w-4 h-4 mr-2" />
+                            {item.label}
+                          </DropdownMenuItem>
+                        </div>
+                      );
+                    })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
           </div>
 
@@ -109,25 +159,32 @@ export function Navigation() {
                     <DrawerTitle>Navigation</DrawerTitle>
                   </DrawerHeader>
                   <div className="p-4 space-y-2">
-                    {navItems.map((item) => {
+                    {allNavItems.map((item, index) => {
                       const Icon = item.icon;
                       const isActive = location.pathname === item.path;
+                      const isFirstPharmacist = item.path === "/pharmacist" && index > 0;
+                      const isFirstAdmin = item.path === "/fda-import" && index > 0;
 
                       return (
-                        <DrawerClose asChild key={item.path}>
-                          <Link
-                            to={item.path}
-                            className={cn(
-                              "flex items-center space-x-3 px-4 py-3 rounded-md text-base font-medium transition-colors w-full",
-                              isActive
-                                ? "bg-primary text-primary-foreground"
-                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                            )}
-                          >
-                            <Icon className="h-5 w-5" />
-                            <span>{item.label}</span>
-                          </Link>
-                        </DrawerClose>
+                        <div key={item.path}>
+                          {(isFirstPharmacist || isFirstAdmin) && (
+                            <div className="my-2 border-t border-border" />
+                          )}
+                          <DrawerClose asChild>
+                            <Link
+                              to={item.path}
+                              className={cn(
+                                "flex items-center space-x-3 px-4 py-3 rounded-md text-base font-medium transition-colors w-full",
+                                isActive
+                                  ? "bg-primary text-primary-foreground"
+                                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                              )}
+                            >
+                              <Icon className="h-5 w-5" />
+                              <span>{item.label}</span>
+                            </Link>
+                          </DrawerClose>
+                        </div>
                       );
                     })}
                   </div>
