@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      caregivers: {
+        Row: {
+          approved_at: string | null
+          can_add_medications: boolean | null
+          can_manage_reminders: boolean | null
+          can_view_history: boolean | null
+          can_view_reports: boolean | null
+          caregiver_user_id: string
+          created_at: string | null
+          id: string
+          patient_user_id: string
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          approved_at?: string | null
+          can_add_medications?: boolean | null
+          can_manage_reminders?: boolean | null
+          can_view_history?: boolean | null
+          can_view_reports?: boolean | null
+          caregiver_user_id: string
+          created_at?: string | null
+          id?: string
+          patient_user_id: string
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          approved_at?: string | null
+          can_add_medications?: boolean | null
+          can_manage_reminders?: boolean | null
+          can_view_history?: boolean | null
+          can_view_reports?: boolean | null
+          caregiver_user_id?: string
+          created_at?: string | null
+          id?: string
+          patient_user_id?: string
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       counterfeit_reports: {
         Row: {
           batch_number: string | null
@@ -92,6 +134,54 @@ export type Database = {
         }
         Relationships: []
       }
+      dashboard_stats: {
+        Row: {
+          counterfeit_detected: number | null
+          created_at: string | null
+          drug_interaction_checks: number | null
+          id: string
+          last_login_date: string | null
+          last_verification_date: string | null
+          prescription_scans: number | null
+          safety_score_checks: number | null
+          streak_days: number | null
+          successful_verifications: number | null
+          total_verifications: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          counterfeit_detected?: number | null
+          created_at?: string | null
+          drug_interaction_checks?: number | null
+          id?: string
+          last_login_date?: string | null
+          last_verification_date?: string | null
+          prescription_scans?: number | null
+          safety_score_checks?: number | null
+          streak_days?: number | null
+          successful_verifications?: number | null
+          total_verifications?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          counterfeit_detected?: number | null
+          created_at?: string | null
+          drug_interaction_checks?: number | null
+          id?: string
+          last_login_date?: string | null
+          last_verification_date?: string | null
+          prescription_scans?: number | null
+          safety_score_checks?: number | null
+          streak_days?: number | null
+          successful_verifications?: number | null
+          total_verifications?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       drugs: {
         Row: {
           active_ingredient: string
@@ -137,6 +227,60 @@ export type Database = {
           risk_level?: Database["public"]["Enums"]["risk_level"]
           type?: Database["public"]["Enums"]["drug_type"]
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      family_members: {
+        Row: {
+          allergies: string[] | null
+          blood_group: string | null
+          chronic_conditions: string[] | null
+          created_at: string | null
+          date_of_birth: string | null
+          emergency_contact: string | null
+          emergency_contact_phone: string | null
+          gender: string | null
+          has_separate_account: boolean | null
+          id: string
+          linked_user_id: string | null
+          name: string
+          relationship: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          allergies?: string[] | null
+          blood_group?: string | null
+          chronic_conditions?: string[] | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          emergency_contact?: string | null
+          emergency_contact_phone?: string | null
+          gender?: string | null
+          has_separate_account?: boolean | null
+          id?: string
+          linked_user_id?: string | null
+          name: string
+          relationship: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          allergies?: string[] | null
+          blood_group?: string | null
+          chronic_conditions?: string[] | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          emergency_contact?: string | null
+          emergency_contact_phone?: string | null
+          gender?: string | null
+          has_separate_account?: boolean | null
+          id?: string
+          linked_user_id?: string | null
+          name?: string
+          relationship?: string
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
