@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Badge as BadgeUI } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { cn } from "@/lib/utils";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<any>(null);
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const [recentScans, setRecentScans] = useState<any[]>([]);
   const [showDemo, setShowDemo] = useState(false);
   const [chartData, setChartData] = useState<any[]>([]);
+  const [showAnalytics, setShowAnalytics] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -305,17 +307,37 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Analytics Charts */}
+        {/* Stats for Nerds - Collapsible Analytics */}
         {chartData.length > 0 && (
-          <div className="mt-12 space-y-6">
-            <div className="flex items-center gap-2 mb-4">
-              <TrendingUp className="h-6 w-6 text-primary" />
-              <h2 className="text-2xl font-bold">Analytics & Trends</h2>
-            </div>
+          <div className="mt-12">
+            <Card className="overflow-hidden border-2 hover:border-primary/50 transition-colors">
+              <button
+                onClick={() => setShowAnalytics(!showAnalytics)}
+                className="w-full p-6 flex items-center justify-between hover:bg-muted/50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <TrendingUp className="h-6 w-6 text-primary" />
+                  <div className="text-left">
+                    <h2 className="text-2xl font-bold">Stats for Nerds</h2>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {showAnalytics ? 'Click to hide' : 'Click to view'} detailed analytics and trends
+                    </p>
+                  </div>
+                </div>
+                <div className={cn(
+                  "transition-transform duration-200",
+                  showAnalytics && "rotate-180"
+                )}>
+                  <ArrowRight className="h-6 w-6 rotate-90" />
+                </div>
+              </button>
 
-            <div className="grid gap-6 lg:grid-cols-2">
-              {/* Scan Trends Line Chart */}
-              <Card>
+              {showAnalytics && (
+                <div className="p-6 pt-0 space-y-6 animate-in slide-in-from-top-4 duration-300">
+
+                  <div className="grid gap-6 lg:grid-cols-2">
+                    {/* Scan Trends Line Chart */}
+                    <Card>
                 <CardHeader>
                   <CardTitle>Verification Trends (Last 7 Days)</CardTitle>
                 </CardHeader>
@@ -339,10 +361,10 @@ export default function Dashboard() {
                     </LineChart>
                   </ResponsiveContainer>
                 </CardContent>
-              </Card>
+                    </Card>
 
-              {/* Status Distribution Bar Chart */}
-              <Card>
+                    {/* Status Distribution Bar Chart */}
+                    <Card>
                 <CardHeader>
                   <CardTitle>Daily Scan Volume</CardTitle>
                 </CardHeader>
@@ -364,10 +386,10 @@ export default function Dashboard() {
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
-              </Card>
+                    </Card>
 
-              {/* Status Distribution Pie Chart */}
-              <Card className="lg:col-span-2">
+                    {/* Status Distribution Pie Chart */}
+                    <Card className="lg:col-span-2">
                 <CardHeader>
                   <CardTitle>Overall Status Distribution</CardTitle>
                 </CardHeader>
@@ -407,8 +429,11 @@ export default function Dashboard() {
                     </PieChart>
                   </ResponsiveContainer>
                 </CardContent>
-              </Card>
-            </div>
+                    </Card>
+                  </div>
+                </div>
+              )}
+            </Card>
           </div>
         )}
       </main>
