@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Separator } from '@/components/ui/separator';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { PasswordStrengthIndicator } from '@/components/PasswordStrengthIndicator';
-import medSafeLogo from "@/assets/medsafe-logo.jpg";
+import medSafeLogo from "@/assets/medsafe-logo-transparent.png";
 
 const signInSchema = z.object({
   email: z.string().trim().email({ message: "Invalid email address" }).max(255, { message: "Email too long" }),
@@ -286,7 +286,7 @@ const Auth = () => {
               <CardDescription>Enter your new password below</CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handlePasswordUpdate} className="space-y-4">
+              <form onSubmit={handlePasswordUpdate} className="space-y-4" noValidate>
                 <div className="space-y-2">
                   <Label htmlFor="new-password">New Password</Label>
                   <div className="relative">
@@ -392,7 +392,7 @@ const Auth = () => {
                       </div>
                     </div>
 
-                    <form onSubmit={handleSignIn} className="space-y-4">
+                    <form onSubmit={handleSignIn} className="space-y-4" noValidate>
                   <div className="space-y-2">
                     <Label htmlFor="signin-email">Email</Label>
                     <Input
@@ -443,7 +443,7 @@ const Auth = () => {
                     </form>
                   </>
                 ) : (
-                  <form onSubmit={handlePhoneAuth} className="space-y-4">
+                  <form onSubmit={handlePhoneAuth} className="space-y-4" noValidate>
                     <div className="space-y-2">
                       <Label htmlFor="phone-number">Phone Number</Label>
                       <Input
@@ -562,13 +562,13 @@ const Auth = () => {
                       </div>
                     </div>
 
-                    <form onSubmit={handleSignUp} className="space-y-4">
+                    <form onSubmit={handleSignUp} className="space-y-4" noValidate>
                   <div className="space-y-2">
                     <Label htmlFor="signup-name">Full Name</Label>
                     <Input
                       id="signup-name"
                       type="text"
-                      placeholder="John Doe"
+                      placeholder="Enter your full name"
                       value={signUpData.fullName}
                       onChange={(e) => setSignUpData({ ...signUpData, fullName: e.target.value })}
                       required
@@ -617,7 +617,7 @@ const Auth = () => {
                     </form>
                   </>
                 ) : (
-                  <form onSubmit={handlePhoneAuth} className="space-y-4">
+                  <form onSubmit={handlePhoneAuth} className="space-y-4" noValidate>
                     <div className="space-y-2">
                       <Label htmlFor="signup-phone">Phone Number</Label>
                       <Input
