@@ -42,7 +42,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const { signIn, signUp, user, loading: authLoading } = useAuth();
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email');
@@ -82,9 +82,9 @@ const Auth = () => {
       return;
     }
     
-    setLoading(true);
+    setSubmitLoading(true);
     const { error } = await signIn(signInData.email, signInData.password);
-    setLoading(false);
+    setSubmitLoading(false);
     if (!error) navigate('/dashboard');
   };
 
@@ -101,9 +101,9 @@ const Auth = () => {
       return;
     }
     
-    setLoading(true);
+    setSubmitLoading(true);
     const { error } = await signUp(signUpData.email, signUpData.password, signUpData.fullName);
-    setLoading(false);
+    setSubmitLoading(false);
     if (!error) {
       setSignUpData({ email: '', password: '', fullName: '' });
       // Store flag for demo
@@ -114,14 +114,14 @@ const Auth = () => {
 
 
   const handleGoogleSignIn = async () => {
-    setLoading(true);
+    setSubmitLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: `${window.location.origin}/dashboard`,
       },
     });
-    setLoading(false);
+    setSubmitLoading(false);
 
     if (error) {
       toast({
@@ -152,11 +152,11 @@ const Auth = () => {
       return;
     }
 
-    setLoading(true);
+    setSubmitLoading(true);
     const { error } = await supabase.auth.resetPasswordForEmail(signInData.email, {
       redirectTo: `${window.location.origin}/auth`,
     });
-    setLoading(false);
+    setSubmitLoading(false);
 
     if (error) {
       toast({
@@ -185,9 +185,9 @@ const Auth = () => {
       return;
     }
 
-    setLoading(true);
+    setSubmitLoading(true);
     const { error } = await supabase.auth.updateUser({ password: newPassword });
-    setLoading(false);
+    setSubmitLoading(false);
 
     if (error) {
       toast({
@@ -219,7 +219,7 @@ const Auth = () => {
       return;
     }
 
-    setLoading(true);
+    setSubmitLoading(true);
 
     if (!otpSent) {
       // Send OTP
@@ -227,7 +227,7 @@ const Auth = () => {
         phone: phoneNumber,
       });
 
-      setLoading(false);
+      setSubmitLoading(false);
 
       if (error) {
         toast({
@@ -250,7 +250,7 @@ const Auth = () => {
         type: 'sms',
       });
 
-      setLoading(false);
+      setSubmitLoading(false);
 
       if (error) {
         toast({
@@ -305,8 +305,8 @@ const Auth = () => {
                     Password must be at least 8 characters with uppercase, lowercase, and numbers
                   </p>
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Updating...' : 'Update Password'}
+                <Button type="submit" className="w-full" disabled={submitLoading}>
+                  {submitLoading ? 'Updating...' : 'Update Password'}
                 </Button>
               </form>
             </CardContent>
@@ -362,7 +362,7 @@ const Auth = () => {
                       variant="outline"
                       className="w-full"
                       onClick={handleGoogleSignIn}
-                      disabled={loading}
+                      disabled={submitLoading}
                     >
                       <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -402,7 +402,7 @@ const Auth = () => {
                         variant="link"
                         className="px-0 text-sm text-primary hover:underline"
                         onClick={handleForgotPassword}
-                        disabled={loading}
+                        disabled={submitLoading}
                       >
                         Forgot password?
                       </Button>
@@ -415,8 +415,8 @@ const Auth = () => {
                       required
                     />
                   </div>
-                      <Button type="submit" className="w-full" disabled={loading}>
-                        {loading ? 'Signing in...' : 'Sign In'}
+                      <Button type="submit" className="w-full" disabled={submitLoading}>
+                        {submitLoading ? 'Signing in...' : 'Sign In'}
                       </Button>
                     </form>
                   </>
@@ -453,8 +453,8 @@ const Auth = () => {
                       </div>
                     )}
 
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? 'Processing...' : otpSent ? 'Verify Code' : 'Send Code'}
+                    <Button type="submit" className="w-full" disabled={submitLoading}>
+                      {submitLoading ? 'Processing...' : otpSent ? 'Verify Code' : 'Send Code'}
                     </Button>
 
                     {otpSent && (
@@ -520,7 +520,7 @@ const Auth = () => {
                       variant="outline"
                       className="w-full"
                       onClick={handleGoogleSignIn}
-                      disabled={loading}
+                      disabled={submitLoading}
                     >
                       <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -576,8 +576,8 @@ const Auth = () => {
                       Must be 8+ characters with uppercase, lowercase, and numbers
                     </p>
                   </div>
-                      <Button type="submit" className="w-full" disabled={loading}>
-                        {loading ? 'Creating account...' : 'Sign Up'}
+                      <Button type="submit" className="w-full" disabled={submitLoading}>
+                        {submitLoading ? 'Creating account...' : 'Sign Up'}
                       </Button>
                     </form>
                   </>
@@ -614,8 +614,8 @@ const Auth = () => {
                       </div>
                     )}
 
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? 'Processing...' : otpSent ? 'Verify & Sign Up' : 'Send Code'}
+                    <Button type="submit" className="w-full" disabled={submitLoading}>
+                      {submitLoading ? 'Processing...' : otpSent ? 'Verify & Sign Up' : 'Send Code'}
                     </Button>
 
                     {otpSent && (
