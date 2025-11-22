@@ -49,8 +49,8 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            <SessionTimeout />
             <BrowserRouter>
+              <SessionTimeout />
               <Suspense fallback={<LoadingFallback />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
