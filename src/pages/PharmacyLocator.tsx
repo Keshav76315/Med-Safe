@@ -6,8 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { MapPin, Star, Phone, Clock, Navigation as NavIcon, Search } from "lucide-react";
+import { MapPin, Star, Phone, Clock, Navigation as NavIcon, Search, Map } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Pharmacy {
   id: string;
@@ -30,7 +32,11 @@ export default function PharmacyLocator() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCity, setFilterCity] = useState("all");
   const [filterVerified, setFilterVerified] = useState("all");
+  const [selectedPharmacy, setSelectedPharmacy] = useState<Pharmacy | null>(null);
+  const [mapCenter, setMapCenter] = useState({ lat: 20.5937, lng: 78.9629 }); // India center
   const { toast } = useToast();
+
+  const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "";
 
   useEffect(() => {
     loadPharmacies();
@@ -74,6 +80,109 @@ export default function PharmacyLocator() {
     const address = encodeURIComponent(`${pharmacy.address}, ${pharmacy.city}, ${pharmacy.state}`);
     window.open(`https://www.google.com/maps/dir/?api=1&destination=${address}`, '_blank');
   };
+
+  const mapContainerStyle = {
+    width: '100%',
+    height: '600px',
+    borderRadius: '0.5rem'
+  };
+
+  const renderPharmacyList = () => (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {filteredPharmacies.map((pharmacy) => (
+        <Card key={pharmacy.id} className="p-6 hover:shadow-lg transition-shadow">
+          <div className="space-y-4">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold mb-1">{pharmacy.name}</h3>
+                <div className="flex items-center gap-2 mb-2">
+                  {pharmacy.verified ? (
+                    <Badge variant="default" className="text-xs">
+                      Verified License
+                    </Badge>
+                  ) : (
+                    <Badge variant="secondary" className="text-xs">
+                      Unverified
+                    </Badge>
+                  )}
+                  {pharmacy.is_24_7 && (
+                    <Badge variant="outline" className="text-xs">
+                      <Clock className="h-3 w-3 mr-1" />
+                      24/7
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-4 w-4 ${
+                      i < Math.floor(pharmacy.rating)
+                        ? 'fill-warning text-warning'
+                        : 'text-muted'
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm text-muted-foreground ml-2">
+                ({pharmacy.review_count} reviews)
+              </span>
+            </div>
+
+            <div className="space-y-2 text-sm">
+              <div className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-muted-foreground" />
+                <p className="text-muted-foreground">
+                  {pharmacy.address}, {pharmacy.city}, {pharmacy.state}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                <a href={`tel:${pharmacy.phone}`} className="text-primary hover:underline">
+                  {pharmacy.phone}
+                </a>
+              </div>
+            </div>
+
+            {pharmacy.services && (
+              <div className="flex flex-wrap gap-1">
+                {Object.entries(pharmacy.services).map(([key, value]) => 
+                  value ? (
+                    <Badge key={key} variant="outline" className="text-xs">
+                      {key.replace('_', ' ')}
+                    </Badge>
+                  ) : null
+                )}
+              </div>
+            )}
+
+            <div className="flex gap-2 pt-2">
+              <Button
+                variant="default"
+                size="sm"
+                className="flex-1"
+                onClick={() => getDirections(pharmacy)}
+              >
+                <NavIcon className="h-4 w-4 mr-1" />
+                Directions
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.open(`tel:${pharmacy.phone}`)}
+              >
+                <Phone className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -138,100 +247,89 @@ export default function PharmacyLocator() {
             <p className="text-muted-foreground">Try adjusting your search filters</p>
           </Card>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredPharmacies.map((pharmacy) => (
-              <Card key={pharmacy.id} className="p-6 hover:shadow-lg transition-shadow">
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold mb-1">{pharmacy.name}</h3>
-                      <div className="flex items-center gap-2 mb-2">
-                        {pharmacy.verified ? (
-                          <Badge variant="default" className="text-xs">
-                            Verified License
-                          </Badge>
-                        ) : (
-                          <Badge variant="secondary" className="text-xs">
-                            Unverified
-                          </Badge>
-                        )}
-                        {pharmacy.is_24_7 && (
-                          <Badge variant="outline" className="text-xs">
-                            <Clock className="h-3 w-3 mr-1" />
-                            24/7
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+          <Tabs defaultValue="list" className="w-full">
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-6">
+              <TabsTrigger value="list" className="gap-2">
+                <MapPin className="h-4 w-4" />
+                List View
+              </TabsTrigger>
+              <TabsTrigger value="map" className="gap-2">
+                <Map className="h-4 w-4" />
+                Map View
+              </TabsTrigger>
+            </TabsList>
 
-                  <div className="flex items-center gap-1">
-                    <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${
-                            i < Math.floor(pharmacy.rating)
-                              ? 'fill-warning text-warning'
-                              : 'text-muted'
-                          }`}
+            <TabsContent value="list">
+              {renderPharmacyList()}
+            </TabsContent>
+
+            <TabsContent value="map">
+              {!GOOGLE_MAPS_API_KEY ? (
+                <Card className="p-12 text-center">
+                  <Map className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                  <h3 className="text-xl font-semibold mb-2">Google Maps API Key Required</h3>
+                  <p className="text-muted-foreground">
+                    Please configure your Google Maps API key in the backend settings to view the map.
+                  </p>
+                </Card>
+              ) : (
+                <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
+                  <GoogleMap
+                    mapContainerStyle={mapContainerStyle}
+                    center={mapCenter}
+                    zoom={6}
+                  >
+                    {filteredPharmacies.map((pharmacy) => (
+                      pharmacy.latitude && pharmacy.longitude ? (
+                        <Marker
+                          key={pharmacy.id}
+                          position={{ lat: pharmacy.latitude, lng: pharmacy.longitude }}
+                          onClick={() => setSelectedPharmacy(pharmacy)}
                         />
-                      ))}
-                    </div>
-                    <span className="text-sm text-muted-foreground ml-2">
-                      ({pharmacy.review_count} reviews)
-                    </span>
-                  </div>
+                      ) : null
+                    ))}
 
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-start gap-2">
-                      <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-muted-foreground" />
-                      <p className="text-muted-foreground">
-                        {pharmacy.address}, {pharmacy.city}, {pharmacy.state}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
-                      <a href={`tel:${pharmacy.phone}`} className="text-primary hover:underline">
-                        {pharmacy.phone}
-                      </a>
-                    </div>
-                  </div>
-
-                  {pharmacy.services && (
-                    <div className="flex flex-wrap gap-1">
-                      {Object.entries(pharmacy.services).map(([key, value]) => 
-                        value ? (
-                          <Badge key={key} variant="outline" className="text-xs">
-                            {key.replace('_', ' ')}
-                          </Badge>
-                        ) : null
-                      )}
-                    </div>
-                  )}
-
-                  <div className="flex gap-2 pt-2">
-                    <Button
-                      variant="default"
-                      size="sm"
-                      className="flex-1"
-                      onClick={() => getDirections(pharmacy)}
-                    >
-                      <NavIcon className="h-4 w-4 mr-1" />
-                      Directions
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(`tel:${pharmacy.phone}`)}
-                    >
-                      <Phone className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+                    {selectedPharmacy && selectedPharmacy.latitude && selectedPharmacy.longitude && (
+                      <InfoWindow
+                        position={{ lat: selectedPharmacy.latitude, lng: selectedPharmacy.longitude }}
+                        onCloseClick={() => setSelectedPharmacy(null)}
+                      >
+                        <div className="p-2 max-w-xs">
+                          <h3 className="font-semibold mb-1">{selectedPharmacy.name}</h3>
+                          <div className="flex items-center gap-2 mb-2">
+                            {selectedPharmacy.verified && (
+                              <Badge variant="default" className="text-xs">Verified</Badge>
+                            )}
+                            {selectedPharmacy.is_24_7 && (
+                              <Badge variant="outline" className="text-xs">24/7</Badge>
+                            )}
+                          </div>
+                          <p className="text-sm text-muted-foreground mb-2">
+                            {selectedPharmacy.address}, {selectedPharmacy.city}
+                          </p>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => getDirections(selectedPharmacy)}
+                            >
+                              Get Directions
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => window.open(`tel:${selectedPharmacy.phone}`)}
+                            >
+                              Call
+                            </Button>
+                          </div>
+                        </div>
+                      </InfoWindow>
+                    )}
+                  </GoogleMap>
+                </LoadScript>
+              )}
+            </TabsContent>
+          </Tabs>
         )}
 
         <Card className="p-6 mt-8 bg-primary/5 border-primary/20">
