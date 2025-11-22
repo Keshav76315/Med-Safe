@@ -40,7 +40,7 @@ const phoneSchema = z.object({
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { signIn, signUp, user, loading: authLoading } = useAuth();
+  const auth = useAuth();
   const { toast } = useToast();
   const [submitLoading, setSubmitLoading] = useState(false);
   const [isPasswordReset, setIsPasswordReset] = useState(false);
@@ -53,21 +53,25 @@ const Auth = () => {
   const [signInData, setSignInData] = useState({ email: '', password: '' });
   const [signUpData, setSignUpData] = useState({ email: '', password: '', fullName: '' });
 
-  // Redirect to dashboard if user is already authenticated
-  useEffect(() => {
-    if (!authLoading && user && !isPasswordReset) {
-      navigate('/dashboard');
-    }
-  }, [user, authLoading, navigate, isPasswordReset]);
-
   // Check if user arrived via password reset link
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'PASSWORD_RECOVERY') {
         setIsPasswordReset(true);
       }
     });
+    
+    return () => subscription.unsubscribe();
   }, []);
+
+  // Redirect to dashboard if user is already authenticated
+  useEffect(() => {
+    if (!auth.loading && auth.user && !isPasswordReset) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [auth.user, auth.loading, navigate, isPasswordReset]);
+
+  const { signIn, signUp } = auth;
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
