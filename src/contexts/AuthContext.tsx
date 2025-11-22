@@ -37,19 +37,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               .from('user_roles')
               .select('role')
               .eq('user_id', session.user.id)
-              .single();
+              .maybeSingle();
             setUserRole(data?.role || null);
           } catch (error) {
             console.error('Error fetching user role:', error);
             setUserRole(null);
-          } finally {
-            // CRITICAL: Set loading to false after handling auth state change
-            setLoading(false);
           }
         } else {
           setUserRole(null);
-          setLoading(false);
         }
+        
+        // Always set loading to false after processing auth state
+        setLoading(false);
       }
     );
 
@@ -66,17 +65,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             .from('user_roles')
             .select('role')
             .eq('user_id', session.user.id)
-            .single();
+            .maybeSingle();
           setUserRole(data?.role || null);
         } catch (error) {
           console.error('Error fetching user role:', error);
           setUserRole(null);
-        } finally {
-          setLoading(false);
         }
-      } else {
-        setLoading(false);
       }
+      
+      // Always set loading to false after initial session check
+      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
