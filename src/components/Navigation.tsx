@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Home, Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils } from "lucide-react";
+import { Shield, FileText, Activity, LogOut, User, ClipboardCheck, Database, Utensils } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "./ui/button";
 import { OptimizedImage } from "./OptimizedImage";
@@ -21,7 +21,6 @@ export function Navigation() {
   const { user, userRole, signOut } = useAuth();
 
   const baseNavItems = [
-    { path: "/dashboard", label: "Dashboard", icon: Home },
     { path: "/verify", label: "Drug Verification", icon: Shield },
     { path: "/history", label: "Medical History", icon: FileText },
     { path: "/safety", label: "Safety Score", icon: Activity },
