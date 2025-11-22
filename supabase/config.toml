@@ -36,4 +36,7 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.prescription-ocr]
-verify_jwt = false
+verify_jwt = true
+
+[functions.safety-score-ai]
+verify_jwt = true
