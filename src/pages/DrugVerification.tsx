@@ -657,6 +657,49 @@ export default function DrugVerification() {
           </Card>
         )}
 
+        <div className="mt-8 grid md:grid-cols-3 gap-6">
+          <Card className="p-6 border-primary/20">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-lg bg-primary/10">
+                <Shield className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">Verify Before Use</h3>
+                <p className="text-sm text-muted-foreground">
+                  Always verify medications before consumption. Scan QR codes, search by name, or upload photos to check authenticity and safety information.
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6 border-warning/20">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-lg bg-warning/10">
+                <AlertTriangle className="w-6 h-6 text-warning" />
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">Report Suspicious Drugs</h3>
+                <p className="text-sm text-muted-foreground">
+                  If you encounter counterfeit or suspicious medications, report them immediately through our system to help protect others.
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6 border-medical-green/20">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-lg bg-medical-green/10">
+                <CheckCircle className="w-6 h-6 text-medical-green" />
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">Multi-Layer Verification</h3>
+                <p className="text-sm text-muted-foreground">
+                  Our system uses AI-powered analysis, database verification, and pharmacist review to ensure drug authenticity and safety.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
       </main>
 
       {showScanner && (
