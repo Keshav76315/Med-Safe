@@ -22,3 +22,9 @@ verify_jwt = false
 
 [functions.scan-medicine-image]
 verify_jwt = false
+
+[functions.diet-recommendation]
+verify_jwt = false
+
+[functions.diet-chat]
+verify_jwt = false
