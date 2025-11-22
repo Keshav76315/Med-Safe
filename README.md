@@ -72,10 +72,13 @@ MedSafe is a full-stack healthcare application designed to address medication sa
 - Built-in example entries for testing
 
 ### 📋 Medical History Management
-- Medication tracking with dosage and frequency
-- Medicine reminder system with notifications
-- Family member health record management
+- **Two-Tier Patient Profile System**:
+  - First tier: Create and manage patient profiles with personal details (name, age, gender, blood group, medical conditions, allergies, emergency contacts)
+  - Second tier: Access individual patient records to manage medications, dosages, and reminder schedules
+- Multi-patient support for managing family members and dependents
+- Per-medicine reminder configuration with customizable frequencies and times
 - Caregiver access control with granular permissions
+- Searchable patient directory by name or ID
 
 ### 🍎 Diet Recommendation System
 - AI-powered personalized diet plans
@@ -144,7 +147,8 @@ PostgreSQL with comprehensive schema:
 **Core Tables:**
 - `drugs` - FDA drug dataset (200k+ entries with batch numbers, risk levels, dates)
 - `scan_logs` - Drug verification history with status tracking
-- `patient_history` - Medical records with medication tracking
+- `patients` - Patient profiles with personal details and medical conditions
+- `patient_history` - Medication records with reminders linked to patient profiles
 - `prescriptions` - OCR-extracted prescription data
 - `counterfeit_reports` - User-submitted reports with gamification
 - `pharmacies` - Licensed pharmacy directory
