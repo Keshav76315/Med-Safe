@@ -602,7 +602,7 @@ const Index = () => {
               </div>
               <div className="text-center">
                 <h3 className="font-semibold mb-3">Location</h3>
-                <p className="text-muted-foreground text-sm">Mumbai, Maharashtra</p>
+                <p className="text-muted-foreground text-sm">Greater Noida, Uttar Pradesh</p>
                 <p className="text-muted-foreground text-sm">India</p>
               </div>
               <div className="text-center md:text-right">
