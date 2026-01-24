@@ -53,7 +53,7 @@ interface CounterfeitReport {
   status: string;
   severity: string;
   created_at: string;
-  reward_points: number;
+  reward_points?: number;
   is_verified: boolean;
 }
 
@@ -104,8 +104,9 @@ export default function CommunityReporting() {
   const loadReports = async () => {
     setLoading(true);
     try {
+      // Use public view that masks sensitive data for non-privileged users
       let query = supabase
-        .from('counterfeit_reports')
+        .from('public_counterfeit_reports')
         .select('*')
         .order('created_at', { ascending: false })
         .limit(100);
@@ -120,7 +121,27 @@ export default function CommunityReporting() {
 
       const { data, error } = await query;
 
-      if (error) throw error;
+      if (error) {
+        // Fallback to original table if view doesn't exist yet
+        console.error('Error loading from view, trying table:', error);
+        let fallbackQuery = supabase
+          .from('counterfeit_reports')
+          .select('id, drug_name, batch_number, manufacturer, location_city, location_state, description, severity, status, is_verified, created_at, updated_at')
+          .order('created_at', { ascending: false })
+          .limit(100);
+        
+        if (filterStatus !== 'all') {
+          fallbackQuery = fallbackQuery.eq('status', filterStatus);
+        }
+        if (filterSeverity !== 'all') {
+          fallbackQuery = fallbackQuery.eq('severity', filterSeverity);
+        }
+        
+        const { data: fallbackData, error: fallbackError } = await fallbackQuery;
+        if (fallbackError) throw fallbackError;
+        setReports(fallbackData || []);
+        return;
+      }
       setReports(data || []);
     } catch (error) {
       console.error('Error loading reports:', error);
@@ -245,23 +266,31 @@ export default function CommunityReporting() {
       // Upload photos to storage if any
       const photoUrls: string[] = [];
       
-      if (uploadedPhotos.length > 0) {
+      if (uploadedPhotos.length > 0 && user) {
         for (const photo of uploadedPhotos) {
           const fileExt = photo.name.split('.').pop();
-          const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
-          const filePath = `counterfeit-reports/${fileName}`;
+          const fileName = `${crypto.randomUUID()}.${fileExt}`;
+          // Use user's folder for proper RLS access
+          const filePath = `${user.id}/${fileName}`;
 
           const { error: uploadError } = await supabase.storage
-            .from('avatars') // Reusing existing bucket
+            .from('counterfeit-evidence') // Use dedicated secure bucket
             .upload(filePath, photo);
 
-          if (uploadError) throw uploadError;
+          if (uploadError) {
+            console.error('Upload error:', uploadError);
+            // Fall back to not uploading if bucket doesn't exist yet
+            continue;
+          }
 
-          const { data: { publicUrl } } = supabase.storage
-            .from('avatars')
-            .getPublicUrl(filePath);
+          // Get signed URL for private bucket (expires in 7 days)
+          const { data: signedUrlData } = await supabase.storage
+            .from('counterfeit-evidence')
+            .createSignedUrl(filePath, 60 * 60 * 24 * 7); // 7 days
 
-          photoUrls.push(publicUrl);
+          if (signedUrlData?.signedUrl) {
+            photoUrls.push(signedUrlData.signedUrl);
+          }
         }
       }
 
