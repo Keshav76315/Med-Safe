@@ -656,7 +656,57 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_counterfeit_reports: {
+        Row: {
+          batch_number: string | null
+          created_at: string | null
+          description: string | null
+          drug_name: string | null
+          id: string | null
+          is_verified: boolean | null
+          location_city: string | null
+          location_state: string | null
+          manufacturer: string | null
+          reporter_name: string | null
+          severity: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          batch_number?: string | null
+          created_at?: string | null
+          description?: string | null
+          drug_name?: string | null
+          id?: string | null
+          is_verified?: boolean | null
+          location_city?: string | null
+          location_state?: string | null
+          manufacturer?: string | null
+          reporter_name?: never
+          severity?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: never
+        }
+        Update: {
+          batch_number?: string | null
+          created_at?: string | null
+          description?: string | null
+          drug_name?: string | null
+          id?: string | null
+          is_verified?: boolean | null
+          location_city?: string | null
+          location_state?: string | null
+          manufacturer?: string | null
+          reporter_name?: never
+          severity?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: never
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
